@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed by Saikat');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Health_Home extends CI_Controller {
 
