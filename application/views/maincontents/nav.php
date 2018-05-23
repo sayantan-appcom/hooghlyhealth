@@ -30,7 +30,7 @@ header("location: index");
 
       <li>        
         <?php if($user_type=='6'){ ?>
-        <a href="<?php echo site_url('Health_Home/entry_admission1'); ?>">
+        <a href="<?php echo site_url('Health_Home/entry_admission'); ?>">
           
           <i class="fa fa-plus"></i> For Admission            
         </a> 
