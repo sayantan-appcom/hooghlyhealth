@@ -18,7 +18,7 @@ header("location: index");
     </section>
 
     <section class="content">
-    <form role="form" method="POST" action="<?php //echo site_url('Health_Home/insert_diagnosis_test');?>"  onsubmit="return(validate());">
+    <form role="form" method="POST" action="<?php echo site_url('Reports/Date_wise_report_FORM_L');?>"  onsubmit="return(validate());" target="_blank">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -69,13 +69,26 @@ header("location: index");
                     </select>
                 </div> 
             </div>
+			
            
             <div class="col-md-4">
+			         <div class="form-group">
+                  <label for="exampleInputPassword1">Institution Type <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
+                      <option value="">Select Institution Type</option>
+                      <?php
+                          foreach($get_institute as $row)
+                            { 
+                              echo '<option value="'.$row->inst_type_id.'">'.$row->inst_type_name.'</option>';
+                            }
+                      ?>
+                    </select>
+                </div> 
                  <div class="form-group">
                   <label for="exampleInputPassword1">Institution Name <span class="star">*</span></label>
-                     <select class="form-control select2" style="width: 100%;" id="institution_code" name="institution_code" required="">
+                     <select class="form-control select2" style="width: 100%;" id="inst_name" name="inst_name" required="">
                       <option value="">Select Institute Name</option>
-                      <option value="<?php echo $user_id; ?>"><?php echo $user_name; ?></option>
+                     
                     </select>
                 </div>
                 <div class="form-group">
@@ -114,4 +127,110 @@ header("location: index");
       autoclose: true,
       format: 'dd-mm-yy'
     });
+	////////////////////////////////////////////fetch Institution Name///////////////////////////////////////////
+   $('#inst_type').change(function(e){
+   
+
+      var inst_district = $('#district_code').val();
+	  var inst_subdivision= $('#subdiv_code').val();
+	  var inst_block=$('#block_muni').val();
+	  var inst_type=$('#inst_type').val();
+	     /*alert(inst_district);
+		   alert(inst_subdivision);
+		   
+	  alert(inst_block);
+	  alert(inst_type);*/
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/get_institution_name');?>',
+        method: 'post',
+        data: {
+            inst_district: inst_district,
+			inst_subdivision:inst_subdivision,
+			inst_block:inst_block,
+			inst_type:inst_type
+        },
+        dataType: 'json',
+        success: function(response){
+		//console.log(response);
+		 $('#inst_name').empty();
+          $('#inst_name').append("<option value=''>Select Institution</option>");
+          $.each(response,function(index,data){
+             $('#inst_name').append('<option value="'+data['user_id']+'">'+data['inst_name']+'</option>');
+          });
+        }
+     });
+   });  
+   
+   //////////////////////////////////fetch district////////////////////////////////////////////////////////
+   $('#state_code').change(function(e){
+      alert("nibu");
+
+      var state = $('#state_code').val();
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/getDistrict_reports');?>',
+        method: 'post',
+        data: {
+            state: state
+        },
+        dataType: 'json',
+        success: function(response){
+          $.each(response,function(index,data){
+             $('#district_code').append('<option value="'+data['district_code']+'">'+data['district_name']+'</option>');
+          });
+        }
+     });
+   });   
+///////////////////////////////////////////////////////fetch subdivision//////////////////////////////////////////////
+
+ $('#district_code').change(function(e){
+      //alert("nibu");
+
+      var district = $('#district_code').val();
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/getSubdivision_reports');?>',
+        method: 'post',
+        data: {
+            district: district
+        },
+        dataType: 'json',
+        success: function(response){
+          $.each(response,function(index,data){
+             $('#subdiv_code').append('<option value="'+data['subdivision_code']+'">'+data['subdivision_name']+'</option>');
+          });
+        }
+     });
+   });   
+   
+ ///////////////////////////////////////////////////////fetch block/////////////////////////////////////////////////////////////
+ 
+ $('#subdiv_code').change(function(e){
+      //alert("nibu");
+
+      var subdivision = $('#subdiv_code').val();
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/getBlockMuni_reports');?>',
+        method: 'post',
+        data: {
+            subdivision: subdivision
+        },
+        dataType: 'json',
+        success: function(response){
+          $('#block_muni').empty();
+          $('#block_muni').append("<option value=''>Select Block</option>");
+          $.each(response,function(index,data){
+             $('#block_muni').append('<option value="'+data['blockminicd']+'">'+data['blockmuni']+'</option>');
+          });
+        }
+     });
+   });  
+                      
+
 </script> 
