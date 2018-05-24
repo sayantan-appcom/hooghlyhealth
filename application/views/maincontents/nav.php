@@ -23,7 +23,7 @@ header("location: index");
     <ul class="treeview-menu">
       
       <li> 
-        <a href="<?php echo site_url('Health_Home/entry_diagnosis_test'); ?>">          
+        <a href="<?php echo site_url('Health_Home/test_data_next'); ?>">          
           <i class="fa fa-plus"></i> For Diagnosis Test            
         </a>       
       </li>  

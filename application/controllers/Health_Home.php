@@ -42,12 +42,32 @@ class Health_Home extends CI_Controller {
 			$this->load->view('maincontents/home');		
 			$this->load->view('maincontents/footer');	
 
-		}		
+		}
+
+	public function test_data_next()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/test_data_next');		
+			$this->load->view('maincontents/footer');	
+
+		}	
+
+	public function entry_test_data()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/entry_test_data');		
+			$this->load->view('maincontents/footer');	
+
+		}			
 
 	public function entry_diagnosis_test()
 		{
 			$this->load->view('maincontents/header');
-			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/nav');
+			$user_id= $this->uri->segment(3);
+			$data['test_date']=$this->Mod_health->test_date($user_id);	
 			$data['get_disease']=$this->Mod_health->get_disease();
 			$this->load->view('maincontents/entry_diagnosis_test',$data);		
 			$this->load->view('maincontents/footer');	
@@ -66,18 +86,57 @@ class Health_Home extends CI_Controller {
             $disease_sub_category = $this->input->post('disease_sub_category');
 			$data=$this->Mod_health->gettestname($disease_sub_category);
 			echo json_encode($data);
-		}	
+		}
+
+	public function insert_test_data()
+		{
+			
+			$this->form_validation->set_rules('user_id','Institution Name','trim|xss_clean');
+			$this->form_validation->set_rules('test_date','Disease Category','trim|required|xss_clean');
+			$this->form_validation->set_rules('total_tested','Disease Sub Category','trim|required|xss_clean');
+			$this->form_validation->set_rules('positive_case','Test Name','trim|required|xss_clean');
+			//$this->form_validation->set_rules('negative_case','Test Name','trim|required|xss_clean');
+			
+
+			if ($this->form_validation->run() == TRUE) 
+				{	
+
+					$institution_code = $this->input->post('user_id');
+					$test_date = $this->input->post('test_date');
+					$total_tested = $this->input->post('total_tested');
+					$positive_case = $this->input->post('positive_case');
+					//$negative_case = $this->input->post('negative_case'); 
+
+					$result=$this->Mod_health->get_test_insert($institution_code,$test_date,$total_tested,$positive_case/*,$negative_case*/);
+
+						if ($result == TRUE)
+			 				{
+			 					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$this->load->view('maincontents/test_data_next');		
+								$this->load->view('maincontents/footer');										
+							} 
+						
+					 }
+						else
+							{
+								$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');	
+								$this->load->view('maincontents/entry_test_data');		
+								$this->load->view('maincontents/footer');
+							} 
+			
+		}			
 
 	
 	public function insert_diagnosis_test()
 		{
 			
 			$this->form_validation->set_rules('user_id','Institution Name','trim|xss_clean');
+			$this->form_validation->set_rules('test_date','Test Date','trim|required|xss_clean');
 			$this->form_validation->set_rules('disease_code','Disease Category','trim|required|xss_clean');
 			$this->form_validation->set_rules('disease_subcase_code','Disease Sub Category','trim|required|xss_clean');
-			$this->form_validation->set_rules('test_type_code','Test Name','trim|required|xss_clean');
-			$this->form_validation->set_rules('test_date','Test Date','trim|required|xss_clean');
-			$this->form_validation->set_rules('test_status','Test Status','trim|xss_clean');
+			$this->form_validation->set_rules('test_type_code','Test Name','trim|required|xss_clean');			
 			$this->form_validation->set_rules('patient_name','Patient Name','trim|xss_clean|required|max_length[30]');
 			$this->form_validation->set_rules('patient_gurdain_name','Patient Gurdain Name','trim|xss_clean|required|max_length[30]');
 			$this->form_validation->set_rules('relation_gurdain','Relation With Gurdain','trim|xss_clean|required|max_length[15]');
@@ -107,13 +166,10 @@ class Health_Home extends CI_Controller {
 						 $subdivision_code = $detail['subdivision_code'];
 						 $block_code = $detail['block_code'];						
 					}
-					//$state_code1=$state_code ;
-
+					$test_date = $this->input->post('test_date');
 					$disease_code = $this->input->post('disease_code');
 					$disease_subcase_code = $this->input->post('disease_subcase_code');
 					$test_type_code = $this->input->post('test_type_code');
-					$test_date = $this->input->post('test_date');
-					$test_status = $this->input->post('test_status'); 
 					$patient_name = $this->input->post('patient_name');
 					$patient_gurdain_name = $this->input->post('patient_gurdain_name');			
 					$relation_gurdain = $this->input->post('relation_gurdain');
@@ -128,29 +184,36 @@ class Health_Home extends CI_Controller {
 					$patient_email = $this->input->post('patient_email');
 					$patient_aadhar = $this->input->post('patient_aadhar');
 					$patient_epic = $this->input->post('patient_epic');
-
-					//$institution_substr=substr($institution_code,-);
 										
 					$registration_id = $disease_code.$disease_subcase_code.$state_code.$block_code.$date.$max;
 
-					$result=$this->Mod_health->get_diagnosis_insert($institution_code,$disease_code,$disease_subcase_code,$test_type_code,$test_date,$test_status,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$registration_id);
+					$result=$this->Mod_health->get_diagnosis_insert($institution_code,$test_date,$disease_code,$disease_subcase_code,$test_type_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$registration_id);
 
 						if ($result == TRUE)
-			 				{										
-								$this->session->set_flashdata('response',"Registration Successfully ! Remember Registration ID :".$registration_id);				
+			 				{	
+			 					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => 'Registration successfullly! Please note Registration Id : '.$registration_id					
+				);			
+								
+								//$data=$this->session->set_flashdata('response',"Registration Successfully ! Remember Registration ID :".$registration_id);
+								$this->load->view('maincontents/patient_success',$data);		
+								$this->load->view('maincontents/footer');									
+												
 							} 
 						
 					 }
 						else
 							{
-								$this->session->set_flashdata('response',"Registration not Successfully !");
+								$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');	
+								//$data['get_disease']=$this->Mod_health->get_disease();
+								//$this->load->view('maincontents/entry_diagnosis_test',$data);		
+								$this->load->view('maincontents/footer');
 							}	
 
-						$this->load->view('maincontents/header');
-						$this->load->view('maincontents/nav');	
-						$data['get_disease']=$this->Mod_health->get_disease();
-						$this->load->view('maincontents/entry_diagnosis_test',$data);		
-						$this->load->view('maincontents/footer');			 
+									 
 			
 		}	
 
@@ -223,6 +286,7 @@ class Health_Home extends CI_Controller {
 						$this->load->view('maincontents/entry_admission');		
 						$this->load->view('maincontents/footer');		 
 			
-		}			
+		}
+		
 											 
 }

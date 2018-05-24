@@ -313,7 +313,7 @@
               <input type="password" class="form-control" name="password" id="password" placeholder="Enter user password" autocomplete="off" required="" />  <br> 
             <label>Captcha</label>
                 <!--<div class="g-recaptcha" data-sitekey="6LdfglIUAAAAAC1nHnwcXLdxJ_VbpCjv8HegQGv0"></div>-->
-                <div><?php echo $this->recaptcha->render(); ?></div>
+                <div><?php echo $captcha; ?></div>
                 <br>
               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           </form>

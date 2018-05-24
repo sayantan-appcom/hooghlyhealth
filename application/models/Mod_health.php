@@ -132,6 +132,15 @@ Class Mod_health extends CI_Model {
 	        return $query->result();
     	}
 
+    public function test_date($user_id)
+    	{   
+    		$this->db->select ('test_date');
+			$this->db->from('test_data');
+			$this->db->WHERE('institution_code',$user_id);
+			$query = $this->db->get();
+	        return $query->result();
+    	}	
+
      public function get_fulldetails($institution_code)
     	{   
     		$this->db->select ('*');
@@ -139,23 +148,40 @@ Class Mod_health extends CI_Model {
 			$this->db->WHERE('user_id',$institution_code);
 			$query = $this->db->get();
 	        return $query->result_array();
-    	}				 			
+    	}
+
+    public function get_test_insert($institution_code,$test_date,$total_tested,$positive_case/*,$negative_case*/)
+    	{   
+			date_default_timezone_set('Asia/Kolkata');
+        	$create_timestamp=date("Y-m-d H:i:s");
+			$data=array(
+								
+				'institution_code'=>$institution_code,
+				'test_date'=>$test_date,
+				'total_tested'=>$total_tested,
+				'positive_case'=>$positive_case,
+				//'negative_case'=>$negative_case,
+				'create_timestamp' => $create_timestamp
+				);
+			return $this->db->insert('test_data',$data);
+			
+    	}					 			
 
     public function get_max_regisID()
     	{
     		$date= date("Y");
-			$this->db->select('max(registration_id) AS max_regisID');
+			$this->db->select('MAX(convert(SUBSTRING(registration_id,-6),UNSIGNED INTEGER)) AS max_regisID');
 			$this->db->from('diagnosis_tests');
-			$this->db->limit(1);
+			$this->db->WHERE("DATE_FORMAT(create_timestamp,'%Y')",$date);
 			$query = $this->db->get();
 			
 			$max_regisID = $query->row()->max_regisID;
 			$max_date=substr($max_regisID,12,-6);
-			$max_rs=substr($max_regisID,16);
+			$max_rs=$max_regisID;
 
 			if ($query->num_rows() > 0) 
 				{
-					if($date == $max_date)
+					/*if($date == $max_date)
 					{
 						$max_rs1=$max_rs + 1;
 						if($max_rs1 < 10) {
@@ -175,22 +201,25 @@ Class Mod_health extends CI_Model {
 						}
 						else if($max_rs1 < 1000000) {
 							$max_rs1="".$max_rs1;
-						}							
+						}*/
+						$max_rs1=$max_rs + 1;
+						$max_rs1=str_pad($max_rs1,6,"0",STR_PAD_LEFT);
+
 					}
 					else
 					{
 						$max_rs1="000001";
 					}
-				} 
-			else 
+				
+			/*else 
 				{
 					$max_rs1="000001";
-				}
+				}*/
 			return $max_rs1;	
 				
 		}
 		
-    public function get_diagnosis_insert($institution_code,$disease_code,$disease_subcase_code,$test_type_code,$test_date,$test_status,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$registration_id)
+    public function get_diagnosis_insert($institution_code,$test_date,$disease_code,$disease_subcase_code,$test_type_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$registration_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -201,7 +230,6 @@ Class Mod_health extends CI_Model {
 				'disease_subcase_code'=>$disease_subcase_code,
 				'test_type_code'=>$test_type_code,
 				'test_date'=>$test_date,
-				'test_status'=>$test_status,
 				'patient_name'=>$patient_name,
 				'patient_gurdain_name'=>$patient_gurdain_name,
 				'relation_gurdain'=>$relation_gurdain,

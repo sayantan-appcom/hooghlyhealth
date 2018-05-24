@@ -17,8 +17,40 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('index');
+		$this->load->helper('captcha');
+		$vals = array(
+		        'img_path'      => './captcha/',
+		        'img_url'       => base_url().'captcha/',
+		        'expiration'	=> 7200,
+		        'word_length'	=> 6,
+		        'font_size'		=> 60
+				);
+		$cap = create_captcha($vals);
+		$data['captcha'] = $cap['image'];
+		
+
+		$this->load->view('index',$data);
 	}
+
+
+	public function refresh_captcha()
+	{
+		$this->load->helper('captcha');
+		$vals = array(
+		        'img_path'      => './captcha/',
+		        'img_url'       => base_url().'captcha/',
+		        'expiration'	=> 7200,
+		        'word_length'	=> 6,
+		        'font_size'		=> 60
+				);
+		$cap = create_captcha($vals);
+		$data['captcha'] = $cap['image'];
+		
+
+		$this->load->view('index',$data);
+	}
+
+
 	public function user_login_process()
 	{
 		
@@ -35,10 +67,10 @@ class Login extends CI_Controller {
 				$this->load->view('index');
 			}
 		else{
-			$captcha_answer = $this->input->post('g-recaptcha-response');
-			$response = $this->recaptcha->verifyResponse($captcha_answer);
+			//$captcha_answer = $this->input->post('g-recaptcha-response');
+			//$response = $this->recaptcha->verifyResponse($captcha_answer);
 
-			if ($response['success']) {
+			//if ($response['success']) {
 			$login = array(
             'email'=> $this->input->post('email'),
             'password' => md5($this->input->post('password'))            
@@ -68,10 +100,10 @@ class Login extends CI_Controller {
 				echo "Invalid Email OR Password! Please check it carefully";
 			} 
 		}
-		else {
+		/*else {
 			echo "Invalid Captcha! Please check captcha carefully";
 			}
-		}	
+		}	*/
 	}
 	
 	public function logout()
