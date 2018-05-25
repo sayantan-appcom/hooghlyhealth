@@ -10,23 +10,7 @@
 
 </head>
 <body>
-<!--<table class="table table-striped" border="3">
- <thead>
- <tr>
-        <th scope="col" rowspan="2">Institute Name:</th>
-         <th scope="col">Institute Mobile:</th>
-                  
- </tr>
- <tr>
-  <th scope="col">Institute Name:</th>
-   <th scope="col">Institute Mobile:</th>
- </tr>
- <tr>
- 
- </tr>
- 
- </thead>
-</table>-->
+
 <h2 align="center"> Date wise Report Form </h2>
 <div class="row">
 
@@ -34,7 +18,7 @@
 <?php
 $start_date=$start_date;
 $end_date=$end_date;
-
+$this->load->helper('report');
 foreach($institution_details as $x)
 {
 ?>
@@ -58,6 +42,62 @@ foreach($institution_details as $x)
 <?php
 }
 ?>
+<table width="100%" border="1">
+  <tr>
+    <td>Diseases</td>
+    <td align="center">No. Samples Tested </td>
+    <td align="center">No. found Positive </td>
+	<td align="center">No. found Negative </td>
+  </tr>
+  <?php
+	foreach($fetch_all_disease_subcategory as $x)
+{ ?>
+
+  <tr>
+    <td>
+	
+<?php $disease_sub_id=$x['disease_sub_id'];
+echo $x['disease_sub_name'];
+$positive=0;
+$negative;
+
+	?>
+	
+	</td>
+    <td class="text-center">
+					  <?php
+				 $no_sample_tested=fetch_no_sample_tested($disease_sub_id,$start_date,$end_date);
+				  foreach($no_sample_tested as $sample_tested)
+               {
+                
+			
+					
+		
+				 echo $sample_tested['totl_case'];
+				 $total_case=$sample_tested['totl_case'];
+					
+            
+			  
+			    }
+	?>
+	
+	</td>
+    <td>
+	<?php echo $positive;?>
+	
+	</td>
+	<td>
+	<?php
+	 $negative=$sample_tested['totl_case']-$positive;
+	 echo $negative;
+	 ?>
+	</td>
+  </tr>
+ <?php 
+ }
+ ?>
+</table>
+
 
 
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>

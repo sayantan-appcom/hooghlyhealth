@@ -32,7 +32,6 @@ class Login extends CI_Controller {
 		$this->load->view('index',$data);
 	}
 
-
 	public function refresh_captcha()
 	{
 		$this->load->helper('captcha');
