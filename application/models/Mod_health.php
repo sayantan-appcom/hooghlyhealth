@@ -33,6 +33,14 @@ Class Mod_health extends CI_Model {
 	        return $query->result();
     	}	
 
+    public function get_relation()
+    	{   
+			$this->db->select ('relative_cd,relative_details');
+			$this->db->from('relative_details');
+			$query = $this->db->get();
+	        return $query->result();
+    	}		
+
     public function get_details()
     	{   
 			$this->db->select ('district_code,district_name');
@@ -115,7 +123,7 @@ Class Mod_health extends CI_Model {
 	        return $query->result();
     	}
 
-    public function entry_admission_next($registration_id)
+    public function entry_admission_next($test_date,$registration_id)
     	{   
     		$this->db->select ('registration_id,patient_name,patient_address,patient_mobile,paient_age,patient_gender');
 			$this->db->from('diagnosis_tests');
@@ -134,12 +142,22 @@ Class Mod_health extends CI_Model {
 
     public function test_date($user_id)
     	{   
+    		$this->db->distinct();
     		$this->db->select ('test_date');
 			$this->db->from('test_data');
 			$this->db->WHERE('institution_code',$user_id);
 			$query = $this->db->get();
 	        return $query->result();
-    	}	
+    	}
+
+    public function get_registrationId($test_date)
+    	{   
+			$this->db->select ('registration_id');
+			$this->db->from('diagnosis_tests');			
+			$this->db->where('test_date',$test_date);
+			$query = $this->db->get();
+	        return $query->result();
+    	}		
 
      public function get_fulldetails($institution_code)
     	{   
@@ -150,7 +168,7 @@ Class Mod_health extends CI_Model {
 	        return $query->result_array();
     	}
 
-    public function get_test_insert($institution_code,$test_date,$total_tested,$positive_case/*,$negative_case*/)
+    public function get_test_insert($institution_code,$test_date,$disease_code,$disease_subcase_code,$test_type_code,$total_tested,$positive_case/*,$negative_case*/)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -158,6 +176,7 @@ Class Mod_health extends CI_Model {
 								
 				'institution_code'=>$institution_code,
 				'test_date'=>$test_date,
+				'test_type_code'=>$test_type_code,
 				'total_tested'=>$total_tested,
 				'positive_case'=>$positive_case,
 				//'negative_case'=>$negative_case,
@@ -280,7 +299,49 @@ Class Mod_health extends CI_Model {
 			
     	} 			 						
 
+    public function getdisease($test_date,$institution_code)
+    	{   
+    		$condition="test_data.institution_code='".$institution_code."' AND test_data.test_date='".$test_date."' ";
+    		$this->db->distinct();
+			$this->db->select ('disease_category.disease_category_name,disease_category.disease_category_id');
+			$this->db->from('test_type');
+			$this->db->join('disease_category', 'test_type.disease_category_id = disease_category.disease_category_id');
+			$this->db->join('test_data', 'test_type.test_type_code = test_data.test_type_code');
+			$this->db->where($condition);
+			$query = $this->db->get();
+	        return $query->result();
+    	}	
 
+ ///////////////////////////////////////fetch get_subdisease/////////////////////////////////
+    	public function get_subdisease($test_date,$disease_code,$institution_code)
+    	{
+    		$condition=$condition="test_data.institution_code='".$institution_code."' AND test_data.test_date='".$test_date."'  AND disease_subcatagory.disease_category_id='".$disease_code."' ";
+    		$this->db->distinct();
+            $this->db->select ('disease_sub_id,disease_sub_name');
+			$this->db->from('test_type');
+			$this->db->join('disease_subcatagory', 'test_type.disease_sub_category_id = disease_subcatagory.disease_sub_id');
+			$this->db->join('test_data', 'test_type.test_type_code = test_data.test_type_code');
+			$this->db->where($condition);
+
+			$query = $this->db->get();
+	        return $query->result();
+
+    	}
+
+    ///////////////////////////////////////fetch test name/////////////////////////////////
+    	public function get_test_name($disease_subcase_code,$test_date,$disease_code,$institution_code)
+    	{
+    		$condition=$condition="test_data.institution_code='".$institution_code."' AND test_data.test_date='".$test_date."'  AND test_type.disease_sub_category_id='".$disease_subcase_code."'";
+    		$this->db->distinct();
+            $this->db->select ('test_type.test_type_code,test_type.test_type_name');
+			$this->db->from('test_type');
+			$this->db->join('disease_subcatagory', 'test_type.disease_sub_category_id = disease_subcatagory.disease_sub_id');
+			$this->db->join('test_data', 'test_type.test_type_code = test_data.test_type_code');
+			$this->db->where($condition);
+			$query = $this->db->get();
+	        return $query->result();
+
+    	}	
 
 
 

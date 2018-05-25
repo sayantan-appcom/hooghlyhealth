@@ -53,10 +53,7 @@ header("location: index");
               <div class="form-group">
                   <label for="exampleInputEmail1">Patient Mobile Number <span class="star">*</span></label>
                   <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo $row['patient_mobile']; ?>" readonly> 
-              </div> 
-                
-              
-              
+              </div>
             </div>
             
             <div class="col-md-4">
@@ -95,15 +92,18 @@ header("location: index");
         <div class="box-header with-border">
           <h3 class="box-title text-danger"><strong><u>Admission Details</u></strong></h3>
         </div>
-
+       <?php
+           foreach($patient as $row)
+                 { ?>
         <div class="box-body">
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputEmail1">Doctor Name <span class="star">*</span></label>
-                  <input type="text" class="form-control" placeholder="Enter Patient Name" id="doctor_name" name="doctor_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)"> 
+                  <input type="text" class="form-control" placeholder="Enter Patient Name" id="doctor_name" name="doctor_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)">                
+
                 </div> 
-                
+                <?php } ?>
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Date & Time <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" maxlength="10">
@@ -139,7 +139,7 @@ header("location: index");
                     <input type="text" class="form-control" placeholder="Enter Bed Number" id="admission_bed_no" name="admission_bed_no" autocomplete="off" maxlength="10">
               </div>
               <div class="form-group">
-                  <label for="exampleInputPassword1">Patient Status  <span class="star">*</span></label>
+                  <label for="exampleInputPassword1">Patient Status <sub> (at the time of discharge) </sub> <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="patient_status" name="patient_status" required="">
                       <option value="">Select Patient Status</option>
                       <?php

@@ -38,25 +38,46 @@ header("location: index");
               <div class="form-group">
                   <label for="exampleInputPassword1">Test Date <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Choose Date" id="test_date" name="test_date" autocomplete="off" required="" maxlength="10">
-                </div> 
+                </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Total Number of Sample Test <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Total number of sample test" id="total_tested" name="total_tested" autocomplete="off" required="" maxlength="4">
-                </div> 
+                  <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required="">
+                      <option value="">Select Disease Category</option>
+                      <?php
+                          foreach($get_disease as $row)
+                            { 
+                              echo '<option value="'.$row->disease_category_id.'">'.$row->disease_category_name.'</option>';
+                            }
+                      ?>
+                    </select>
+                </div>   
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
+                      <option value="">Select Disease Sub Category</option>
+                    </select>
             </div>
-
+            </div>
             <div class="col-md-6">
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Positive Test <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter number of Positive Test" id="positive_case" name="positive_case" autocomplete="off" required="" maxlength="4">
+            <div class="form-group">
+                  <label for="exampleInputPassword1">Test Name <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="test_type_code" name="test_type_code" required="">
+                      <option value="">Select Test Name</option>
+                    </select>
                 </div>  
-               <!-- <div class="form-group">
-                  <label for="exampleInputPassword1">Negative Test <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Number of Negative Test" id="negative_case" name="negative_case" autocomplete="off" required="" maxlength="4">
-                </div> -->
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">                  
+                    <label for="exampleInputPassword1">Total Number of Sample Test <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Total number of sample test" id="total_tested" name="total_tested" autocomplete="off" required="" maxlength="4">
+                </div>  
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Positive Test <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter number of Positive Test" id="positive_case" name="positive_case" autocomplete="off" required="" maxlength="4">
+                </div> 
+            </div>
             </div>
 
-          </div>
         </div>  
 
       
@@ -81,7 +102,52 @@ header("location: index");
       maxDate: '0',
       dateFormat: 'dd-mm-yy'
     });
-       
+     
+    $('#disease_code').change(function(e){
+     // alert("nibu");
+      var disease_category = $('#disease_code').val();
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Health_Home/getsubdisease');?>',
+        method: 'post',
+        data: {
+            disease_category: disease_category
+        },
+        dataType: 'json',
+        success: function(response){
+          //alert("nibu");
+          $('#disease_subcase_code').empty();
+          $('#disease_subcase_code').append("<option value=''>Select Disease Sub Category</option>");
+          $.each(response,function(index,data){
+             $('#disease_subcase_code').append('<option value="'+data['disease_sub_id']+'">'+data['disease_sub_name']+'</option>');
+          });
+        }
+     });
+   });   
+
+   $('#disease_subcase_code').change(function(e){
+      //alert("nibu");
+
+      var disease_sub_category = $('#disease_subcase_code').val();
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Health_Home/gettestname');?>',
+        method: 'post',
+        data: {
+            disease_sub_category: disease_sub_category
+        },
+        dataType: 'json',
+        success: function(response){
+          $('#test_type_code').empty();
+          $('#test_type_code').append("<option value=''>Select Test Name</option>");
+          $.each(response,function(index,data){
+             $('#test_type_code').append('<option value="'+data['test_type_code']+'">'+data['test_type_name']+'</option>');
+          });
+        }
+     });
+   });    
 
      function validate()
       {

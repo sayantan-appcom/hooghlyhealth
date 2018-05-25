@@ -50,6 +50,24 @@ header("location: index");
                       ?>
                     </select>
                 </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required="">
+                      <option value="">Select Disease Category</option>                      
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
+                      <option value="">Select Disease Sub Category</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Test Name <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="test_type_code" name="test_type_code" required="">
+                      <option value="">Select Test Name</option>
+                    </select>
+                </div> 
                <div class="form-group">
                   <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)">
@@ -57,10 +75,21 @@ header("location: index");
                 <div class="form-group">
                   <label for="exampleInputPassword1">Patient Gurdain Name <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Enter Patient Gurdain Name" id="patient_gurdain_name" name="patient_gurdain_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)">
-                </div>
+                </div> 
+            </div>
+
+            <div class="col-md-4">                
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Relationship with Gurdain <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient relationship with gurdain" id="relation_gurdain" name="relation_gurdain" autocomplete="off" required="" maxlength="15" onKeyPress="return onlyLetters(event)">
+                  <label for="exampleInputPassword1">Relationship with Gurdain <span class="star">*</span></label>                    
+                    <select class="form-control select2" style="width: 100%;" id="relation_gurdain" name="relation_gurdain" required="">
+                      <option value="">Select Relation</option>
+                      <?php
+                          foreach($get_relation as $row)
+                            { 
+                              echo '<option value="'.$row->relative_cd.'">'.$row->relative_details.'</option>';
+                            }
+                      ?>
+                    </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Age <span class="star">*</span></label>
@@ -82,19 +111,17 @@ header("location: index");
                       <option value="06">Hooghly</option>
                     </select>
                 </div>
-              
-            </div>
-           
-            <div class="col-md-4">
-                 
-                 <div class="form-group">
+                <div class="form-group">
                   <label for="exampleInputPassword1">Patient village / town <span class="star">*</span> </label>
                     <input type="text" class="form-control" placeholder="Enter Patient village / town" id="patient_village_town" name="patient_village_town" onKeyPress="return onlyLetters(event)" autocomplete="off" maxlength="15" required="">
                 </div> 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Postal PIN <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Enter Patient PIN" id="patient_pin" name="patient_pin" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" minlength="6" maxlength="6">
-                </div> 
+                </div>
+            </div>
+           
+            <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Address <span class="star">*</span></label>
                     <textarea class="form-control" id="patient_address" name="patient_address" autocomplete="off" rows="4" placeholder="Enter Patient Address" required="" maxlength="100"></textarea>
@@ -123,34 +150,7 @@ header("location: index");
                 <div class="form-group">
                   <label for="exampleInputPassword1">Patient EPIC </label>
                     <input type="text" class="form-control" placeholder="Enter Patient EPIC Number" id="patient_epic" name="patient_epic" autocomplete="off" maxlength="15">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required="">
-                      <option value="">Select Disease Category</option>
-                      <?php
-                          foreach($get_disease as $row)
-                            { 
-                              echo '<option value="'.$row->disease_category_id.'">'.$row->disease_category_name.'</option>';
-                            }
-                      ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
-                      <option value="">Select Disease Sub Category</option>
-                    </select>
-                </div> 
-            </div>
-
-            <div class="col-md-4">
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Test Name <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="test_type_code" name="test_type_code" required="">
-                      <option value="">Select Test Name</option>
-                    </select>
-                </div> 
+                </div>                
             </div>                      
           </div>
         </div>
@@ -168,16 +168,42 @@ header("location: index");
   <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
   <script type="text/javascript">
 
-   $('#disease_code').change(function(e){
+    $('#test_date').change(function(e){
      // alert("nibu");
-      var disease_category = $('#disease_code').val();
-  
+      var test_date = $('#test_date').val();
+      var institution_code = $('#user_id').val();
       // AJAX request
       $.ajax({
-        url:'<?php  echo base_url('Health_Home/getsubdisease');?>',
+        url:'<?php  echo base_url('Health_Home/getdisease');?>',
         method: 'post',
         data: {
-            disease_category: disease_category
+            test_date: test_date,
+            institution_code : institution_code
+        },
+        dataType: 'json',
+        success: function(response){
+          //alert("nibu");
+          $('#disease_code').empty();
+          $('#disease_code').append("<option value=''>Select Disease Category</option>");
+          $.each(response,function(index,data){
+             $('#disease_code').append('<option value="'+data['disease_category_id']+'">'+data['disease_category_name']+'</option>');
+          });
+        }
+     });
+   });
+
+   $('#disease_code').change(function(e){
+      var test_date = $('#test_date').val();
+      var disease_code = $('#disease_code').val();
+      var institution_code = $('#user_id').val();
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Health_Home/get_subdisease');?>',
+        method: 'post',
+        data: {
+            test_date: test_date,
+            disease_code : disease_code,
+            institution_code : institution_code
         },
         dataType: 'json',
         success: function(response){
@@ -189,22 +215,26 @@ header("location: index");
           });
         }
      });
-   });   
+   });
 
    $('#disease_subcase_code').change(function(e){
-      //alert("nibu");
-
-      var disease_sub_category = $('#disease_subcase_code').val();
-  
+      var test_date = $('#test_date').val();
+      var disease_code = $('#disease_code').val();
+      var disease_subcase_code = $('#disease_subcase_code').val();
+      var institution_code = $('#user_id').val();
       // AJAX request
       $.ajax({
-        url:'<?php  echo base_url('Health_Home/gettestname');?>',
+        url:'<?php  echo base_url('Health_Home/get_test_name');?>',
         method: 'post',
         data: {
-            disease_sub_category: disease_sub_category
+            test_date: test_date,
+            disease_code : disease_code,
+            disease_subcase_code : disease_subcase_code,
+            institution_code : institution_code
         },
         dataType: 'json',
         success: function(response){
+          //alert("nibu");
           $('#test_type_code').empty();
           $('#test_type_code').append("<option value=''>Select Test Name</option>");
           $.each(response,function(index,data){
@@ -212,7 +242,8 @@ header("location: index");
           });
         }
      });
-   }); 
+   });        
+   
 
      function validate()
       {

@@ -43,8 +43,22 @@ header("location: index");
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
+                  <label for="exampleInputPassword1">Test Date <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="test_date" name="test_date" required="">
+                      <option value="">Select Test Date</option>
+                      <?php
+                          foreach($test_date as $row)
+                            { 
+                              echo '<option value="'.$row->test_date.'">'.$row->test_date.'</option>';
+                            }
+                      ?>
+                    </select>
+                </div>
+              <div class="form-group">
                   <label for="exampleInputEmail1">Registration ID <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Registration Id" id="registration_id" name="registration_id" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="25">
+                    <select class="form-control select2" style="width: 100%;" id="registration_id" name="registration_id" required="">
+                      <option value="">Select Registration ID</option>                      
+                    </select>
                 </div> 
               
       <div class="box-footer" align="center">
@@ -57,4 +71,27 @@ header("location: index");
 
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
+  <script type="text/javascript">
+    $('#test_date').change(function(e){
+     // alert("nibu");
+      var test_date = $('#test_date').val();
   
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Health_Home/get_registrationId');?>',
+        method: 'post',
+        data: {
+            test_date: test_date
+        },
+        dataType: 'json',
+        success: function(response){
+          //alert("nibu");
+          $('#registration_id').empty();
+          $('#registration_id').append("<option value=''>Select Registration ID</option>");
+          $.each(response,function(index,data){
+             $('#registration_id').append('<option value="'+data['registration_id']+'">'+data['registration_id']+'</option>');
+          });
+        }
+     });
+   });  
+  </script>

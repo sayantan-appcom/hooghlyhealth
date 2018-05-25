@@ -33,43 +33,17 @@ header("location: index");
              </h3>
       <br><br><br>
       <div class="container_fluid">
-        <div class="col-md-3 col-md-offset-2">
-          <button class="btn btn-lg btn-primary"><a href="<?php echo site_url('Health_Home/entry_diagnosis_test');?>/<?php echo $user_id; ?>"><font color="#FFFFFF">Add Patient Details</font></a></button>
+        <div class="col-md-2 col-md-offset-1">
+          <div class="btn btn-lg btn-info"><a href="<?php echo site_url('Health_Home/entry_test_data');?>"><font color="#FFFFFF">Add Test Details</font></a></div>
         </div>
-        <div class="col-md-3 col-md-offset-2">
-          <button class="btn btn-lg btn-info"><a href="<?php echo site_url('Health_Home/entry_test_data');?>"><font color="#FFFFFF">Back to Test Details</font></a></button>
+        <div class="col-md-2 col-md-offset-1">
+          <div class="btn btn-lg btn-primary"><a href="<?php echo site_url('Health_Home/entry_diagnosis_test');?>/<?php echo $user_id; ?>"><font color="#FFFFFF">Add Patient Details</font></a></div>
+        </div>        
+        <div class="col-md-2 col-md-offset-1">
+          <div class="btn btn-lg btn-primary"><a href="<?php echo site_url('Health_Home/home');?>"><font color="#FFFFFF">Back to Home</font></a></div>
         </div>
-      </div>
-      <br>
-      <div class="container_fluid">
-        <div class="col-md-6 col-md-offset-3">
-          <button class="btn btn-lg btn-primary"><a href="<?php echo site_url('Health_Home/home');?>"><font color="#FFFFFF">Back to Home</font></a></button>
-        </div>
-      </div>
-  
+      </div>      
   
     </section>    
   </div>
  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
-  <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
-  <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
-  <script type="text/javascript">
-  
-    $('#test_date').datepicker({
-     // autoclose: true,
-      minDate: '-21',
-      maxDate: '0',
-      dateFormat: 'dd-mm-yy'
-    });
-       
-
-     function validate()
-      {
-           var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
-          if (r==true)
-            return true;
-          else
-            return false;
-      }               
-  
-  </script>

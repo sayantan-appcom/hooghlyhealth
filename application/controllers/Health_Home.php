@@ -56,8 +56,9 @@ class Health_Home extends CI_Controller {
 	public function entry_test_data()
 		{
 			$this->load->view('maincontents/header');
-			$this->load->view('maincontents/nav');	
-			$this->load->view('maincontents/entry_test_data');		
+			$this->load->view('maincontents/nav');
+			$data['get_disease']=$this->Mod_health->get_disease();	
+			$this->load->view('maincontents/entry_test_data',$data);		
 			$this->load->view('maincontents/footer');	
 
 		}			
@@ -69,6 +70,7 @@ class Health_Home extends CI_Controller {
 			$user_id= $this->uri->segment(3);
 			$data['test_date']=$this->Mod_health->test_date($user_id);	
 			$data['get_disease']=$this->Mod_health->get_disease();
+			$data['get_relation']=$this->Mod_health->get_relation();
 			$this->load->view('maincontents/entry_diagnosis_test',$data);		
 			$this->load->view('maincontents/footer');	
 
@@ -81,6 +83,13 @@ class Health_Home extends CI_Controller {
 			echo json_encode($data);
 		}
 
+	public function get_registrationId()
+		{
+            $test_date = $this->input->post('test_date');
+			$data=$this->Mod_health->get_registrationId($test_date);
+			echo json_encode($data);
+		}	
+
 	public function gettestname()
 		{
             $disease_sub_category = $this->input->post('disease_sub_category');
@@ -92,9 +101,12 @@ class Health_Home extends CI_Controller {
 		{
 			
 			$this->form_validation->set_rules('user_id','Institution Name','trim|xss_clean');
-			$this->form_validation->set_rules('test_date','Disease Category','trim|required|xss_clean');
-			$this->form_validation->set_rules('total_tested','Disease Sub Category','trim|required|xss_clean');
-			$this->form_validation->set_rules('positive_case','Test Name','trim|required|xss_clean');
+			$this->form_validation->set_rules('test_date','Test Date','trim|required|xss_clean');
+			$this->form_validation->set_rules('disease_code','Institution Name','trim|xss_clean');
+			$this->form_validation->set_rules('disease_subcase_code','Institution Name','trim|xss_clean');
+			$this->form_validation->set_rules('test_type_code','Institution Name','trim|xss_clean');
+			$this->form_validation->set_rules('total_tested','Total sample case','trim|required|xss_clean');
+			$this->form_validation->set_rules('positive_case','Positive case','trim|required|xss_clean');
 			//$this->form_validation->set_rules('negative_case','Test Name','trim|required|xss_clean');
 			
 
@@ -102,12 +114,15 @@ class Health_Home extends CI_Controller {
 				{	
 
 					$institution_code = $this->input->post('user_id');
+					$disease_code = $this->input->post('disease_code');
+					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$test_type_code = $this->input->post('test_type_code');
 					$test_date = $this->input->post('test_date');
 					$total_tested = $this->input->post('total_tested');
 					$positive_case = $this->input->post('positive_case');
 					//$negative_case = $this->input->post('negative_case'); 
 
-					$result=$this->Mod_health->get_test_insert($institution_code,$test_date,$total_tested,$positive_case/*,$negative_case*/);
+					$result=$this->Mod_health->get_test_insert($institution_code,$test_date,$disease_code,$disease_subcase_code,$test_type_code,$total_tested,$positive_case/*,$negative_case*/);
 
 						if ($result == TRUE)
 			 				{
@@ -198,7 +213,7 @@ class Health_Home extends CI_Controller {
 				);			
 								
 								//$data=$this->session->set_flashdata('response',"Registration Successfully ! Remember Registration ID :".$registration_id);
-								$this->load->view('maincontents/patient_success',$data);		
+								$this->load->view('maincontents/test_data_next',$data);		
 								$this->load->view('maincontents/footer');									
 												
 							} 
@@ -222,19 +237,22 @@ class Health_Home extends CI_Controller {
 		{
 			$this->load->view('maincontents/header');
 			$this->load->view('maincontents/nav');
-			$this->load->view('maincontents/entry_admission');		
+			$user_id= $this->uri->segment(3);
+			$data['test_date']=$this->Mod_health->test_date($user_id);
+			$this->load->view('maincontents/entry_admission',$data);		
 			$this->load->view('maincontents/footer');	
 
 		}
 
 	public function entry_admission_next()
 		{
-            $registration_id = $this->input->post('registration_id');
-			$data['patient']=$this->Mod_health->entry_admission_next($registration_id);
-			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
-			$data['patient_status']=$this->Mod_health->patient_status();
 			$this->load->view('maincontents/header');
-			$this->load->view('maincontents/nav');			
+			$this->load->view('maincontents/nav');
+            $test_date = $this->input->post('test_date');
+            $registration_id = $this->input->post('registration_id');
+			$data['patient']=$this->Mod_health->entry_admission_next($test_date,$registration_id);
+			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
+			$data['patient_status']=$this->Mod_health->patient_status();						
    			$this->load->view('maincontents/entry_admission_next',$data);
    			$this->load->view('maincontents/footer');
   			
@@ -287,6 +305,33 @@ class Health_Home extends CI_Controller {
 						$this->load->view('maincontents/footer');		 
 			
 		}
-		
+
+	public function getdisease()
+		{
+            $test_date = $this->input->post('test_date');
+            $institution_code = $this->input->post('institution_code');
+			$data=$this->Mod_health->getdisease($test_date,$institution_code);
+			echo json_encode($data);
+		}
+
+	public function get_subdisease()
+		{
+            $disease_code = $this->input->post('disease_code');
+            $test_date = $this->input->post('test_date');
+            $institution_code = $this->input->post('institution_code');
+			$data=$this->Mod_health->get_subdisease($test_date,$disease_code,$institution_code);
+			echo json_encode($data);
+		}
+
+	public function get_test_name()
+		{
+            $disease_code = $this->input->post('disease_code');
+            $disease_subcase_code = $this->input->post('disease_subcase_code');
+            $test_date = $this->input->post('test_date');
+            $institution_code = $this->input->post('institution_code');
+			$data=$this->Mod_health->get_test_name($disease_subcase_code,$test_date,$disease_code,$institution_code);
+			echo json_encode($data);
+		}			
+	
 											 
 }
