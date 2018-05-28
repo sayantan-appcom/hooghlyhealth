@@ -311,8 +311,7 @@
               <input type="text" class="form-control" name="email" id="email" placeholder="Enter user email address" required="" autocomplete="off" autofocus="" /><br>
             <label> User Password</label>
               <input type="password" class="form-control" name="password" id="password" placeholder="Enter user password" autocomplete="off" required="" />  <br> 
-            <label>Captcha</label>
-                <!--<div class="g-recaptcha" data-sitekey="6LdfglIUAAAAAC1nHnwcXLdxJ_VbpCjv8HegQGv0"></div>-->
+            <label>Captcha</label>                
                 <div><?php echo $captcha; ?></div>
                 <br>
               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>

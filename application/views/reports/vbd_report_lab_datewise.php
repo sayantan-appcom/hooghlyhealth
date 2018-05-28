@@ -35,7 +35,7 @@ header("location: index");
        
         <div class="box-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                <div class="form-group">
                   <label for="exampleInputEmail1">State <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="state_code" name="state_code" required="">
@@ -71,7 +71,7 @@ header("location: index");
             </div>
 			
            
-            <div class="col-md-4">
+            <div class="col-md-6">
 			         <div class="form-group">
                   <label for="exampleInputPassword1">Institution Type <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
@@ -121,11 +121,11 @@ header("location: index");
 <script type="text/javascript">
   $('#from_date').datepicker({
       autoclose: true,
-      format: 'dd-mm-yy'
+      format: 'dd-mm-yyyy'
     });
   $('#to_date').datepicker({
       autoclose: true,
-      format: 'dd-mm-yy'
+      format: 'dd-mm-yyyy'
     });
 	////////////////////////////////////////////fetch Institution Name///////////////////////////////////////////
    $('#inst_type').change(function(e){
