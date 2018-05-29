@@ -21,17 +21,17 @@ header("location: index");
       <div class="row">
         <div class="col-md-6">
           <!-- general form elements -->
+		  <!--
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Add Sub-category</h3>
             </div>
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" method="POST" action="<?php echo site_url('Admin/add_subcategory');?>">
+         
+            <form role="form" method="POST" action="<?php //echo site_url('Admin/add_subcategory');?>">
               <h4 class="star" align="center">
                     <?php 
-                        echo validation_errors();
-                        echo $this->session->flashdata('response');
+                       /* echo validation_errors();
+                        echo $this->session->flashdata('response');*/
                      ?>
              </h4>
               <div class="box-body">
@@ -40,10 +40,10 @@ header("location: index");
                     <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required="">
                       <option value="">Select Disease Category</option>
                       <?php
-                          foreach($get_disease as $row)
+                         /* foreach($get_disease as $row)
                             { 
                               echo '<option value="'.$row->disease_category_id.'">'.$row->disease_category_name.'</option>';
-                            }
+                            }*/
                       ?>
                     </select>
                 </div>  
@@ -60,6 +60,7 @@ header("location: index");
           </div>
         </div>
         <div class="col-md-6">
+		-->
           <!-- general form elements -->
           <div class="box box-info">
             <div class="box-header with-border">

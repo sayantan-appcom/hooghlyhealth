@@ -19,7 +19,15 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css">
  </head>	
 	<body class="bg-danger disableRightClick">
-		<h2 align="center"><span class="label label-success"><b>VECTOR BONE DISEASE POSITIVE REPORT INSTITUION WISE </b></span></h2>
+		<?php
+			foreach($fetch_positive_test as $x)
+			{
+			$disease_sub_name=$x['disease_sub_name'];
+		
+			}
+			?>
+	
+		<h2 align="center"><span class="label label-success"><b>List Of Positive Cases-<?php echo $disease_sub_name;?> </b></span></h2>
         
         <br>
         <div class="container">
@@ -31,10 +39,20 @@
 			foreach($fetch_positive_test as $x)
 			{
 			$institution_name=$x['inst_name'];
+			$institution_mobile=$x['inst_mobile'];
+			$institution_Address=$x['inst_addr'];
 			}
 			?>
 			<strong> Institution Name:<?php echo $institution_name;?>
 			</strong>
+			<strong> Institution Mobile:<?php echo $institution_mobile;?>
+			</strong>
+			<strong> Institution Address:<?php echo $institution_Address;?>
+			</strong>
+			
+		</div>
+			
+			</div>
 
         	</div>
 
@@ -45,9 +63,9 @@
   				 <tr class="bg-success">
   					<th class="text-center">Registration ID</th>
   					<th class="text-center">Paintent Name</th>
-                    <th class="text-center">Paintent Adress</th>
-                    <th class="text-center">Paintent MObile</th>
-  					<th class="text-center">Paintent Pin</th>
+                    <th class="text-center">Paintent AGE</th>
+                    <th class="text-center">Paintent Address</th>
+  					<th class="text-center">Name Of The  Test</th>
   				</tr>
   				 <?php foreach($fetch_positive_test as $x)
 				{
@@ -56,9 +74,9 @@
 
   			<td class="text-center"> <?php echo $x['registration_id']; ?> </td>
   			<td class="text-center"> <?php echo $x['patient_name']; ?> </td>
-            <td class="text-center"> <?php echo $x['patient_address']; ?> </td>
-            <td class="text-center"> <?php  echo $x['patient_mobile']; ?> </td>
-  			<td class="text-center"> <?php echo $x['patient_pin']; ?> </td>
+            <td class="text-center"> <?php echo $x['paient_age']; ?> </td>
+            <td class="text-center"> <?php  echo $x['patient_address'] . " "."  pin code:". $x['patient_pin'] ; ?> </td>
+  			<td class="text-center"> <?php echo $x['test_type_name']; ?> </td>
   				</tr>
   				<?php } ?>
   			</table>
