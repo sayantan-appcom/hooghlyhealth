@@ -2,12 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Report of Hopghly Health</title>
+<title>Report of Hooghly Health</title>
    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <!-- jQuery 2.2.3 -->
-
+	<style type="text/css">
+      .star { 
+          color:red;
+            }
+  	</style>
 </head>
 <body class="bg-danger">
 
@@ -44,6 +48,7 @@ foreach($institution_details as $x)
 </div>
 <?php
 }
+
 ?>
 <br><br>
 <div class="container">
@@ -55,6 +60,7 @@ foreach($institution_details as $x)
 	<th class="text-center">No. found Negative </th>
   </tr>
   <?php
+   $institution_code=$x['user_id'];
   	foreach($fetch_all_disease_subcategory as $x)
 		{ 
 	?>
@@ -69,9 +75,11 @@ foreach($institution_details as $x)
 		?>
 	
 	</th>
-    <td class="text-center">
+    <th class="text-center">
 		<?php		 
 			$no_sample_tested=fetch_no_sample_tested($disease_sub_id,$start_date,$end_date);
+			
+			
 			foreach($no_sample_tested as $sample_tested)
                {
 				 if($sample_tested['total_Test']!=0)
@@ -84,13 +92,19 @@ foreach($institution_details as $x)
 					}
 			   }
 	    ?>	
-	</td>
-    <td class="text-center">
+	</th>
+    <th class="text-center star">
     <?php 
+	
     if($sample_tested['POSITIVE']!=0)
     {
 	
-	echo $sample_tested['POSITIVE'];
+	?>
+	
+	<a class="star" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested['POSITIVE'];?></a>	
+	
+	
+<?php
 	
 	}
 	else
@@ -99,13 +113,13 @@ foreach($institution_details as $x)
 
 	}
 	?>
-	</td>
-	<td class="text-center">
+	</th>
+	<th class="text-center">
 	<?php
 	 $negative=$sample_tested['total_Test']-$sample_tested['POSITIVE'];
 	 echo $negative;
 	 ?>
-	</td>
+	</th>
   </tr>
  <?php 
  }

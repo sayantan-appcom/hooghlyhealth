@@ -320,10 +320,12 @@ class Admin extends CI_Controller {
 			if ($this->form_validation->run() == TRUE) 
 				{
 					
-					$disease_code = $this->input->post('disease_code');
+					 $disease_code = $this->input->post('disease_code');
 					$disease_subcase_code = $this->input->post('disease_subcase_code');
-
-					$result=$this->Mod_admin->insert_subcategory($disease_code,$disease_subcase_code);
+					$fetch_disease_sub_category=$this->Mod_admin->fetch_disease_sub_category($disease_code);
+				  $fetch_disease_sub_category;
+				
+					$result=$this->Mod_admin->insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category);
 
 						if ($result == TRUE)
 			 				{	
@@ -364,9 +366,14 @@ class Admin extends CI_Controller {
 					
 					$disease_id = $this->input->post('disease_id');
 					$disease_subcat_id = $this->input->post('disease_subcat_id');
+					//echo $disease_subcat_id;
+					
 					$test_name = $this->input->post('test_name');
-
-					$result=$this->Mod_admin->insert_test_name($disease_id,$disease_subcat_id,$test_name);
+					$fetch_test_type_sub_category=$this->Mod_admin->fetch_test_type_sub_category();
+				 	echo $fetch_test_type_sub_category;
+					die(); 
+			
+					$result=$this->Mod_admin->insert_test_name($disease_id,$disease_subcat_id,$test_name,$fetch_test_type_sub_category);
 
 						if ($result == TRUE)
 			 				{	

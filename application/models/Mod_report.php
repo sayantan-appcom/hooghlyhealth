@@ -314,7 +314,7 @@ Class Mod_report extends CI_Model {
 public function fetch_instituion_details($inst_name)
 {
 
-$this->db->select('district.district_name,block_muni.blockmuni,user_profile_inst.inst_name,user_profile_inst.inst_mobile');
+$this->db->select('district.district_name,block_muni.blockmuni,user_profile_inst.inst_name,user_profile_inst.inst_mobile,user_profile_inst.user_id');
 $this->db->from('user_area');
 $this->db->join('district','district.district_code=user_area.district_code');
 $this->db->join('block_muni','block_muni.blockminicd=user_area.block_code');
@@ -333,6 +333,16 @@ $query=$this->db->get();
 return $query->result_array();
 
 
+}
+public function fetch_positive_test($disease_sub_id,$institution_code)
+{
+$this->db->select('diagnosis_tests.registration_id,diagnosis_tests.patient_name,diagnosis_tests.patient_address,diagnosis_tests.patient_mobile,diagnosis_tests.patient_pin,diagnosis_tests.registration_id,user_profile_inst.inst_name');
+$this->db->from('diagnosis_tests');
+$this->db->join('user_profile_inst',' user_profile_inst.user_id=diagnosis_tests.institution_code');
+$condition="diagnosis_tests.disease_subcase_code='".$disease_sub_id."' AND diagnosis_tests.institution_code='".$institution_code."' ";
+$this->db->where($condition);
+$query=$this->db->get();
+return $query->result_array();
 
 }
 

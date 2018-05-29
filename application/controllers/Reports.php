@@ -107,6 +107,17 @@ public function Date_wise_report_FORM_L()
 
   $this->load->view('reports/Date_wise_report_FORM_L',$data);
  
+}
+/////////////////////////////////fetch_positive_test///////////////////////////////////////////////
+public function fetch_positive_test()
+{
+$disease_sub_id=$this->uri->segment(3);
+$institution_code=$this->uri->segment(4);
+
+$data['fetch_positive_test']=$this->Mod_report->fetch_positive_test($disease_sub_id,$institution_code);
+ $this->load->view('reports/fetch_positive_case_report',$data);
+
+
 }	
 		
 											 

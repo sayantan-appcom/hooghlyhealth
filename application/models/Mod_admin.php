@@ -224,20 +224,55 @@ Class Mod_admin extends CI_Model {
 	        return $query->result();
     	}	
 
-    public function insert_subcategory($disease_code,$disease_subcase_code)
-    	{   			
+    public function insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category)
+    	{ $disease_sub_id1= $fetch_disease_sub_category; 
+		$disease_sub_id=$disease_sub_id1+1;			
 			$data=array(
 				'disease_sub_name'=>$disease_subcase_code,
-				'disease_category_id'=>$disease_code
+				'disease_category_id'=>$disease_code,
+				'disease_sub_id'=>$disease_sub_id
 				);
 			
 			return $this->db->insert('disease_subcatagory',$data);
     	} 
 
 
-    public function insert_test_name($disease_id,$disease_subcat_id,$test_name)
+    public function insert_test_name($disease_id,$disease_subcat_id,$test_name,$fetch_test_type_sub_category)
     	{   			
+		
+				$fetch_test_type_sub_category1=$fetch_test_type_sub_category + 1;
+				if($fetch_test_type_sub_category < 9)
+				 {
+					
+				$fetch_test_type_sub_category1="0".$fetch_test_type_sub_category1;
+				}
+				else if($fetch_test_type_sub_category1 >= 10 ) 
+				{
+				//$fetch_test_type_sub_category1=$fetch_test_type_sub_category + 1;
+				$fetch_test_type_sub_category1=$fetch_test_type_sub_category1;
+				}
+						/*else if($fetch_test_type_sub_category >= 100 && $fetch_test_type_sub_category<= 999) {
+							
+							$fetch_test_type_sub_category1=(int)$fetch_test_type_sub_category + 1;
+							$fetch_test_type_sub_category1=$fetch_test_type_sub_category1;
+						}*/
+						/*else if($max_rs1 < 1000) {
+							$max_rs1="000".$max_rs1;
+						}
+						else if($max_rs1 < 10000) {
+							$max_rs1="00".$max_rs1;
+						}
+						else if($max_rs1 < 100000) {
+							$max_rs1="0".$max_rs1;
+						}
+						else if($max_rs1 < 1000000) {
+							$max_rs1="".$max_rs1;
+						}
+			*/
+			//$fetch_test_type_sub_category1=$fetch_test_type_sub_category + 1;
+			
 			$data=array(
+			'test_type_code'=>$fetch_test_type_sub_category1,
 				'test_type_name'=>$test_name,
 				'disease_category_id'=>$disease_id,
 				'disease_sub_category_id'=>$disease_subcat_id
@@ -314,6 +349,31 @@ Class Mod_admin extends CI_Model {
 		}
 
 // end of 23.05.2018 //
+
+/////////////////////////////////fetch_disease_sub_category////////////////////////////////////////////////////
+public function fetch_disease_sub_category($disease_code)
+{
+$this->db->select('MAX(convert(disease_sub_id),UNSIGNED INTEGER) AS disease_sub_id ' );
+$this->db->from('disease_subcatagory');
+$condition="disease_subcatagory.disease_sub_id < (SELECT MAX(disease_sub_id) FROM disease_subcatagory)  AND disease_subcatagory.disease_category_id='".$disease_code."'";
+$this->db->where($condition);
+$query=$this->db->get();
+$ret = $query->row();
+return $ret->disease_sub_id;
+
+
+}
+//////////////////////////////////fetch_test_type_sub_category/////////////////////////////////////////////////////
+
+ public function fetch_test_type_sub_category()
+{
+$this->db->select('MAX(test_type_code) AS test_type_code ' );
+$this->db->from('test_type');
+$query=$this->db->get();
+$ret = $query->row();
+return $ret->test_type_code;
+
+}
 
 }
 ?>
