@@ -54,7 +54,7 @@ header("location: index");
                 </div> 
                 <div class="form-group">
                   <label for="exampleInputEmail1">User Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter User Mobile Number" id="user_mobile" name="user_mobile" onKeyPress="return onlyNumbers(event)" value="<?php echo $x['user_mobile'];?>">
+                    <input type="text" class="form-control" placeholder="Enter User Mobile Number" id="user_mobile" name="user_mobile" maxlength="10" onKeyPress="return onlyNumbers(event)" value="<?php echo $x['user_mobile'];?>">
                 </div>
                           
               </div>
@@ -141,7 +141,7 @@ header("location: index");
    }); 
       $('form').submit(function(){
 
-                    alert('ok');      
+                    //alert('ok');      
         $.ajax({
            url:this.action,
            type:this.method,
@@ -161,7 +161,7 @@ header("location: index");
                    {                               
                                // $('#message').text("");
                                // alert(obj); 
-                                 //window.location.href = "<?php echo site_url('Admin/admin_user_edit'); ?>";
+                                 //window.location.href = "<?php //echo site_url('Admin/admin_user_edit'); ?>";
                     }
 
                     },
@@ -170,12 +170,8 @@ header("location: index");
                         }                        
                     });
                     return false;
-                });              
-  
-  
-  
-   /////for form submit using jquery//
-});
+                }); 
+//});
                   
   
   </script>

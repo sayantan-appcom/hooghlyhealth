@@ -15,7 +15,8 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center"> Date wise Report Form </h2>
+<h2 align="center" class=""> <strong>Vector Bone Disease Report - IDSP (FORM - L) Datewise</strong> </h2>
+<br><br>
 <div class="row">
 <?php
 $start_date=$start_date;
@@ -24,25 +25,25 @@ $this->load->helper('report');
 foreach($institution_details as $x)
 {
 ?>
-<div class="container-fluid">
+<div class="row">
 <div class="container">
-  <div class="col-md-4"><strong>State:  <?php echo "WEST BENGAL";?></strong></div>
-  <div class="col-md-4"><strong>District:  <?php echo $x['district_name'];?></strong></div>
-  <div class="col-md-4"><strong>Block:  <?php echo $x['blockmuni'];?></strong></div>
+  <div class="col-md-4"><strong><mark>State:  <?php echo "WEST BENGAL";?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>District:  <?php echo $x['district_name'];?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>Block:  <?php echo $x['blockmuni'];?></mark></strong></div>
 </div>
 <?php
 	date_default_timezone_set('Asia/Kolkata');
     $date=date("d-m-Y");
 ?>
 <div class="container">
-  <div class="col-md-4"><strong>Reporting Date:  <?php echo $date;?></strong></div>
-  <div class="col-md-4"><strong>Start Date:  <?php echo $start_date;?></strong></div>
-  <div class="col-md-4"><strong>End Date:<?php echo $end_date;?></strong></div>
+  <div class="col-md-4"><strong><mark>Reporting Date:  <?php echo $date;?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>Start Date:  <?php echo $start_date;?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>End Date:   <?php echo $end_date;?></mark></strong></div>
 </div>
 
 <div class="container">
-  <div class="col-md-4"><strong>Institute Name:  <?php echo $x['inst_name'];?></strong></div>
-  <div class="col-md-4"><strong>Institute Mobile:  <?php echo $x['inst_mobile'];?></strong></div>
+  <div class="col-md-4"><strong><mark>Institute Name:  <?php echo $x['inst_name'];?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>Institute Mobile:  <?php echo $x['inst_mobile'];?></mark></strong></div>
 </div>
 
 </div>
@@ -65,7 +66,7 @@ foreach($institution_details as $x)
 		{ 
 	?>
 
-  <tr class="bg-warning">
+  <tr class="bg-info">
   	<th class="text-center">	
 		<?php 
 			$disease_sub_id=$x['disease_sub_id'];

@@ -165,7 +165,7 @@ header("location: index");
    
    //////////////////////////////////fetch district////////////////////////////////////////////////////////
    $('#state_code').change(function(e){
-      alert("nibu");
+      //alert("nibu");
 
       var state = $('#state_code').val();
   

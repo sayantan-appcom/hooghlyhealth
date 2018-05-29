@@ -8,7 +8,6 @@ class Login extends CI_Controller {
             parent::__construct();
             $this->load->helper('url'); 
 			$this->load->helper('form');
-			$this->load->library('Recaptcha');
 			$this->load->library('form_validation');
 			$this->load->helper('security');
   			$this->load->library('session');
@@ -21,13 +20,17 @@ class Login extends CI_Controller {
 		$vals = array(
 		        'img_path'      => './captcha/',
 		        'img_url'       => base_url().'captcha/',
-		        'expiration'	=> 7200,
-		        'word_length'	=> 6,
-		        'font_size'		=> 60
+		        'font_size'		=> 60,
+		        'img_width' => 120,
+    			'img_height' => 30,
+    			/*'word_length' => 6,*/
+    			'word' =>rand(100000,999999),
+		        'expiration'	=> 900
+
 				);
 		$cap = create_captcha($vals);
 		$data['captcha'] = $cap['image'];
-		
+		$this->session->set_userdata('captchaword', $cap['word']);		
 
 		$this->load->view('index',$data);
 	}
@@ -38,23 +41,29 @@ class Login extends CI_Controller {
 		$vals = array(
 		        'img_path'      => './captcha/',
 		        'img_url'       => base_url().'captcha/',
-		        'expiration'	=> 7200,
-		        'word_length'	=> 6,
-		        'font_size'		=> 60
+		        'font_size'		=> 60,
+		        'img_width' => 120,
+    			'img_height' => 30,
+    			/*'word_length' => 6,*/
+    			'word' =>rand(100000,999999),
+		        'expiration'	=> 900
 				);
 		$cap = create_captcha($vals);
-		$data['captcha'] = $cap['image'];
-		
-
-		$this->load->view('index',$data);
+		$this->session->set_userdata('captchaword', $cap['word']);
+		echo $cap['image'];
 	}
 
 
 	public function user_login_process()
 	{
 		
-	 $this->form_validation->set_rules('email', 'Email Address', 'trim|required|xss_clean');
-	 $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+	 $this->form_validation->set_rules('user_email', 'Email Address', 'trim|required|valid_email|xss_clean');
+	 $this->form_validation->set_rules('user_password', 'Password', 'trim|required|xss_clean');
+	 $this->form_validation->set_rules('user_captcha', 'Captcha', 'trim|required|callback_validate_captcha');
+
+			//echo $post_captcha=$this->input->post('user_captcha');
+			//echo $set_captcha=$this->session->userdata('captchaword');
+			//die();
 
 	 	if ($this->form_validation->run() == FALSE) 
 			{				
@@ -63,7 +72,7 @@ class Login extends CI_Controller {
 			{
 				unset($this->session->userdata['logged_in']);
 			}
-				$this->load->view('index');
+				$this->index();
 			}
 		else{
 			//$captcha_answer = $this->input->post('g-recaptcha-response');
@@ -71,13 +80,13 @@ class Login extends CI_Controller {
 
 			//if ($response['success']) {
 			$login = array(
-            'email'=> $this->input->post('email'),
-            'password' => md5($this->input->post('password'))            
+            'email'=> $this->input->post('user_email'),
+            'password' => md5($this->input->post('user_password'))            
              ); 
 			$result = $this->Mod_Login->user_login($login);	
 			if ($result == TRUE) 
 				{
-					$email = $this->input->post('email'); 
+					$email = $this->input->post('user_email'); 
 					$this->data['feeder'] = $this->Mod_Login->read_user_information($email);
 
 				if ($this->data['feeder'] != false) 
@@ -104,6 +113,21 @@ class Login extends CI_Controller {
 			}
 		}	*/
 	}
+
+	public function validate_captcha()
+		{
+			$post_captcha=$this->input->post('user_captcha');
+			$set_captcha=$this->session->userdata('captchaword');
+			if($post_captcha != $set_captcha)
+			{
+				$this->form_validation->set_message('validate_captcha', 'Wrong Captcha Code ! Enter Correct Captcha Code');
+			        return false;
+			}
+			else
+			{
+				 return true;
+			}
+		}
 	
 	public function logout()
 		{

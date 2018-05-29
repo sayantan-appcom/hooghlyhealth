@@ -126,7 +126,7 @@ Class Mod_health extends CI_Model {
     public function entry_admission_next($test_date,$registration_id)
     	{   
     		$this->db->select ('registration_id,patient_name,patient_address,patient_mobile,paient_age,patient_gender');
-			$this->db->from('diagnosis_tests');
+			$this->db->from('patient_details');
 			$this->db->where('registration_id',$registration_id);
 			$query = $this->db->get();
 	        return $query->result_array();
@@ -153,7 +153,7 @@ Class Mod_health extends CI_Model {
     public function get_registrationId($test_date)
     	{   
 			$this->db->select ('registration_id');
-			$this->db->from('diagnosis_tests');			
+			$this->db->from('patient_details');			
 			$this->db->where('test_date',$test_date);
 			$query = $this->db->get();
 	        return $query->result();
@@ -190,7 +190,7 @@ Class Mod_health extends CI_Model {
     	{
     		$date= date("Y");
 			$this->db->select('MAX(convert(SUBSTRING(registration_id,-6),UNSIGNED INTEGER)) AS max_regisID');
-			$this->db->from('diagnosis_tests');
+			$this->db->from('patient_details');
 			$this->db->WHERE("DATE_FORMAT(create_timestamp,'%Y')",$date);
 			$query = $this->db->get();
 			
@@ -263,9 +263,10 @@ Class Mod_health extends CI_Model {
 				'patient_email'=>$patient_email,
 				'patient_aadhar'=>$patient_aadhar,
 				'patient_epic'=>$patient_epic,
+				'flag'=>1,
 				'create_timestamp' => $create_timestamp
 				);
-			return $this->db->insert('diagnosis_tests',$data);
+			return $this->db->insert('patient_details',$data);
 			
     	}
 

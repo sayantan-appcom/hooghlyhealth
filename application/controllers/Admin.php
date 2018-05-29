@@ -32,7 +32,41 @@ class Admin extends CI_Controller {
 
      public function index()
 	{
-		$this->load->view('index');
+		$this->load->helper('captcha');
+		$vals = array(
+		        'img_path'      => './captcha/',
+		        'img_url'       => base_url().'captcha/',
+		        'font_size'		=> 60,
+		        'img_width' => 120,
+    			'img_height' => 30,
+    			/*'word_length' => 6,*/
+    			'word' =>rand(100000,999999),
+		        'expiration'	=> 900
+
+				);
+		$cap = create_captcha($vals);
+		$data['captcha'] = $cap['image'];
+		$this->session->set_userdata('captchaword', $cap['word']);		
+
+		$this->load->view('index',$data);
+	}
+
+	public function refresh_captcha()
+	{
+		$this->load->helper('captcha');
+		$vals = array(
+		        'img_path'      => './captcha/',
+		        'img_url'       => base_url().'captcha/',
+		        'font_size'		=> 60,
+		        'img_width' => 120,
+    			'img_height' => 30,
+    			/*'word_length' => 6,*/
+    			'word' =>rand(100000,999999),
+		        'expiration'	=> 900
+				);
+		$cap = create_captcha($vals);
+		$this->session->set_userdata('captchaword', $cap['word']);
+		echo $cap['image'];
 	}
 
 	public function admin_login_process()
@@ -40,22 +74,18 @@ class Admin extends CI_Controller {
 		
 	 $this->form_validation->set_rules('email', 'Email Address', 'trim|required|xss_clean');
 	 $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean');
+	 $this->form_validation->set_rules('admin_captcha', 'Captcha', 'trim|required|callback_validate_captcha');
 
 	 	if ($this->form_validation->run() == FALSE) 
-			{
-				//$this->session->set_flashdata('error_msg',validation_errors());
-
+			{	
 			if(isset($this->session->userdata['logged_in']))
 			{
 				unset($this->session->userdata['logged_in']);
 			}
-				$this->load->view('index');
+				$this->index();
 			}
 		else{
-			$captcha_answer = $this->input->post('g-recaptcha-response');
-			$response = $this->recaptcha->verifyResponse($captcha_answer);
-
-			if ($response['success']) {
+			
 			$login = array(
             'email'=> $this->input->post('email'),
             'password' => md5($this->input->post('password'))            
@@ -82,21 +112,27 @@ class Admin extends CI_Controller {
 		    }
 			else
 			{
-				/*$data = array(
-					'error_message' => 'Invalid Email address or Password');
-				if(isset($this->session->userdata['logged_in']))
-					{
-						unset($this->session->userdata['logged_in']);
-					}
-				$this->load->view('index',$data);*/
+				
 				echo "Invalid Email OR Password! Please check it carefully";
 			} 
 		}
-		else {
-			echo "Invalid Captcha! Please check captcha carefully";
+		
+	}
+
+	public function validate_captcha()
+		{
+			$post_captcha=$this->input->post('admin_captcha');
+			$set_captcha=$this->session->userdata('captchaword');
+			if($post_captcha != $set_captcha)
+			{
+				$this->form_validation->set_message('validate_captcha', 'Wrong Captcha Code ! Enter Correct Captcha Code');
+			        return false;
+			}
+			else
+			{
+				 return true;
 			}
 		}	
-	}	
 
 	public function logout()
 		{
@@ -370,8 +406,7 @@ class Admin extends CI_Controller {
 					
 					$test_name = $this->input->post('test_name');
 					$fetch_test_type_sub_category=$this->Mod_admin->fetch_test_type_sub_category();
-				 	echo $fetch_test_type_sub_category;
-					die(); 
+				 	//$fetch_test_type_sub_category;
 			
 					$result=$this->Mod_admin->insert_test_name($disease_id,$disease_subcat_id,$test_name,$fetch_test_type_sub_category);
 

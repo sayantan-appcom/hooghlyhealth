@@ -214,7 +214,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail">
-            <img src="img/doctor1.jpg" alt="..." class="team-img">
+            <!--<img src="img/doctor1.jpg" alt="..." class="team-img">-->
             <div class="caption">
               <h3>Jessica Wally</h3>
               <p>Doctor</p>
@@ -228,7 +228,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail">
-            <img src="img/doctor2.jpg" alt="..." class="team-img">
+            <!--<img src="img/doctor2.jpg" alt="..." class="team-img">-->
             <div class="caption">
               <h3>Iai Donas</h3>
               <p>Doctor</p>
@@ -242,7 +242,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail">
-            <img src="img/doctor3.jpg" alt="..." class="team-img">
+            <!--<img src="img/doctor3.jpg" alt="..." class="team-img">-->
             <div class="caption">
               <h3>Amanda Denyl</h3>
               <p>Doctor</p>
@@ -256,7 +256,7 @@
         </div>
         <div class="col-md-3 col-sm-3 col-xs-6">
           <div class="thumbnail">
-            <img src="img/doctor4.jpg" alt="..." class="team-img">
+            <!--<img src="img/doctor4.jpg" alt="..." class="team-img">-->
             <div class="caption">
               <h3>Jason Davis</h3>
               <p>Doctor</p>
@@ -307,12 +307,24 @@
                                 // echo form_open('Hooghly_Health/login_process'); 
                            ?>
         </div>
+        <div class="form-group">
             <label>User Email Id</label>
-              <input type="text" class="form-control" name="email" id="email" placeholder="Enter user email address" required="" autocomplete="off" autofocus="" /><br>
+              <input type="text" class="form-control" name="user_email" id="user_email" placeholder="Enter user email address" required="" autocomplete="off" autofocus="" />
+        </div>
+        <div class="form-group">      
             <label> User Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Enter user password" autocomplete="off" required="" />  <br> 
-            <label>Captcha</label>                
-                <div><?php echo $captcha; ?></div>
+              <input type="password" class="form-control" name="user_password" id="user_password" placeholder="Enter user password" autocomplete="off" required="" />
+        </div>
+        <div class="form-group">       
+              <label>Captcha</label><br>
+                <div class="image col-md-5"><?php echo $captcha; ?> </div>
+                <div class="col-md-5">
+                 <a href="javascript:;" class="captcha-refresh"> <img src="<?php echo base_url();?>assets/img/refresh.png"></a>
+                </div>
+                </div>                
+        <div class="form-group">
+                <input type="text" name="user_captcha" id="user_captcha" onKeyPress="return onlyNumbers(event)" required="" class="form-control" placeholder="Enter Captcha" maxlength="6">  
+        </div> 
                 <br>
               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           </form>
@@ -334,9 +346,16 @@
               <input type="text" class="form-control" name="email" id="email" placeholder="Enter admin email address" required="" autocomplete="off" autofocus="" /><br>
             <label>Admin Password</label>
               <input type="password" class="form-control" name="password" id="password" placeholder="Enter admin password" autocomplete="off" required="" />  <br> 
-            <label>Captcha</label>
-                <!--<div class="g-recaptcha" data-sitekey="6LdfglIUAAAAAC1nHnwcXLdxJ_VbpCjv8HegQGv0"></div>-->
-                <div><?php echo $this->recaptcha->render(); ?></div>
+            <div class="form-group">       
+              <label>Captcha</label><br>
+                <div class="image col-md-5"><?php echo $captcha; ?> </div>
+                <div class="col-md-5">
+                 <a href="javascript:;" class="captcha-refresh"> <img src="<?php echo base_url();?>assets/img/refresh.png"></a>
+                </div>
+                </div>                
+        <div class="form-group">
+                <input type="text" name="admin_captcha" id="admin_captcha" onKeyPress="return onlyNumbers(event)" required="" class="form-control" placeholder="Enter Captcha" maxlength="6">  
+        </div>  
                 <br>
               <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
           </form>
@@ -392,7 +411,7 @@
                 <div class="validation"></div>
               </div>
               <div class="form-group">
-                <input type="email" class="form-control br-radius-zero" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                <!--<input type="email" class="form-control br-radius-zero" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />-->
                 <div class="validation"></div>
               </div>
               <div class="form-group">
@@ -480,8 +499,35 @@
   <script src="<?php echo base_url();?>assets/js/jquery.easing.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/custom.js"></script>
-  <script src="contactform/contactform.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+ 
+           $('.captcha-refresh').on('click', function(){
+              //alert("nnn");
+ 
+               $.ajax({
+                url:'<?php  echo base_url('Login/refresh_captcha');?>',
+                type: 'post',
 
+        success: function(res){
+          //alert("nibu");
+          if(res){
+            $('.image').html(res);
+          }
+        }
+     }); 
+  });
+
+ });
+
+ function onlyNumbers(evt)
+      {
+          var charCode = (evt.which) ? evt.which : event.keyCode;
+          if ( ((charCode >= 48) && (charCode <= 57)) || charCode==8 || charCode==32 )
+            return true;
+            return false;
+      }            
+  </script>
 </body>
 
 </html>

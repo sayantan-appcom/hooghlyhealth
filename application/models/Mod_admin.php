@@ -67,7 +67,7 @@ Class Mod_admin extends CI_Model {
     	{   
 			$this->db->select ('user_type_cd,user_type_name');
 			$this->db->from('user_type');
-			$this->db->where('user_type_cd NOT IN (01)');
+			$this->db->where('user_type_cd NOT IN (01,03)');
 			$query = $this->db->get();
 	        return $query->result();
     	}	
