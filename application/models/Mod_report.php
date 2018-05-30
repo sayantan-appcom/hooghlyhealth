@@ -200,7 +200,7 @@ return $query->result_array();
 }
 public function fetch_positive_test($disease_sub_id,$institution_code)
 {
-$this->db->select('patient_details.registration_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile,patient_details.patient_pin,patient_details.registration_id,user_profile_inst.inst_name,patient_details.paient_age,patient_details.patient_gender,test_type.test_type_name,disease_subcatagory.disease_sub_name,user_profile_inst.inst_mobile,user_profile_inst.inst_addr');
+$this->db->select('patient_details.registration_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile,patient_details.patient_pin,patient_details.registration_id,user_profile_inst.inst_name,patient_details.paient_age,patient_details.patient_gender,test_type.test_type_name,disease_subcatagory.disease_sub_name,user_profile_inst.inst_mobile,user_profile_inst.inst_addr,patient_details.patient_gender,patient_details.patient_gurdain_name');
 $this->db->from('patient_details');
 $this->db->join('test_type',' test_type.test_type_code=patient_details.test_type_code');
 $this->db->join('disease_subcatagory',' disease_subcatagory.disease_sub_id=patient_details.disease_subcase_code');

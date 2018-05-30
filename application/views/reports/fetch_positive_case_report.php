@@ -62,10 +62,14 @@
   			<table class="table" align="center" border="2">
   				 <tr class="bg-success">
   					<th class="text-center">Registration ID</th>
-  					<th class="text-center">Paintent Name</th>
-                    <th class="text-center">Paintent AGE</th>
-                    <th class="text-center">Paintent Address</th>
-  					<th class="text-center">Name Of The  Test</th>
+  					<th class="text-center">Patient Name</th>
+  					<th class="text-center">Patient Gurdain Name</th>
+  					<th class="text-center">Patient Gender</th>
+                    <th class="text-center">Patient Age</th>
+                    <th class="text-center">Patient Address details</th>
+                    <th class="text-center">Patient Mobile</th>
+  					<th class="text-center">Name of the Test</th>
+  					<th class="text-center">Diagnosis (Lab Confirmed)</th>
   				</tr>
   				 <?php foreach($fetch_positive_test as $x)
 				{
@@ -74,9 +78,29 @@
 
   			<td class="text-center"> <?php echo $x['registration_id']; ?> </td>
   			<td class="text-center"> <?php echo $x['patient_name']; ?> </td>
+  			<td class="text-center"> <?php echo $x['patient_gurdain_name']; ?> </td>
+  			<td class="text-center"> 
+  				<?php 
+  				if( $x['patient_gender']== '01') 
+  					{ 
+  						echo "Male";
+  					}
+  				else if( $x['patient_gender']== '02') 
+  					{ 
+  						echo "Female";
+  					}
+  				else
+  				{
+  					echo "Transgender";
+
+  				}	 
+  				?> 
+  			</td>
             <td class="text-center"> <?php echo $x['paient_age']; ?> </td>
             <td class="text-center"> <?php  echo $x['patient_address'] . " "."  pin code:". $x['patient_pin'] ; ?> </td>
+            <td class="text-center"> <?php echo $x['patient_mobile']; ?> </td>
   			<td class="text-center"> <?php echo $x['test_type_name']; ?> </td>
+  			<td class="text-center"> Positive </td>
   				</tr>
   				<?php } ?>
   			</table>
