@@ -157,6 +157,7 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/nav');
 			$data['get_state']=$this->Mod_admin->get_state();
 			$data['get_institute']=$this->Mod_admin->get_institute();
+			$data['fetch_radiology_type']=$this->Mod_admin->fetch_radiology_type();
 			$this->load->view('admin/user_creation_institute',$data);		
 			$this->load->view('admin/footer');	
 
@@ -202,16 +203,20 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_rules('inst_block','Block / Municipality','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_type','Institution Type','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_name','Institution Name','trim|required|xss_clean');
-			$this->form_validation->set_rules('inst_license_no','Institution License Number','trim|required|xss_clean');
+			//$this->form_validation->set_rules('inst_license_no','Institution License Number','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_addr','Institution Address','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_email','Institution Email Id','trim|required|xss_clean|valid_email');
 			$this->form_validation->set_rules('inst_mobile','Institution Mobile Number','trim|required|xss_clean|integer');
 			$this->form_validation->set_rules('inst_phone','Institution Phone Number','trim|xss_clean|integer');
-			$this->form_validation->set_rules('inst_owner_name','Institution Owner Name','trim|required|xss_clean');
-			$this->form_validation->set_rules('inst_owner_mobile','Institution Owner Mobile','trim|integer|xss_clean');
-			$this->form_validation->set_rules('inst_owner_email','Institution Owner Email Id','trim|valid_email|xss_clean');
+			//$this->form_validation->set_rules('inst_owner_name','Institution Owner Name','trim|required|xss_clean');
+			//$this->form_validation->set_rules('inst_owner_mobile','Institution Owner Mobile','trim|integer|xss_clean');
+			//$this->form_validation->set_rules('inst_owner_email','Institution Owner Email Id','trim|valid_email|xss_clean');
 			$this->form_validation->set_rules('inst_password','Password','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_confirm_password','Confirm Password','trim|required|xss_clean|matches[inst_password]');
+			//$this->form_validation->set_rules('labo_type','labataroty type','trim|required|xss_clean');
+			//$this->form_validation->set_rules('patho_type','Pathology type','trim|required|xss_clean]');
+			//$this->form_validation->set_rules('radio_type','Pathology type','trim|required|xss_clean');
+		
 
 			if ($this->form_validation->run() == TRUE) 
 				{
@@ -234,10 +239,16 @@ class Admin extends CI_Controller {
 					$inst_owner_mobile = $this->input->post('inst_owner_mobile');
 					$inst_owner_email = $this->input->post('inst_owner_email');
 					$password = md5($this->input->post('inst_password'));
+					$labo_type=$this->input->post('labo_type');
+					$patho_type=$this->input->post('patho_type');
+					//$radio_type=$this->input->post('radio_type[]');
+					$radio_type=$this->input->post('radio_type');
+					//print_r($radio_type);
+					
 					
 					$user_id = $state.$block.$usercd; 
 
-					$result=$this->Mod_admin->get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password);
+					$result=$this->Mod_admin->get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password,$labo_type,$patho_type,$radio_type);
 
 						if ($result == TRUE)
 			 				{	
@@ -254,6 +265,7 @@ class Admin extends CI_Controller {
 				$this->load->view('admin/nav');
 				$data['get_state']=$this->Mod_admin->get_state();
 				$data['get_institute']=$this->Mod_admin->get_institute();
+				$data['fetch_radiology_type']=$this->Mod_admin->fetch_radiology_type();
 				$this->load->view('admin/user_creation_institute',$data);		
 				$this->load->view('admin/footer');				
      		 }
@@ -263,6 +275,7 @@ class Admin extends CI_Controller {
 					$this->load->view('admin/nav');					
 					$data['get_state']=$this->Mod_admin->get_state();
 					$data['get_institute']=$this->Mod_admin->get_institute();
+				    $data['fetch_radiology_type']=$this->Mod_admin->fetch_radiology_type();
 					$this->load->view('admin/user_creation_institute',$data);		
 					$this->load->view('admin/footer');
 				}				 
@@ -544,6 +557,7 @@ class Admin extends CI_Controller {
 			 $inst_subdivision = $this->input->post('inst_subdivision');
 			 $inst_block = $this->input->post('inst_block');
 			 $inst_type = $this->input->post('inst_type');
+		
 		     $data=$this->Mod_admin->get_institution_name($inst_district,$inst_subdivision,$inst_block,$inst_type);
 		     echo json_encode($data);
 
@@ -614,6 +628,27 @@ class Admin extends CI_Controller {
 					} 
  			}
   //////////////Institution  user update/////////////
+  //////////////////////Admin User details//////////////////////////////////////////
+  
+  public function user_details()
+  {
+            $this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$data['get_state']=$this->Mod_admin->get_state();
+		    $data['get_institute']=$this->Mod_admin->get_institute();
+			$this->load->view('admin/user_details',$data);		
+			$this->load->view('admin/footer');		
+  }
+//////////////////////////////////// user details edit////////////////////////
+	public function use_details()
+ 		{
 
+			 $inst_district=$this->input->post('inst_district');
+			 $inst_subdivision=$this->input->post('inst_subdivision');
+			 $inst_type=$this->input->post('inst_type');
+			 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_district,$inst_subdivision,$inst_type);
+			$this->load->view('admin/fetch_institute_details',$data);
+ 
+ 		}
 
 }

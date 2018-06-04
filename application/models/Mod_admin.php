@@ -119,10 +119,46 @@ Class Mod_admin extends CI_Model {
 				}
 		}	
 
-    public function get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password)
+
+	
+	   /* public function get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password,$labo_type,$patho_type,$radio_type)*/
+  public function get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password,$labo_type,$patho_type,$radio_type)
     	{   
+						/////////////////02.06..2018//////////////
+		/*	$data3=array();
+	
+	for($i=0;$i<count($radio_type);$i++)
+	{
+	$data3=array(
+	'user_id'=>$user_id,
+	'radio_type'=>$radio_type[i]
+	);
+	}
+	print_r($data3);
+	return $this->db->insert('radio_type',$data3);
+    	
+*/
+			
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
+			
+			$chk=""; 
+			$chk2=array();
+		if($radio_type!=0)
+		{
+			
+			foreach($radio_type as $chk1) 
+          { 
+                 $chk.= $chk1.",";
+				 
+				  
+           }
+		   }
+		   else
+		   {
+		   $chk="NULL";
+		   }
+	
 			$data=array(
 				'user_id'=>$user_id,
 				'inst_type_id'=>$institution_type,
@@ -134,7 +170,10 @@ Class Mod_admin extends CI_Model {
 				'inst_phone'=>$institution_phone,
 				'inst_owner_name'=>$institution_owner,
 				'inst_owner_mobile'=>$inst_owner_mobile,
-				'inst_owner_email'=>$inst_owner_email	
+				'inst_owner_email'=>$inst_owner_email,
+				'labo_type'=>$labo_type,
+				'patho_type'=>$patho_type,
+				'radio_type'=>$chk
 				);
 			$this->db->insert('user_profile_inst',$data);
 
@@ -155,7 +194,8 @@ Class Mod_admin extends CI_Model {
 				'creation_timestamp'=>$create_timestamp	
 				);
 			return $this->db->insert('user_login',$data2);
-    	} 	
+
+}
 
     public function get_admin_max_rs()
     	{
@@ -373,6 +413,27 @@ $query=$this->db->get();
 $ret = $query->row();
 return $ret->test_type_code;
 
+}
+
+//////////////////////////////////////fetch radiology type//////////////////////////////////////////////////////
+
+ public function fetch_radiology_type()
+{
+$this->db->select('*' );
+$this->db->from('master_radiology_type');
+$query = $this->db->get();
+ return $query->result_array();
+
+
+}
+////////////////////////////////fetch institute details////////////////////////////////////////////////////////////
+public function fetch_institute_details($inst_district,$inst_subdivision,$inst_type)
+{
+
+$this->db->select('*');
+$this->db->from('user_profile_inst');
+$query=$this->db->get();
+return $query->result_array();
 }
 
 }

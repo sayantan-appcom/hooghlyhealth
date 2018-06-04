@@ -100,8 +100,14 @@ header("location: index");
           <i class="fa fa-plus"></i> Test Status wise Report (VBD) <br> 
         </a>         
       </li>
+	  
                  
     </ul>
+	  <li class="treeview">
+    <a href="<?php echo site_url('Admin/user_details');?>">
+      <i class="fa fa-star"></i><span>User Details <br></span>         
+    </a>        
+  </li>
     
   </li>
  </ul>

@@ -74,7 +74,24 @@ header("location: index");
                             }
                       ?>
                     </select>
-                </div>               
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Laboratory Type <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="labo_type" name="labo_type" required="">
+                      <option value="">Select Laboratory Type </option>
+                      <option value="01"> Pathology </option>
+                      <option value="02"> Radiology </option>
+                    </select>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Pathology Type <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="patho_type" name="patho_type" required="">
+                      <option value="">Select Pathology Type </option>
+                      <option value="01"> Large </option>
+                      <option value="02"> Medium </option>
+                      <option value="03"> Small </option>
+                    </select>
+                </div>                
               </div>
              </div>
              </div> 
@@ -85,25 +102,50 @@ header("location: index");
             <!-- form start -->
             
               <div class="box-body">
+                <div class="form-group" id="">
+                  <label for="exampleInputPassword1">Radiology Type <span class="star">*</span></label><br/>
+                
+           <!--
+        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" value="1" /> MRI<br />
+        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk2" value="2" /> CT SCAN <br />
+        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk3" value="3" /> USG<br/>
+		<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk3" value="4" />X-RAy<br/>
+               -->  
+			   	<?php
+	foreach($fetch_radiology_type as $row)
+	{
+	
+	?>
+	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1"
+
+	value="<?php echo $row['process_id'];?>"/><?php echo $row['process_name'];?><br/>
+	<?php
+	}
+	?>
+	
+	
+	
+       </div> 
+                
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Name" id="inst_name" name="inst_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50">
+                    <input type="text" class="form-control" placeholder="Enter Institution Name" id="inst_name" name="inst_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_name'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution License Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution License Number" id="inst_license_no" name="inst_license_no" onKeyPress="return onlyLicense(event)" autocomplete="off" required="" maxlength="30">
+                    <input type="text" class="form-control" placeholder="Enter Institution License Number" id="inst_license_no" name="inst_license_no" onKeyPress="return onlyLicense(event)" autocomplete="off" required="" maxlength="30" value="<?php echo set_value('inst_license_no'); ?>">
                 </div>                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution Address <span class="star">*</span></label>
-                    <textarea class="form-control" id="inst_addr" name="inst_addr" autocomplete="off" rows="3" placeholder="Enter Institution Address" required="" maxlength="100"></textarea>
+                    <textarea class="form-control" id="inst_addr" name="inst_addr" autocomplete="off" rows="3" placeholder="Enter Institution Address" required="" maxlength="100" value="<?php echo set_value('inst_addr'); ?>"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution Email Id <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Email Id" id="inst_email" name="inst_email" autocomplete="off" required="" maxlength="50">
+                    <input type="text" class="form-control" placeholder="Enter Institution Email Id" id="inst_email" name="inst_email" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_email'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_mobile" name="inst_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_mobile" name="inst_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('inst_mobile'); ?>">
                 </div>                
               </div>
               </div>
@@ -115,22 +157,23 @@ header("location: index");
           <div class="box box-primary">
             <!-- form start -->
             
-              <div class="box-body"> 
+              <div class="box-body">              
+                 
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution Phone Number </label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Phone Number" id="inst_phone" name="inst_phone" onKeyPress="return onlyNumbers(event)" autocomplete="off" maxlength="12">
+                    <input type="text" class="form-control" placeholder="Enter Institution Phone Number" id="inst_phone" name="inst_phone" onKeyPress="return onlyNumbers(event)" autocomplete="off" maxlength="12" value="<?php echo set_value('inst_phone'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Owner Name" id="inst_owner_name" name="inst_owner_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50">
+                    <input type="text" class="form-control" placeholder="Enter Institution Owner Name" id="inst_owner_name" name="inst_owner_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_owner_name'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_mobile" name="inst_owner_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_mobile" name="inst_owner_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('inst_owner_mobile'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Email Id </label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_email" name="inst_owner_email" autocomplete="off" maxlength="50">
+                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_email" name="inst_owner_email" autocomplete="off" maxlength="50" value="<?php echo set_value('inst_owner_email'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Password <span class="star">*</span></label>
@@ -145,7 +188,7 @@ header("location: index");
             </div>    
         
       <div class="box-footer" align="center">
-                <button type="submit" class="btn btn-lg btn-success">Submit</button>
+                <button type="submit" class="btn btn-lg btn-success" id="submit" >Submit</button>
               </div>   
 
 
@@ -156,6 +199,84 @@ header("location: index");
   </div>
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script type="text/javascript">
+
+    $('#inst_type').change(function () {
+      //alert("nibu");
+             if ($(this).val() == "07") {                
+                  $("#inst_license_no").prop("disabled", false);
+                  $("#inst_owner_name").prop("disabled", false);
+                  $("#inst_owner_mobile").prop("disabled", false);
+                  $("#inst_owner_email").prop("disabled", false);
+				  $("#labo_type").prop("disabled",true);
+				  $("#radio_type").prop("disabled", true);
+                  $("#patho_type").prop("disabled", true);
+               
+                }
+              
+           else if ($(this).val() == "08") {
+                  $("#inst_license_no").prop("disabled", false);
+                  $("#inst_owner_name").prop("disabled", false);
+                  $("#inst_owner_mobile").prop("disabled", false);
+                  $("#inst_owner_email").prop("disabled", false);
+                  $("#labo_type").prop("disabled", false);
+                  $("#patho_type").prop("disabled", false);
+                  $("#radio_type").prop("disabled", false);              
+                }
+               
+    	   
+			   
+			   
+			   
+			   
+			   
+/////////////////////////////////for govt Hospital///////////////////////////////////////////			                
+            else {
+                  $("#inst_license_no").prop("disabled", true);
+                  $("#inst_owner_name").prop("disabled", true);
+                  $("#inst_owner_mobile").prop("disabled", true);
+                  $("#inst_owner_email").prop("disabled", true);
+                  $("#labo_type").prop("disabled", true);
+                  $("#patho_type").prop("disabled", true);
+                  $("#radio_type").prop("disabled", true); 
+            }
+        });
+/////////////////////////////for pathlogy and radio logy/////////////////////////////////////////////////////////////////////
+ $('#labo_type').change(function () {
+     // alert("sayantan");
+            if ($(this).val() == "01") {                
+                  $("#radio_type").prop("disabled", true);
+                  $("#patho_type").prop("disabled", false);
+               
+                }
+              
+            else if ($(this).val() == "02") {
+                  $("#patho_type").prop("disabled", true);
+                  /*$("#radio_type").prop("disabled", false);
+				   $("#radio_type2").prop("disabled", false);*/
+				    $(':checkbox').each(function () {
+                    $(this).prop('disabled', false);
+                   
+                });
+                              
+                }
+				else
+				{
+				    $(':checkbox').each(function () {
+                    $(this).prop('disabled', true);
+                    //$(this).prop('checked', false);
+    
+                });
+				}
+		                
+            /*else {
+                  $("#patho_type").prop("disabled", false);
+                  $("#radio_type").prop("disabled", false); 
+            }*/
+		
+        });
+
+/////////////////////////////for pathlogy and radio logy/////////////////////////////////////////////////////////////////////
+
    
     $('#inst_state').change(function(e){
       //alert("nibu");
@@ -220,6 +341,11 @@ header("location: index");
           });
         }
      });
-   });                   
+   });
+   /*$('#submit').click(function(e){
+   alert('saynatna');
+   }); 
+   */
+                     
   
   </script>
