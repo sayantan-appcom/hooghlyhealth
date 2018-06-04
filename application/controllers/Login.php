@@ -97,10 +97,24 @@ class Login extends CI_Controller {
 						'user_name'=>$this->data['feeder'][0]->inst_name
 							);
 					$this->session->set_userdata('logged_in',$session_data);
-					$this->load->view('maincontents/header');	
-					$this->load->view('maincontents/nav');
-					$this->load->view('maincontents/home');		
-					$this->load->view('maincontents/footer');		
+					$user_id = $session_data['user_id'];
+					$get_flag = $this->Mod_Login->get_flag_chng($user_id);
+					if($get_flag == 0)
+					{
+						//$data=$this->Mod_Login->get_password($user_id);						
+						$this->load->view('maincontents/change_password',$session_data);
+						
+					}
+
+					else
+					{
+						$this->load->view('maincontents/header');	
+						$this->load->view('maincontents/nav');
+						$this->load->view('maincontents/home');		
+						$this->load->view('maincontents/footer');
+					}
+
+							
 			    }
 		    }
 			else
@@ -136,6 +150,48 @@ class Login extends CI_Controller {
 			redirect('Login');
 
 		}
+	public function change_password()
+		{
+			$this->form_validation->set_rules('user_id', 'User ID', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('current_password', 'Current Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[new_password]');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$user_id = $this->input->post('user_id');
+				$current_password = md5($this->input->post('current_password'));
+				$new_password = $this->input->post('new_password');
+				$confirm_password = $this->input->post('confirm_password');
+
+				$password=$this->Mod_Login->get_password($user_id);
+				if($password == $current_password)
+				{
+					$result=$this->Mod_Login->get_change_password($user_id,$current_password,$new_password,$confirm_password);
+					if ($result == TRUE)
+			 				{
+			 					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$this->load->view('maincontents/home');		
+								$this->load->view('maincontents/footer');										
+							}						 
+				}
+				else
+				{
+					$data = array(
+					'resp' => 'Current Password does not matched !');
+					$this->load->view('maincontents/change_password',$data);
+					
+				}			
+
+			} 
+				
+			else
+			{
+				$this->load->view('maincontents/change_password');
+			}	
+
+		}	
 
 	
 
