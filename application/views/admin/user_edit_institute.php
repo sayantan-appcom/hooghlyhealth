@@ -178,8 +178,8 @@ header("location: index");
 	     /*alert(inst_district);
 		   alert(inst_subdivision);
 		   
-	  alert(inst_block);
-	  alert(inst_type);*/
+	  alert(inst_block);*/
+	 // alert(inst_type);
   
       // AJAX request
       $.ajax({
