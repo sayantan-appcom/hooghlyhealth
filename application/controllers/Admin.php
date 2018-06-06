@@ -646,7 +646,7 @@ class Admin extends CI_Controller {
 			 $inst_district=$this->input->post('inst_district');
 			 $inst_subdivision=$this->input->post('inst_subdivision');
 			 $inst_type=$this->input->post('inst_type');
-			 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_district,$inst_subdivision,$inst_type);
+			 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_subdivision,$inst_district,$inst_type);
 			$this->load->view('admin/fetch_institute_details',$data);
  
  		}

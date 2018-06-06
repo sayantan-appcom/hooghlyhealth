@@ -142,8 +142,8 @@ header("location: index");
         var inst_district = $('#inst_district').val();
 	    var inst_subdivision = $('#inst_subdivision').val();
 	    var inst_type = $('#inst_type').val();
-		//alert(inst_type);
-
+		alert(inst_subdivision);
+			alert(inst_type);
 
         
            $('#inst_edit').prop('disabled',true);
@@ -157,12 +157,14 @@ header("location: index");
             
       data:{
        
-        inst_name:inst_name
+        inst_district:inst_district,
+		inst_subdivision:inst_subdivision,
+		inst_type:inst_type
        
       
       },
             success: function(data) { console.log(data);
-                $('#user_details').html(data);
+                $('.content-wrapper').html(data);
                 //window.location.href = "llms_update_form.php";
                },
             error: function (jqXHR, textStatus, errorThrown) {

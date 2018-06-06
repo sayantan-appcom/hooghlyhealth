@@ -427,11 +427,14 @@ $query = $this->db->get();
 
 }
 ////////////////////////////////fetch institute details////////////////////////////////////////////////////////////
-public function fetch_institute_details($inst_district,$inst_subdivision,$inst_type)
+public function fetch_institute_details($inst_subdivision,$inst_district,$inst_type)
 {
-
+$this->db->DISTINCT();
 $this->db->select('*');
 $this->db->from('user_profile_inst');
+$this->db->join('user_area','user_area.user_id=user_profile_inst.user_id');	
+$condition="user_area.subdivision_code='".$inst_subdivision."'  AND user_profile_inst.inst_type_id='".$inst_type."' AND user_area.district_code='".$inst_district."' ";
+$this->db->where($condition);
 $query=$this->db->get();
 return $query->result_array();
 }

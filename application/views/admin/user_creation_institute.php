@@ -105,25 +105,20 @@ header("location: index");
                 <div class="form-group" id="">
                   <label for="exampleInputPassword1">Radiology Type <span class="star">*</span></label><br/>
                 
-           <!--
-        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" value="1" /> MRI<br />
-        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk2" value="2" /> CT SCAN <br />
-        <input type="checkbox" name="radio_type[]" disabled="disabled" id="chk3" value="3" /> USG<br/>
-		<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk3" value="4" />X-RAy<br/>
-               -->  
+       
 			   	<?php
 	foreach($fetch_radiology_type as $row)
 	{
 	
 	?>
-	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1"
+	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" class="chk1"
 
 	value="<?php echo $row['process_id'];?>"/><?php echo $row['process_name'];?><br/>
 	<?php
 	}
 	?>
 	
-	
+	<input type="checkbox" name="radio_type1[]" disabled="disabled" id="checkall"/>CheckAll
 	
        </div> 
                 
@@ -208,7 +203,7 @@ header("location: index");
                   $("#inst_owner_mobile").prop("disabled", false);
                   $("#inst_owner_email").prop("disabled", false);
 				  $("#labo_type").prop("disabled",true);
-				  $("#radio_type").prop("disabled", true);
+				  $("#chk1").prop("disabled", true);
                   $("#patho_type").prop("disabled", true);
                
                 }
@@ -220,7 +215,7 @@ header("location: index");
                   $("#inst_owner_email").prop("disabled", false);
                   $("#labo_type").prop("disabled", false);
                   $("#patho_type").prop("disabled", false);
-                  $("#radio_type").prop("disabled", false);              
+                  $("#chk1").prop("disabled", false);              
                 }
                
     	   
@@ -237,15 +232,17 @@ header("location: index");
                   $("#inst_owner_email").prop("disabled", true);
                   $("#labo_type").prop("disabled", true);
                   $("#patho_type").prop("disabled", true);
-                  $("#radio_type").prop("disabled", true); 
+                  $("#chk1").prop("disabled", true); 
             }
         });
 /////////////////////////////for pathlogy and radio logy/////////////////////////////////////////////////////////////////////
  $('#labo_type').change(function () {
      // alert("sayantan");
             if ($(this).val() == "01") {                
-                  $("#radio_type").prop("disabled", true);
+                  //$("#chk1").prop("disabled", true);
+				   $(".chk1").prop("disabled", true);
                   $("#patho_type").prop("disabled", false);
+				  $("#checkall").prop("disabled", true);
                
                 }
               
@@ -268,12 +265,13 @@ header("location: index");
                 });
 				}
 		                
-            /*else {
-                  $("#patho_type").prop("disabled", false);
-                  $("#radio_type").prop("disabled", false); 
-            }*/
+        
 		
         });
+		//////////////////////check all checkbox////////////////////////
+		$("#checkall").click(function(){
+    $('input:checkbox').not(this).prop('checked', this.checked);
+});
 
 /////////////////////////////for pathlogy and radio logy/////////////////////////////////////////////////////////////////////
 
