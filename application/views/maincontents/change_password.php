@@ -19,7 +19,7 @@
 </head>
 <?php
 if (isset($this->session->userdata['logged_in'])) {
-echo $user_id = ($this->session->userdata['logged_in']['user_id']);
+$user_id = ($this->session->userdata['logged_in']['user_id']);
 $user_type = ($this->session->userdata['logged_in']['user_type']);
 $user_name = ($this->session->userdata['logged_in']['user_name']);
 } else {

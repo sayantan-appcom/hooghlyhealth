@@ -1,7 +1,7 @@
 <?php
 if (isset($this->session->userdata['logged_in'])) {
 $user_id = ($this->session->userdata['logged_in']['user_id']);
-$user_type = ($this->session->userdata['logged_in']['user_type']);
+echo $user_type = ($this->session->userdata['logged_in']['user_type']);
 $user_name = ($this->session->userdata['logged_in']['user_name']);
 } else {
 header("location: index");
@@ -21,18 +21,23 @@ header("location: index");
         </span> 
     </a>
     <ul class="treeview-menu">
-      
       <li> 
-        <a href="<?php echo site_url('Health_Home/test_data_next'); ?>">          
-          <i class="fa fa-plus"></i> For Diagnosis Test            
+        <a href="<?php echo site_url('Health_Home/test_data_entry'); ?>">          
+          <i class="fa fa-plus"></i> Total Test Entry            
+        </a>       
+      </li>  
+
+      <li> 
+        <a href="<?php echo site_url('Health_Home/patient_search'); ?>">          
+          <i class="fa fa-plus"></i> Diagnosis Test cum Registration            
         </a>       
       </li>  
 
       <li>        
-        <?php if($user_type=='6'){ ?>
-        <a href="<?php echo site_url('Health_Home/entry_admission'); ?>/<?php echo $user_id; ?>">
+        <?php if($user_type=='07'){ ?>
+        <a href="<?php echo site_url('Health_Home/admission_search'); ?>/<?php echo $user_id; ?>">
           
-          <i class="fa fa-plus"></i> For Admission            
+          <i class="fa fa-plus"></i> Admission cum Registration           
         </a> 
          <?php } ?>       
       </li>  
