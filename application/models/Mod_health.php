@@ -125,6 +125,136 @@ Class Mod_health extends CI_Model {
 			return $this->db->insert('test_data',$data);
 			
     	}	
+		
+		//////////////////////get_max_regisID///////////////////////////////////////
+		
+    public function get_max_regisID()
+    	{
+    		$date= date("Y");
+			$this->db->select('MAX(convert(SUBSTRING(patient_id,-6),UNSIGNED INTEGER)) AS max_regisID');
+			$this->db->from('patient_details');
+			$this->db->WHERE("DATE_FORMAT(create_timestamp,'%Y')",$date);
+			$query = $this->db->get();
+			
+			$max_regisID = $query->row()->max_regisID;
+			$max_date=substr($max_regisID,12,-6);
+			$max_rs=$max_regisID;
+
+			if ($query->num_rows() > 0) 
+				{
+					/*if($date == $max_date)
+					{
+						$max_rs1=$max_rs + 1;
+						if($max_rs1 < 10) {
+							$max_rs1="00000".$max_rs1;
+						}
+						else if($max_rs1 < 100) {
+							$max_rs1="0000".$max_rs1;
+						}
+						else if($max_rs1 < 1000) {
+							$max_rs1="000".$max_rs1;
+						}
+						else if($max_rs1 < 10000) {
+							$max_rs1="00".$max_rs1;
+						}
+						else if($max_rs1 < 100000) {
+							$max_rs1="0".$max_rs1;
+						}
+						else if($max_rs1 < 1000000) {
+							$max_rs1="".$max_rs1;
+						}*/
+						$max_rs1=$max_rs + 1;
+						$max_rs1=str_pad($max_rs1,6,"0",STR_PAD_LEFT);
+
+					}
+					else
+					{
+						$max_rs1="000001";
+					}
+				
+			/*else 
+				{
+					$max_rs1="000001";
+				}*/
+			return $max_rs1;	
+				
+		}
+		/////////////////////////////////////// patient details add///////////////////////////////////
+		 public function get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag)
+    	{   
+			date_default_timezone_set('Asia/Kolkata');
+        	$create_timestamp=date("Y-m-d H:i:s");
+			$data=array(
+				'patient_id' => $patient_id,				
+				'institution_code'=>$institution_code,
+				'patient_name'=>$patient_name,
+				'patient_gurdain_name'=>$patient_gurdain_name,
+				'relation_gurdain'=>$relation_gurdain,
+				'paient_age'=>$paient_age,
+				'patient_gender'=>$patient_gender,
+				'patient_district'=>$patient_district,
+				'patient_village_town'=>$patient_village_town,
+				'patient_pin'=>$patient_pin,
+				'patient_address'=>$patient_address,
+				'patient_mobile'=>$patient_mobile,
+				'patient_phone_no'=>$patient_phone_no,
+				'patient_email'=>$patient_email,
+				'patient_aadhar'=>$patient_aadhar,
+				'patient_epic'=>$patient_epic,
+				'create_timestamp' => $create_timestamp
+				);
+			 $this->db->insert('patient_details',$data);
+			
+			$data1=array('patient_id'=>$patient_id,
+				'institution_code'=>$institution_code,
+				'test_id'=>$test_type_code,
+				'test_date'=>$test_date,
+				'PN_flag'=>$PN_flag,
+				'create_timestamp' =>$create_timestamp
+				
+				);
+			return $this->db->insert('patient_test_details',$data1);
+			
+    	}
+/////////////////////////////check patient record/////////////////////////////////
+public function search_patient($patient_name,$patient_mobile)
+	{
+	
+	$this->db->select('patient_id');
+	$this->db->from('patient_details');
+	$condition="patient_details.patient_name='".$patient_name."' AND patient_details.patient_mobile='".$patient_mobile."' ";
+	
+	 $this->db->where($condition);
+	 $query = $this->db->get();
+
+ 
+   	 if($query->num_rows()>0) 
+	{
+      $data = $query->row_array();
+      $value = $data['patient_id'];
+      return $value;
+ 
+   }
+   else
+   {
+   return false;
+   }
+	
+	
+	}	
+	
+/////////////////////fetch patient details////////////////////
+public function fetch_patient_details($result)
+{
+		$this->db->select ('*');
+		$this->db->from('patient_details');
+	$this->db->where('patient_details.patient_id',$result);
+		//$this->db->where($condition);
+$query=$this->db->get();
+return $query->result_array();
+
+}		
+		
 
 }
 ?>

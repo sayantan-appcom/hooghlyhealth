@@ -44,93 +44,32 @@ header("location: index");
        
         <div class="box-body">
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                <div class="form-group">
+			   <?php
+			   foreach($fetch_patient_details as $result1)
+			   {
+			   ?>
                   <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)">
-                </div>
+                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo $result1['patient_name'];?>" readonly="">
+					</div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Patient Gurdain Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Gurdain Name" id="patient_gurdain_name" name="patient_gurdain_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Relationship with Gurdain <span class="star">*</span></label>                    
-                    <select class="form-control select2" style="width: 100%;" id="relation_gurdain" name="relation_gurdain" >
-                      <option value="">Select Relation</option>
-                      <?php
-                          foreach($get_relation as $row)
-                            { 
-                              echo '<option value="'.$row->relative_cd.'">'.$row->relative_details.'</option>';
-                            }
-                      ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Patient Age <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Age" id="paient_age" name="paient_age" onKeyPress="return onlyNumbers(event)" autocomplete="off"  maxlength="3">
-                </div>  
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Patient Gender <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="patient_gender" name="patient_gender" >
-                      <option value="">Select Patient Gender</option>
-                      <option value="01">Male</option>
-                      <option value="02">Female</option>
-                      <option value="03">Transgender</option>
-                    </select>
-                </div> 
+                    <input type="text" class="form-control" placeholder="Enter Patient Gurdain Name" id="patient_gurdain_name" name="patient_gurdain_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo $result1['patient_gurdain_name'];?>" readonly="">
+                </div>       
+                
             </div>
 
-            <div class="col-md-4">                
-                
+            <div class="col-md-6">                
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Patient District <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="patient_district" name="patient_district" >
-                      <option value="">Select Patient District</option>
-                      <option value="06">Hooghly</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Patient village / town <span class="star">*</span> </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient village / town" id="patient_village_town" name="patient_village_town" onKeyPress="return onlyLetters(event)" autocomplete="off" maxlength="15" >
-                </div> 
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Patient Postal PIN <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient PIN" id="patient_pin" name="patient_pin" onKeyPress="return onlyNumbers(event)" autocomplete="off"  minlength="6" maxlength="6">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Patient Address <span class="star">*</span></label>
-                    <textarea class="form-control" id="patient_address" name="patient_address" autocomplete="off" rows="4" placeholder="Enter Patient Address"  maxlength="100"></textarea>
-                </div>
-            </div>
-           
-            <div class="col-md-4">
-                
-                <div class="form-group">
+                  <label for="exampleInputEmail1">Patient Age <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Patient Age" id="paient_age" name="paient_age" onKeyPress="return onlyNumbers(event)" autocomplete="off"  maxlength="3" value="<?php echo $result1['patient_gurdain_name'];?> "  readonly="">
+                </div>  
+                   <div class="form-group">
                   <label for="exampleInputEmail1">Patient Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Mobile Number" id="patient_mobile" name="patient_mobile" autocomplete="off" minlength="10" maxlength="10" onKeyPress="return onlyNumbers(event)">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Patient Phone Number </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Phone Number Number" id="patient_phone_no" name="patient_phone_no" autocomplete="off" maxlength="12" onKeyPress="return onlyNumbers(event)">
-                </div> 
-                
-            </div>
-           
-            <div class="col-md-4">
-                              
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Patient Email Id </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Email Id Number" id="patient_email" name="patient_email" autocomplete="off" maxlength="50">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Patient Aadhar Number </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Aadhar Number" id="patient_aadhar" name="patient_aadhar" autocomplete="off" onKeyPress="return onlyNumbers(event)" minlength="16" maxlength="16">
-                </div> 
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Patient EPIC </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient EPIC Number" id="patient_epic" name="patient_epic" autocomplete="off" maxlength="15">
-                </div>                
-            </div>                      
+                    <input type="text" class="form-control" placeholder="Enter Patient Mobile Number" id="patient_mobile" name="patient_mobile" autocomplete="off" minlength="10" maxlength="10" onKeyPress="return onlyNumbers(event)" value="<?php echo $result1['patient_mobile'];?> "  readonly="">
+                </div>           
+                                 
           </div>
         </div>
       
@@ -190,6 +129,10 @@ header("location: index");
                 <button type="submit" class="btn btn-lg btn-success" id="">Submit</button>
               </div>   
             </div>
+					<?php
+					}
+					?>
+                
 
          </form>
       </div>   

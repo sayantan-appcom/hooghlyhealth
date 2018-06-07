@@ -19,11 +19,14 @@ header("location: index");
 
     
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Health_Home/insert_test_data');?>"  onsubmit="return(validate());">
+    <form role="form" method="POST" action="<?php echo site_url('Health_Home/search_patient');?>"  onsubmit="return(validate());">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
-                        echo validation_errors();                        
+                        echo validation_errors();      
+						     if (isset($success_message ) ) {
+                          echo $success_message;
+                          }                  
                      ?>
              </h3>
       
