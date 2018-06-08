@@ -52,19 +52,7 @@ header("location: index");
                       
                     </select>
                 </div>
-               <!-- <div class="form-group">
-                  <label for="exampleInputEmail1">Sub-division</label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_subdivision" name="inst_subdivision" required="">
-                      <option value="">Select Sub-division</option>
-                    </select>
-                </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Block</label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_block" name="inst_block" required="">
-                      <option value="">Select Block</option>
-                    </select>
-                </div>   -->
-                 <div class="form-group">
                   <label for="exampleInputPassword1">User Type <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="user_type" name="user_type" required="">
                       <option value="">Select User Type</option>
@@ -77,13 +65,18 @@ header("location: index");
                     </select>
                 </div> 
                 <div class="form-group">
-                  <label for="exampleInputEmail1">User Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter User Name" id="user_name" name="user_name" onKeyPress="return onlyLetters(event)" autocomplete="off">
-                </div>  
+                  <label for="exampleInputEmail1">Sub-division</label>
+                    <select class="form-control select2" style="width: 100%;" id="user_subdivision" name="user_subdivision" required="">
+                      <option value="">Select Sub-division</option>
+                    </select>
+                </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">User Designation <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter User Designation" id="user_desg" name="user_desg" onKeyPress="return onlyLetters(event)" autocomplete="off">
-                </div>            
+                  <label for="exampleInputPassword1">Block</label>
+                    <select class="form-control select2" style="width: 100%;" id="user_block" name="user_block" required="">
+                      <option value="">Select Block</option>
+                    </select>
+                </div>                
+                          
               </div>
              </div>
             </div> 
@@ -95,6 +88,14 @@ header("location: index");
             <!-- form start -->
             
               <div class="box-body">
+                <div class="form-group">
+                  <label for="exampleInputEmail1">User Name <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter User Name" id="user_name" name="user_name" onKeyPress="return onlyLetters(event)" autocomplete="off">
+                </div>  
+                <div class="form-group">
+                  <label for="exampleInputEmail1">User Designation <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter User Designation" id="user_desg" name="user_desg" onKeyPress="return onlyLetters(event)" autocomplete="off">
+                </div>  
                 <div class="form-group">
                   <label for="exampleInputPassword1">User Email Id <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Enter User Email Id" id="user_email" name="user_email" autocomplete="off">
@@ -149,10 +150,10 @@ header("location: index");
      });
    });        
 
-   $('#inst_district').change(function(e){
+   $('#user_district').change(function(e){
       //alert("nibu");
 
-      var district = $('#inst_district').val();
+      var district = $('#user_district').val();
   
       // AJAX request
       $.ajax({
@@ -164,16 +165,16 @@ header("location: index");
         dataType: 'json',
         success: function(response){
           $.each(response,function(index,data){
-             $('#inst_subdivision').append('<option value="'+data['subdivision_code']+'">'+data['subdivision_name']+'</option>');
+             $('#user_subdivision').append('<option value="'+data['subdivision_code']+'">'+data['subdivision_name']+'</option>');
           });
         }
      });
    });   
 
-   $('#inst_subdivision').change(function(e){
+   $('#user_subdivision').change(function(e){
       //alert("nibu");
 
-      var subdivision = $('#inst_subdivision').val();
+      var subdivision = $('#user_subdivision').val();
   
       // AJAX request
       $.ajax({
@@ -184,13 +185,25 @@ header("location: index");
         },
         dataType: 'json',
         success: function(response){
-          $('#inst_block').empty();
-          $('#inst_block').append("<option value=''>Select Block</option>");
+          $('#user_block').empty();
+          $('#user_block').append("<option value=''>Select Block</option>");
           $.each(response,function(index,data){
-             $('#inst_block').append('<option value="'+data['blockminicd']+'">'+data['blockmuni']+'</option>');
+             $('#user_block').append('<option value="'+data['blockminicd']+'">'+data['blockmuni']+'</option>');
           });
         }
      });
-   });                   
+   }); 
+
+   $('#user_type').change(function () {
+            if ($(this).val() == "07") {                
+                  $("#user_subdivision").prop("disabled", false);
+                  $("#user_block").prop("disabled", true);
+                }  
+                            
+            else {
+                  $("#user_subdivision").prop("disabled", true);
+                  $("#user_block").prop("disabled", true);
+            }
+        });                  
   
   </script>

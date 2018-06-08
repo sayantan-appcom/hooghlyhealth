@@ -135,15 +135,7 @@ class Health_Home extends CI_Controller {
 			
 		}
 
-	public function admission_search()
-		{
-			$this->load->view('maincontents/header');
-			$this->load->view('maincontents/nav');	
-			//$data['get_disease']=$this->Mod_health->get_disease();	
-			$this->load->view('maincontents/admission_details');		
-			$this->load->view('maincontents/footer');	
-
-		}									
+									
 ///////////////////////////////////Insert test for patients////////////////////////////////////////////////////////
 	
 	public function insert_diagnosis_test()
@@ -307,6 +299,185 @@ echo $result=$this->uri->segment(3);
 	$this->load->view('maincontents/fetch_patient_details',$data);
 	$this->load->view('maincontents/footer');
 }
+
+	// .......... Admission Search .......... //
+	public function admission_search()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/admission_search');		
+			$this->load->view('maincontents/footer');	
+
+		}	
+
+	//.......... Admission Details Form..........//
+
+	public function admission_details()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$data['get_disease']=$this->Mod_health->get_disease();
+			$data['get_relation']=$this->Mod_health->get_relation();
+			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
+			$data['patient_status']=$this->Mod_health->patient_status();
+			$this->load->view('maincontents/admission_details',$data);
+			$this->load->view('maincontents/footer');	
+
+		}
+
+	// .......... Admission Insert ..........//
+	public function insert_admission()
+		{
+			$this->form_validation->set_rules('doctor_name','Doctor Name','trim|required|xss_clean');
+			
+			if ($this->form_validation->run() == TRUE) 
+				{					
+					$date= date("Y");
+					$max=$this->Mod_health->get_max_regisID();
+
+					$patient_name = $this->input->post('patient_name');
+					$patient_gurdain_name = $this->input->post('patient_gurdain_name');			
+					$relation_gurdain = $this->input->post('relation_gurdain');
+					$paient_age = $this->input->post('paient_age');
+					$patient_gender = $this->input->post('patient_gender');
+					$patient_district = $this->input->post('patient_district');
+					$patient_village_town = $this->input->post('patient_village_town');
+					$patient_pin = $this->input->post('patient_pin');
+					$patient_address = $this->input->post('patient_address');
+					$patient_mobile = $this->input->post('patient_mobile');
+					$patient_phone_no = $this->input->post('patient_phone_no');
+					$patient_email = $this->input->post('patient_email');
+					$patient_aadhar = $this->input->post('patient_aadhar');
+					$patient_epic = $this->input->post('patient_epic');
+					$institution_code = $this->input->post('user_id');
+					$doctor_name = $this->input->post('doctor_name');
+					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$admission_date_time = $this->input->post('admission_date_time');
+					$admission_ward = $this->input->post('admission_ward');
+					$admission_block = $this->input->post('admission_block');
+					$admission_floor = $this->input->post('admission_floor');
+					$admission_bed_no = $this->input->post('admission_bed_no');
+					$patient_status = $this->input->post('patient_status');
+					$dischrg_date_time = $this->input->post('dischrg_date_time');
+					$referout_date_time = $this->input->post('referout_date_time');
+					$cause_of_referout = $this->input->post('cause_of_referout'); 
+					$referout_to_whom = $this->input->post('referout_to_whom'); 
+					$lama_datetime = $this->input->post('lama_datetime');
+					$lama_cause = $this->input->post('lama_cause');			
+					$absconded_datetime = $this->input->post('absconded_datetime');
+					$death_date_time = $this->input->post('death_date_time'); 
+					$cause_of_death = $this->input->post('cause_of_death');
+
+					$patient_id = $date.$max;
+
+					
+
+					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+
+						if ($result == TRUE)
+			 				{										
+								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");				
+							} 						
+					
+     		 }
+						else
+							{
+								$this->session->set_flashdata('admission_msg',"Admission Details not  Saved Successfully !");
+							}	
+
+						$this->load->view('maincontents/header');
+						$this->load->view('maincontents/nav');
+						$this->load->view('maincontents/admission_search');		
+						$this->load->view('maincontents/footer');		 
+			
+		}
+
+	//.......... Check Patient ..........//
+
+	public function check_patient()
+		{
+			$patient_name = $this->input->post('patient_name');
+			$patient_mobile = $this->input->post('patient_mobile');
+			$result=$this->Mod_health->search_patient($patient_name,$patient_mobile);
+			if($result != NULL)
+			{
+				echo json_encode(array("Status"=>"Patient already exists ! ","Patient_ID"=>$result));
+			}
+			if($result==false)
+			{
+				echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! "));	
+			}
+
+		}
+
+	//.......... Only Admission Details Form..........//
+
+	public function admission_details_only()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');
+			$result=$this->uri->segment(3);
+			$data['fetch_patient_details']=$this->Mod_health->fetch_patient_details($result);	
+			$data['get_disease']=$this->Mod_health->get_disease();
+			$data['get_relation']=$this->Mod_health->get_relation();
+			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
+			$data['patient_status']=$this->Mod_health->patient_status();
+			$this->load->view('maincontents/admission_details_only',$data);
+			$this->load->view('maincontents/footer');	
+
+		}
+		
+	// .......... Only Admission Insert ..........//
+	public function insert_admission_only()
+		{
+			$this->form_validation->set_rules('doctor_name','Doctor Name','trim|required|xss_clean');
+			
+			if ($this->form_validation->run() == TRUE) 
+				{					
+					
+					$patient_id = $this->input->post('patient_id');
+					$patient_name = $this->input->post('patient_name');
+					$patient_gurdain_name = $this->input->post('patient_gurdain_name');	
+					$paient_age = $this->input->post('paient_age');
+					$patient_mobile = $this->input->post('patient_mobile');
+					$institution_code = $this->input->post('user_id');
+					$doctor_name = $this->input->post('doctor_name');
+					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$admission_date_time = $this->input->post('admission_date_time');
+					$admission_ward = $this->input->post('admission_ward');
+					$admission_block = $this->input->post('admission_block');
+					$admission_floor = $this->input->post('admission_floor');
+					$admission_bed_no = $this->input->post('admission_bed_no');
+					$patient_status = $this->input->post('patient_status');
+					$dischrg_date_time = $this->input->post('dischrg_date_time');
+					$referout_date_time = $this->input->post('referout_date_time');
+					$cause_of_referout = $this->input->post('cause_of_referout'); 
+					$referout_to_whom = $this->input->post('referout_to_whom'); 
+					$lama_datetime = $this->input->post('lama_datetime');
+					$lama_cause = $this->input->post('lama_cause');			
+					$absconded_datetime = $this->input->post('absconded_datetime');
+					$death_date_time = $this->input->post('death_date_time'); 
+					$cause_of_death = $this->input->post('cause_of_death');
+
+					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+
+						if ($result == TRUE)
+			 				{										
+								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");				
+							} 						
+					
+     		 }
+						else
+							{
+								$this->session->set_flashdata('admission_msg',"Admission Details not  Saved Successfully !");
+							}	
+
+						$this->load->view('maincontents/header');
+						$this->load->view('maincontents/nav');
+						$this->load->view('maincontents/admission_search');		
+						$this->load->view('maincontents/footer');		 
+			
+		}				
 
 	
 

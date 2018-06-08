@@ -108,9 +108,10 @@ header("location: index");
       <i class="fa fa-star"></i><span>User Details <br></span>         
     </a>        
   </li>
+  
     
   </li>
  </ul>
      </section>
-    <!-- /.sidebar -->
+
   </aside>

@@ -214,7 +214,7 @@ Class Mod_admin extends CI_Model {
 				}
 		}
 		
-    public function get_admin_insert($user_id,$state,$district,$user_type,$user_name,$user_desg,$user_email,$user_mobile,$user_password)
+    public function get_admin_insert($user_id,$state,$district,$user_subdivision,$user_block,$user_type,$user_name,$user_desg,$user_email,$user_mobile,$user_password)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -231,7 +231,9 @@ Class Mod_admin extends CI_Model {
 			$data1=array(
 				'user_id'=>$user_id,
 				'state_code'=>$state,	
-				'district_code'=>$district
+				'district_code'=>$district,	
+				'subdivision_code'=>$user_subdivision,	
+				'block_code'=>$user_block
 				);
 			$this->db->insert('user_area',$data1);
 
@@ -438,6 +440,35 @@ $this->db->where($condition);
 $query=$this->db->get();
 return $query->result_array();
 }
+
+//.......... Get Password ..........//
+
+	public function get_password($user_id) 
+	{
+
+	   	$this->db->select('user_password');
+		$this->db->from('user_login');
+		$this->db->where('user_id',$user_id);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		$flag = $query->row();
+		return $flag->user_password;
+	}
+
+//.......... Update Password ..........//
+	public function get_change_password($user_id,$current_password,$new_password,$confirm_password) 
+	{
+		date_default_timezone_set('Asia/Kolkata');
+        $update_timestamp=date("Y-m-d H:i:s");
+		//$this->db->set('user_password', $new_password);
+		$data = array(
+               'user_password' => md5($new_password),
+               'password_update_time' => $update_timestamp
+            );   
+		$this->db->where('user_id', $user_id);  
+		return $this->db->update('user_login',$data); 
+	   	
+	}	
 
 }
 ?>

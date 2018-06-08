@@ -35,7 +35,7 @@ header("location: index");
 
       <li>        
         <?php if($user_type=='07'){ ?>
-        <a href="<?php echo site_url('Health_Home/admission_search'); ?>/<?php echo $user_id; ?>">
+        <a href="<?php echo site_url('Health_Home/admission_search'); ?>">
           
           <i class="fa fa-plus"></i> Admission cum Registration           
         </a> 

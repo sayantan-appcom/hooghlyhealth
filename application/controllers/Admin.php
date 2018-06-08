@@ -286,6 +286,8 @@ class Admin extends CI_Controller {
 		{
 			$this->form_validation->set_rules('user_state','State','trim|required|xss_clean');
 			$this->form_validation->set_rules('user_district','District','trim|required|xss_clean');
+			$this->form_validation->set_rules('user_subdivision','District','trim|xss_clean');
+			$this->form_validation->set_rules('user_block','District','trim|xss_clean');
 			$this->form_validation->set_rules('user_type','User Type','trim|required|xss_clean');
 			$this->form_validation->set_rules('user_name','User Name','trim|required|xss_clean');
 			$this->form_validation->set_rules('user_desg','User Designation','trim|required|xss_clean');
@@ -302,6 +304,8 @@ class Admin extends CI_Controller {
 
 					$state = $this->input->post('user_state');
 					$district = $this->input->post('user_district');
+					$user_subdivision = $this->input->post('user_subdivision');
+					$user_block = $this->input->post('user_block');
 					$user_type = $this->input->post('user_type');
 					$user_name = $this->input->post('user_name');
 					$user_desg = $this->input->post('user_desg');
@@ -311,7 +315,7 @@ class Admin extends CI_Controller {
 					
 					$user_id = $state.$district.$usercd; 
 
-					$result=$this->Mod_admin->get_admin_insert($user_id,$state,$district,$user_type,$user_name,$user_desg,$user_email,$user_mobile,$user_password);
+					$result=$this->Mod_admin->get_admin_insert($user_id,$state,$district,$user_subdivision,$user_block,$user_type,$user_name,$user_desg,$user_email,$user_mobile,$user_password);
 
 						if ($result == TRUE)
 			 				{	
@@ -650,5 +654,58 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/fetch_institute_details',$data);
  
  		}
+
+ //.............. Change Password ..........//
+ 	public function change_password()
+		{
+			$this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$this->load->view('admin/change_password');		
+			$this->load->view('admin/footer');	
+
+		}
+
+	public function password_change()
+		{
+			$this->form_validation->set_rules('user_id', 'User ID', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('current_password', 'Current Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[new_password]');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$user_id = $this->input->post('user_id');
+				$current_password = md5($this->input->post('current_password'));
+				$new_password = $this->input->post('new_password');
+				$confirm_password = $this->input->post('confirm_password');
+
+				$password=$this->Mod_admin->get_password($user_id);
+				if($password == $current_password)
+				{
+					$result=$this->Mod_admin->get_change_password($user_id,$current_password,$new_password,$confirm_password);
+					if ($result == TRUE)
+			 				{
+			 					$this->session->set_flashdata('change_success',"Password Changed Successfully !");										
+							}
+					else
+			 				{
+			 					$this->session->set_flashdata('change_success',"Password Changed Unsuccessfully !");										
+							}								 
+				}
+				else
+			 				{
+			 					$this->session->set_flashdata('change_success',"Current Password does not matched ! Please enter password");										
+							}
+						}
+				
+					$this->load->view('admin/header');	
+					$this->load->view('admin/nav');
+					$this->load->view('admin/change_password');		
+					$this->load->view('admin/footer');
+					
+				
+
+
+		}			
 
 }

@@ -85,7 +85,7 @@ header("location: index");
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="<?php echo site_url('Admin/change_password');?>" class="btn btn-default btn-flat" class="btn btn-default btn-flat">Change Password</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('Admin/logout');?>" class="btn btn-default btn-flat">Log out</a>

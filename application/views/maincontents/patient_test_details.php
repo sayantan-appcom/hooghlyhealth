@@ -209,7 +209,7 @@ header("location: index");
    $('#disease_code').change(function(e){
      // alert("nibu");
       var disease_category = $('#disease_code').val();
-	  var user_type = $('#user_type').val();
+	    var user_type = $('#user_type').val();
   
       // AJAX request
       $.ajax({

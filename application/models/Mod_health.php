@@ -253,7 +253,92 @@ public function fetch_patient_details($result)
 $query=$this->db->get();
 return $query->result_array();
 
-}		
+}
+
+	// .......... Insert Admission Details .......... //
+	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+    	{   
+			date_default_timezone_set('Asia/Kolkata');
+        	$create_timestamp=date("Y-m-d H:i:s");
+        	$data=array(
+				'patient_id' => $patient_id,				
+				'institution_code'=>$institution_code,
+				'patient_name'=>$patient_name,
+				'patient_gurdain_name'=>$patient_gurdain_name,
+				'relation_gurdain'=>$relation_gurdain,
+				'paient_age'=>$paient_age,
+				'patient_gender'=>$patient_gender,
+				'patient_district'=>$patient_district,
+				'patient_village_town'=>$patient_village_town,
+				'patient_pin'=>$patient_pin,
+				'patient_address'=>$patient_address,
+				'patient_mobile'=>$patient_mobile,
+				'patient_phone_no'=>$patient_phone_no,
+				'patient_email'=>$patient_email,
+				'patient_aadhar'=>$patient_aadhar,
+				'patient_epic'=>$patient_epic,
+				'create_timestamp' => $create_timestamp
+				);
+			 $this->db->insert('patient_details',$data);
+			$data1=array(
+				'patient_id' => $patient_id,
+				'institution_code' => $institution_code,
+				'disease_subcase_code'=>$disease_subcase_code,
+				'doctor_name'=>$doctor_name,
+				'admission_date_time'=>$admission_date_time,
+				'admission_ward'=>$admission_ward,
+				'admission_block'=>$admission_block,
+				'admission_floor'=>$admission_floor,
+				'admission_bed_no'=>$admission_bed_no,
+				'patient_status'=>$patient_status,
+				'dischrg_date_time'=>$dischrg_date_time,
+				'referout_date_time'=>$referout_date_time,
+				'cause_of_referout'=>$cause_of_referout,
+				'referout_to_whom'=>$referout_to_whom,
+				'lama_datetime'=>$lama_datetime,
+				'lama_cause'=>$lama_cause,
+				'absconded_datetime'=>$absconded_datetime,
+				'death_date_time'=>$death_date_time,
+				'cause_of_death'=>$cause_of_death,
+				'create_timestamp' => $create_timestamp
+				);
+			 
+			return $this->db->insert('admission_details',$data1);
+			
+    	}
+
+    // .......... Insert Only Admission Details .......... //
+	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+    	{   
+			date_default_timezone_set('Asia/Kolkata');
+        	$create_timestamp=date("Y-m-d H:i:s");
+        	
+			$data=array(
+				'patient_id' => $patient_id,
+				'institution_code' => $institution_code,
+				'disease_subcase_code'=>$disease_subcase_code,
+				'doctor_name'=>$doctor_name,
+				'admission_date_time'=>$admission_date_time,
+				'admission_ward'=>$admission_ward,
+				'admission_block'=>$admission_block,
+				'admission_floor'=>$admission_floor,
+				'admission_bed_no'=>$admission_bed_no,
+				'patient_status'=>$patient_status,
+				'dischrg_date_time'=>$dischrg_date_time,
+				'referout_date_time'=>$referout_date_time,
+				'cause_of_referout'=>$cause_of_referout,
+				'referout_to_whom'=>$referout_to_whom,
+				'lama_datetime'=>$lama_datetime,
+				'lama_cause'=>$lama_cause,
+				'absconded_datetime'=>$absconded_datetime,
+				'death_date_time'=>$death_date_time,
+				'cause_of_death'=>$cause_of_death,
+				'create_timestamp' => $create_timestamp
+				);
+			 
+			return $this->db->insert('admission_details',$data);
+			
+    	}			
 		
 
 }
