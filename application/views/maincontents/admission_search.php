@@ -69,22 +69,24 @@ header("location: index");
               </div>    
               </div>                
             </div>            
-          </div>   
+          </div>  
+
+           <div class="row hidden msg">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="form-group">
+                  <div class="btn btn-lg btn-primary">
+                    <!--<a href="<?php //echo site_url('Health_Home/admission_details');?>" id='p_name'><font color="#FFFFFF">Add Patient & Admission Details</font></a>-->
+                    <button type="submit" class="btn btn-primary">Add New Patient & Admission Details</button>
+                  </div>
+              </div>                
+            </div>            
+          </div> 
 
          </form>
        
 
       
-          <div class="row hidden msg">
-            <div class="col-md-6 col-md-offset-3">
-              <div class="form-group">
-                  <div class="btn btn-lg btn-primary">
-                    <a href="<?php echo site_url('Health_Home/admission_details');?>" id='p_name'><font color="#FFFFFF">Add Patient & Admission Details</font></a>
-                    
-                  </div>
-              </div>                
-            </div>            
-          </div>
+         
 
           <div class="container show hidden">
             <table class="table" id="show_patient">
@@ -216,10 +218,10 @@ header("location: index");
                         //$('.chck').html(report[0].Patient_ID);
                       }
                           else{
-                            alert(report.Status);
-                            var href = $('#p_name').prop('href');
-                        $('#p_name').prop('href',href+'/'+report.Patient_Name+'/'+report.Patient_Mobile);
+                            alert(report.Status);                           
                           $('.msg').removeClass('hidden');
+                           var href = $('#p_name').prop('href');
+                        $('#p_name').prop('href',href+'/'+report.Patient_Name+'/'+report.Patient_Mobile);
                           }
                            
                     },
