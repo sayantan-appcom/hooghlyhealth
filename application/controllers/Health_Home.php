@@ -70,8 +70,24 @@ class Health_Home extends CI_Controller {
 			$this->load->view('maincontents/footer');	
 
 		}
-
+		
 	public function patient_details()
+		{
+			 $patient_name=$this->input->post('patient_name');
+			
+			$patient_mobile=$this->input->post('patient_mobile');
+			$data['patient_name']=$patient_name;
+			$data['patient_mobile']=$patient_mobile;
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$data['get_disease']=$this->Mod_health->get_disease();
+			$data['get_relation']=$this->Mod_health->get_relation();
+			$this->load->view('maincontents/patient_test_details',$data);
+			$this->load->view('maincontents/footer');	
+
+		}	
+
+	/*public function patient_details()
 		{
 			$this->load->view('maincontents/header');
 			$this->load->view('maincontents/nav');	
@@ -80,7 +96,7 @@ class Health_Home extends CI_Controller {
 			$this->load->view('maincontents/patient_test_details',$data);
 			$this->load->view('maincontents/footer');	
 
-		}
+		}*/
 
 	public function gettestname()
 		{
@@ -145,7 +161,8 @@ class Health_Home extends CI_Controller {
 			$this->form_validation->set_rules('patient_name','Patient Name','trim|xss_clean|required|max_length[30]');
 			$this->form_validation->set_rules('patient_gurdain_name','Patient Gurdain Name','trim|xss_clean|required|max_length[30]');
 			$this->form_validation->set_rules('relation_gurdain','Relation With Gurdain','trim|xss_clean|required|max_length[15]');
-			$this->form_validation->set_rules('paient_age','Patient Age','trim|required|xss_clean|max_length[3]');
+			//$this->form_validation->set_rules('paient_age','Patient Age','trim|required|xss_clean|max_length[3]');
+			$this->form_validation->set_rules('patient_age_year','Patient Age','trim|required|xss_clean|max_length[3]');
 			$this->form_validation->set_rules('patient_gender','Patient Gender','trim|required|xss_clean');
 			$this->form_validation->set_rules('patient_district','Patient District','trim|required|xss_clean');
 			$this->form_validation->set_rules('patient_village_town','Patient Villege / Town','trim|xss_clean|required|max_length[15]');
@@ -167,21 +184,14 @@ class Health_Home extends CI_Controller {
 				{					
 					$date= date("Y");
 					$max=$this->Mod_health->get_max_regisID();
-				//echo $max;
-			
-					$institution_code = $this->input->post('user_id');
-					/*$get_fulldetails=$this->Mod_health->get_fulldetails($institution_code);
-					foreach ($get_fulldetails as $detail) {
-						 $state_code = $detail['state_code'];
-						 $district_code = $detail['district_code'];
-						 $subdivision_code = $detail['subdivision_code'];
-						 $block_code = $detail['block_code'];						
-					}*/
 					
+					$institution_code = $this->input->post('user_id');
 					$patient_name = $this->input->post('patient_name');
 					$patient_gurdain_name = $this->input->post('patient_gurdain_name');			
 					$relation_gurdain = $this->input->post('relation_gurdain');
-					$paient_age = $this->input->post('paient_age');
+					//$paient_age = $this->input->post('paient_age');
+					$patient_age_year=$this->input->post('patient_age_year');
+					$patient_age_month=$this->input->post('patient_age_month');
 					$patient_gender = $this->input->post('patient_gender');
 					$patient_district = $this->input->post('patient_district');
 					$patient_village_town = $this->input->post('patient_village_town');
@@ -195,11 +205,49 @@ class Health_Home extends CI_Controller {
 					$test_date = $this->input->post('test_date');
 					$disease_code = $this->input->post('disease_code');
 					$disease_subcase_code = $this->input->post('disease_subcase_code');
-					$test_type_code = $this->input->post('test_type_code');
+				    $test_type_code = $this->input->post('test_type_code');
 					$PN_flag = $this->input->post('PN_flag');				
 					$patient_id = $date.$max;
+					///////////////////////////11.06.2018////////////////////////
+					 $fetch_test_count=$this->Mod_health->fetch_test_count($test_date,$test_type_code,$institution_code);
+					 //$fetch_test_count;
+					
+					$fetch_positive_test_case=$this->Mod_health->fetch_positive_test_case($test_date,$test_type_code,$institution_code);
+					//echo  $fetch_positive_test_case;
+				
+					if($fetch_test_count==0)
+					{
+					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => ' Ther is no total test details entry first enter your total case  details'					
+				);			
+							  $this->load->view('maincontents/patient_search',$data);
+			                  $this->load->view('maincontents/footer');
+					
+					
+					}
+					
+					else if($fetch_positive_test_case>=$fetch_test_count)
+					{
+					
+						$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => 'your positive case details can not be greater than total test case entry '					
+				);			
+								
 
-					$result=$this->Mod_health->get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag);
+							  $this->load->view('maincontents/patient_search',$data);
+			                  $this->load->view('maincontents/footer');
+					}
+					
+					///////////////////////////11.06.2018/////////////////////////
+					else{
+
+					//$result=$this->Mod_health->get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag);
+					
+					$result=$this->Mod_health->get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag);
 				
 							
 
@@ -212,7 +260,7 @@ class Health_Home extends CI_Controller {
 				);			
 								
 
-							  $this->load->view('maincontents/patient_test_details',$data);
+							  $this->load->view('maincontents/patient_search',$data);
 			                  $this->load->view('maincontents/footer');
 							
 							} 
@@ -231,7 +279,9 @@ class Health_Home extends CI_Controller {
 							}
 						
 					 }
-					 
+					 /////////////////////////////11.06.2018//////////////////
+					 }
+					 /////////////////////////////11.06.2018//////////////////
 						else
 							{
 								$this->load->view('maincontents/header');
@@ -247,46 +297,11 @@ class Health_Home extends CI_Controller {
 									 
 			
 		}	
-
-
-
-/////////////////////////////////////// search_patient////////////////////////////////////////////////////////////////
-
-public function search_patient()
-{
-	$patient_name = $this->input->post('patient_name');
-	$patient_mobile = $this->input->post('patient_mobile');
-	$result=$this->Mod_health->search_patient($patient_name,$patient_mobile);
 	
-	
-	if($result!=0)
-	{
-	
-	$this->load->view('maincontents/header');
-	$this->load->view('maincontents/nav');
-
-	?>
-	<a class="star" href="<?php echo site_url('Health_Home/fetch_patient_details'); ?>/<?php echo $result;?>"><?php echo "ALREADY DATA EXIST";?></a>	
-	<?php
-	$this->load->view('maincontents/footer');
-	}
-
-else
-{ 
-	$this->load->view('maincontents/header');
-	$this->load->view('maincontents/nav');
-	$data['get_disease']=$this->Mod_health->get_disease();
-	$data['get_relation']=$this->Mod_health->get_relation();
-	$this->load->view('maincontents/patient_test_details',$data);
-	$this->load->view('maincontents/footer');
-
-
-}
-}
 
 public function  fetch_patient_details()
 {
-echo $result=$this->uri->segment(3);
+ $result=$this->uri->segment(3);
 
 
    
@@ -315,7 +330,11 @@ echo $result=$this->uri->segment(3);
 	public function admission_details()
 		{
 			$this->load->view('maincontents/header');
-			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/nav');
+			$patient_name=$this->uri->segment(3);
+			$patient_mobile=$this->uri->segment(4);
+			$data['patient_name']=$patient_name;				
+			$data['patient_mobile']=$patient_mobile;
 			$data['get_disease']=$this->Mod_health->get_disease();
 			$data['get_relation']=$this->Mod_health->get_relation();
 			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
@@ -324,6 +343,26 @@ echo $result=$this->uri->segment(3);
 			$this->load->view('maincontents/footer');	
 
 		}
+
+	//.......... Admission Details Form..........//
+
+	public function admission_details_next()
+		{
+			$patient_name=$this->input->post('patient_name');
+			$patient_mobile=$this->input->post('patient_mobile');
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');
+			
+			$data['patient_name']=$patient_name;				
+			$data['patient_mobile']=$patient_mobile;
+			$data['get_disease']=$this->Mod_health->get_disease();
+			$data['get_relation']=$this->Mod_health->get_relation();
+			$data['get_admission_ward']=$this->Mod_health->get_admission_ward();
+			$data['patient_status']=$this->Mod_health->patient_status();
+			$this->load->view('maincontents/admission_details',$data);
+			$this->load->view('maincontents/footer');	
+
+		}	
 
 	// .......... Admission Insert ..........//
 	public function insert_admission()
@@ -338,7 +377,9 @@ echo $result=$this->uri->segment(3);
 					$patient_name = $this->input->post('patient_name');
 					$patient_gurdain_name = $this->input->post('patient_gurdain_name');			
 					$relation_gurdain = $this->input->post('relation_gurdain');
-					$paient_age = $this->input->post('paient_age');
+					//$paient_age = $this->input->post('paient_age');
+					$patient_age_year=$this->input->post('patient_age_year');
+					$patient_age_month=$this->input->post('patient_age_month');
 					$patient_gender = $this->input->post('patient_gender');
 					$patient_district = $this->input->post('patient_district');
 					$patient_village_town = $this->input->post('patient_village_town');
@@ -359,11 +400,10 @@ echo $result=$this->uri->segment(3);
 					$admission_bed_no = $this->input->post('admission_bed_no');
 					$patient_status = $this->input->post('patient_status');
 					$dischrg_date_time = $this->input->post('dischrg_date_time');
+					$referout_type = $this->input->post('referout_type');
 					$referout_date_time = $this->input->post('referout_date_time');
 					$cause_of_referout = $this->input->post('cause_of_referout'); 
-					$referout_to_whom = $this->input->post('referout_to_whom'); 
-					$lama_datetime = $this->input->post('lama_datetime');
-					$lama_cause = $this->input->post('lama_cause');			
+					$referout_to_whom = $this->input->post('referout_to_whom');
 					$absconded_datetime = $this->input->post('absconded_datetime');
 					$death_date_time = $this->input->post('death_date_time'); 
 					$cause_of_death = $this->input->post('cause_of_death');
@@ -372,7 +412,7 @@ echo $result=$this->uri->segment(3);
 
 					
 
-					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
 
 						if ($result == TRUE)
 			 				{										
@@ -392,20 +432,24 @@ echo $result=$this->uri->segment(3);
 			
 		}
 
-	//.......... Check Patient ..........//
+	//.......... Check Patient Admin..........//
 
 	public function check_patient()
 		{
 			$patient_name = $this->input->post('patient_name');
 			$patient_mobile = $this->input->post('patient_mobile');
-			$result=$this->Mod_health->search_patient($patient_name,$patient_mobile);
+			$result=$this->Mod_health->search_patient_admin($patient_name,$patient_mobile);
+			//echo $abc=$result['patient_id'];
 			if($result != NULL)
 			{
-				echo json_encode(array("Status"=>"Patient already exists ! ","Patient_ID"=>$result));
+				//echo $abc=$result['patient_id'];
+				//echo json_encode(array(/*"Patient_ID"=>$result['patient_id'],"Patient_Name"=>$result['patient_name'],"Patient_Mobile"=>$result['patient_mobile'],*/"Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));
+				echo json_encode($result/*,$patient_name,$patient_mobile*/);
+				//echo json_encode(array("Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));
 			}
 			if($result==false)
 			{
-				echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! "));	
+				echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! ","Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));	
 			}
 
 		}
@@ -450,16 +494,15 @@ echo $result=$this->uri->segment(3);
 					$admission_bed_no = $this->input->post('admission_bed_no');
 					$patient_status = $this->input->post('patient_status');
 					$dischrg_date_time = $this->input->post('dischrg_date_time');
+					$referout_type = $this->input->post('referout_type');
 					$referout_date_time = $this->input->post('referout_date_time');
 					$cause_of_referout = $this->input->post('cause_of_referout'); 
 					$referout_to_whom = $this->input->post('referout_to_whom'); 
-					$lama_datetime = $this->input->post('lama_datetime');
-					$lama_cause = $this->input->post('lama_cause');			
 					$absconded_datetime = $this->input->post('absconded_datetime');
 					$death_date_time = $this->input->post('death_date_time'); 
 					$cause_of_death = $this->input->post('cause_of_death');
 
-					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
 
 						if ($result == TRUE)
 			 				{										
@@ -477,7 +520,142 @@ echo $result=$this->uri->segment(3);
 						$this->load->view('maincontents/admission_search');		
 						$this->load->view('maincontents/footer');		 
 			
-		}				
+		}
+
+	//............................//
+	/////////////////////////////////////// search_patient////////////////////////////////////////////////////////////////
+
+	public function search_patient()
+	{
+		$patient_name = $this->input->post('patient_name');
+		$patient_mobile = $this->input->post('patient_mobile');
+		$data['patient_name']=$patient_name;
+		$data['patient_mobile']=$patient_mobile;
+		$data['fetch_exist_patient_details']=$this->Mod_health->search_patient($patient_mobile);
+		if($data!=0)
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');
+			$this->load->view('maincontents/fetch_exist_patient_details',$data);
+			$this->load->view('maincontents/footer');
+		}
+
+	/*else
+	{ 
+		$this->load->view('maincontents/header');
+		$this->load->view('maincontents/nav');
+		$data['get_disease']=$this->Mod_health->get_disease();
+		$data['get_relation']=$this->Mod_health->get_relation();
+		$this->load->view('maincontents/patient_test_details1',$data);
+		$this->load->view('maincontents/footer');
+
+	}*/
+}
+
+	/////////////////////////patient_test_insert_only//////////////////////////////////
+public function patient_test_insert_only()
+{
+
+
+			$this->form_validation->set_rules('test_date','Test Date','trim|required|xss_clean');
+			$this->form_validation->set_rules('disease_code','Disease Category','trim|required|xss_clean');
+			$this->form_validation->set_rules('disease_subcase_code','Disease Sub Category','trim|required|xss_clean');
+			$this->form_validation->set_rules('test_type_code','Test Name','trim|required|xss_clean');	
+			
+
+			if ($this->form_validation->run() == TRUE) 
+				{					
+					
+					$institution_code = $this->input->post('user_id');
+					$test_date = $this->input->post('test_date');
+					$disease_code = $this->input->post('disease_code');
+					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$test_type_code = $this->input->post('test_type_code');
+					$PN_flag = $this->input->post('PN_flag');				
+					$patient_id =$this->input->post('patient_id');
+					/////12.06.2018///////////////
+					 $fetch_test_count=$this->Mod_health->fetch_test_count($test_date,$test_type_code,$institution_code);
+					 //$fetch_test_count;
+					
+					$fetch_positive_test_case=$this->Mod_health->fetch_positive_test_case($test_date,$test_type_code,$institution_code);
+					//echo  $fetch_positive_test_case;
+				
+					if($fetch_test_count==0)
+					{
+					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => ' There are no total test details. First enter your total case  details !'					
+				);			
+							  $this->load->view('maincontents/patient_search',$data);
+			                  $this->load->view('maincontents/footer');
+					
+					
+					}
+					
+					else if($fetch_positive_test_case>=$fetch_test_count)
+					{
+					
+						$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => 'your positive case details can not be greater than total test case entry '					
+				);			
+								
+
+							  $this->load->view('maincontents/patient_search',$data);
+			                  $this->load->view('maincontents/footer');
+					}
+					
+					else
+					{
+
+					$result=$this->Mod_health->patient_test_insert_only($patient_id,$institution_code,$test_type_code,$test_date,$PN_flag);
+				
+	
+						if ($result == 1)
+			 				{	
+			 					$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => 'Patient Test Details saved successfullly!  '				
+				);			
+								
+
+							  $this->load->view('maincontents/patient_search',$data);
+			                  $this->load->view('maincontents/footer');
+							
+							} 
+							else
+							{
+							
+					            $this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$data = array(
+					'success_message' => 'Patient Test Details not saved successfullly! '				
+				);			
+								
+								
+							  $this->load->view('maincontents/patient_test_details',$data);
+			                  $this->load->view('maincontents/footer');
+							}
+						
+					 }
+					}
+					 
+						else
+							{
+								$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');	
+								$data['get_disease']=$this->Mod_health->get_disease();
+			                    $data['get_relation']=$this->Mod_health->get_relation();
+								//$data['get_disease']=$this->Mod_health->get_disease();
+								//$this->load->view('maincontents/entry_diagnosis_test',$data);	
+								$this->load->view('maincontents/patient_test_details',$data);	
+								$this->load->view('maincontents/footer');
+							}	
+}
+
 
 	
 

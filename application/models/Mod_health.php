@@ -180,17 +180,19 @@ Class Mod_health extends CI_Model {
 				
 		}
 		/////////////////////////////////////// patient details add///////////////////////////////////
-		 public function get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag)
+		  public function get_diagnosis_insert($patient_id,$institution_code,$patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$test_type_code,$test_date,$PN_flag)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
+			$patient_age=$paient_age_year."/".$paient_age_month;
 			$data=array(
 				'patient_id' => $patient_id,				
 				'institution_code'=>$institution_code,
 				'patient_name'=>$patient_name,
 				'patient_gurdain_name'=>$patient_gurdain_name,
 				'relation_gurdain'=>$relation_gurdain,
-				'paient_age'=>$paient_age,
+				//'paient_age'=>$paient_age,
+				'paient_age'=>$patient_age,
 				'patient_gender'=>$patient_gender,
 				'patient_district'=>$patient_district,
 				'patient_village_town'=>$patient_village_town,
@@ -216,30 +218,17 @@ Class Mod_health extends CI_Model {
 			return $this->db->insert('patient_test_details',$data1);
 			
     	}
-/////////////////////////////check patient record/////////////////////////////////
-public function search_patient($patient_name,$patient_mobile)
+/////////////////////////////Search Patient Admin/////////////////////////////////
+public function search_patient_admin($patient_name,$patient_mobile)
 	{
 	
-	$this->db->select('patient_id');
+	$this->db->select('patient_id,patient_name,patient_mobile');
 	$this->db->from('patient_details');
-	$condition="patient_details.patient_name='".$patient_name."' AND patient_details.patient_mobile='".$patient_mobile."' ";
+	$condition="patient_details.patient_mobile='".$patient_mobile."' ";
 	
 	 $this->db->where($condition);
 	 $query = $this->db->get();
-
- 
-   	 if($query->num_rows()>0) 
-	{
-      $data = $query->row_array();
-      $value = $data['patient_id'];
-      return $value;
- 
-   }
-   else
-   {
-   return false;
-   }
-	
+     return $query->result_array();	
 	
 	}	
 	
@@ -256,10 +245,11 @@ return $query->result_array();
 }
 
 	// .......... Insert Admission Details .......... //
-	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
+        	$paient_age=$paient_age_year."/".$paient_age_month;
         	$data=array(
 				'patient_id' => $patient_id,				
 				'institution_code'=>$institution_code,
@@ -292,11 +282,10 @@ return $query->result_array();
 				'admission_bed_no'=>$admission_bed_no,
 				'patient_status'=>$patient_status,
 				'dischrg_date_time'=>$dischrg_date_time,
+				'referout_type' => $referout_type,
 				'referout_date_time'=>$referout_date_time,
 				'cause_of_referout'=>$cause_of_referout,
 				'referout_to_whom'=>$referout_to_whom,
-				'lama_datetime'=>$lama_datetime,
-				'lama_cause'=>$lama_cause,
 				'absconded_datetime'=>$absconded_datetime,
 				'death_date_time'=>$death_date_time,
 				'cause_of_death'=>$cause_of_death,
@@ -308,7 +297,7 @@ return $query->result_array();
     	}
 
     // .......... Insert Only Admission Details .......... //
-	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_date_time,$cause_of_referout,$referout_to_whom,$lama_datetime,$lama_cause,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -325,11 +314,10 @@ return $query->result_array();
 				'admission_bed_no'=>$admission_bed_no,
 				'patient_status'=>$patient_status,
 				'dischrg_date_time'=>$dischrg_date_time,
+				'referout_type' => $referout_type,
 				'referout_date_time'=>$referout_date_time,
 				'cause_of_referout'=>$cause_of_referout,
 				'referout_to_whom'=>$referout_to_whom,
-				'lama_datetime'=>$lama_datetime,
-				'lama_cause'=>$lama_cause,
 				'absconded_datetime'=>$absconded_datetime,
 				'death_date_time'=>$death_date_time,
 				'cause_of_death'=>$cause_of_death,
@@ -338,7 +326,87 @@ return $query->result_array();
 			 
 			return $this->db->insert('admission_details',$data);
 			
-    	}			
+    	}
+
+    //........................//
+    /////////////////////////////check patient record/////////////////////////////////
+	public function search_patient($patient_mobile)
+		{
+		
+		$this->db->select('patient_id,patient_name,patient_mobile');
+		$this->db->from('patient_details');
+		$condition="patient_details.patient_mobile='".$patient_mobile."' ";
+		
+		 $this->db->where($condition);
+		 $query = $this->db->get();
+	     return $query->result_array();   
+		
+		}
+
+	//////////////////////////patient_test_insert_only		//////////////////////////
+	public function patient_test_insert_only($patient_id,$institution_code,$test_type_code,$test_date,$PN_flag)
+	{
+	            date_default_timezone_set('Asia/Kolkata');
+	        	$create_timestamp=date("Y-m-d H:i:s");
+	     $data1=array('patient_id'=>$patient_id,
+					'institution_code'=>$institution_code,
+					'test_id'=>$test_type_code,
+					'test_date'=>$test_date,
+					'PN_flag'=>$PN_flag,
+					'create_timestamp' =>$create_timestamp
+					
+					);
+				return $this->db->insert('patient_test_details',$data1);
+
+	}	
+
+	///////////////////////////////////// fetch_test_count//////////////////////////////////////////////
+	public function fetch_test_count($test_date,$test_type_code,$institution_code)
+		{
+			$value1=0;
+			 $this->db->select('total_tested');
+				$this->db->from('test_data');
+				$condition="test_data.test_date='".$test_date."' AND test_data.test_id='".$test_type_code."' AND test_data.institution_code='".$institution_code."'   ";
+				
+				 $this->db->where($condition);
+				 $query = $this->db->get();
+			   
+			   	 if($query->num_rows()>0) 
+				{
+			      $data = $query->row_array();
+			      $value = $data['total_tested'];
+			      return $value;
+			 
+			   }
+			      	/* if($query->num_rows()>0) 
+				{
+			      $data = $query->row_array();
+			      $value = $data['patient_id'];
+			      return $value;
+			 
+			   }*/
+			   
+			   else
+			   {
+			   return $value1;
+			   }
+
+		}
+/////////////////////////////////////////// fetch_positive_test_case////////////////////////////////////////
+	public function fetch_positive_test_case($test_date,$test_type_code,$institution_code)
+	{
+			$value1=0;
+			    $this->db->select('*');
+				$this->db->from('patient_test_details');
+				$condition="patient_test_details.test_date='".$test_date."' AND patient_test_details.test_id='".$test_type_code."' AND patient_test_details.institution_code='".$institution_code."'";
+				
+				 $this->db->where($condition);
+				 $query = $this->db->get();
+			   
+
+				  $value=$query->num_rows();
+				  return $value;
+	}							
 		
 
 }

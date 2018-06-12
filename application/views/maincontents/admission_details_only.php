@@ -102,12 +102,12 @@ header("location: index");
             </div>
             <div class="form-group">
                   <label for="exampleInputEmail1">Doctor Name <span class="star">*</span></label>
-                  <input type="text" class="form-control" placeholder="Enter Patient Name" id="doctor_name" name="doctor_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)"> 
+                  <input type="text" class="form-control" placeholder="Enter Patient Name" id="doctor_name" name="doctor_name" autocomplete="off" required="" maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo set_value('doctor_name'); ?>"> 
                 </div> 
                 
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('admission_date_time'); ?>">
               </div>
                            
               <div class="form-group">
@@ -124,17 +124,17 @@ header("location: index");
                 </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Block </label>
-                    <input type="text" class="form-control" placeholder="Enter Admission Block" id="admission_block" name="admission_block" autocomplete="off" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Enter Admission Block" id="admission_block" name="admission_block" autocomplete="off" maxlength="10" value="<?php echo set_value('admission_block'); ?>">
               </div>                
             </div>
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Floor </label>
-                    <input type="text" class="form-control" placeholder="Enter Floor" id="admission_floor" name="admission_floor" autocomplete="off" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Enter Floor" id="admission_floor" name="admission_floor" autocomplete="off" maxlength="10" value="<?php echo set_value('admission_floor'); ?>">
               </div> 
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Bed Number </label>
-                    <input type="text" class="form-control" placeholder="Enter Bed Number" id="admission_bed_no" name="admission_bed_no" autocomplete="off" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Enter Bed Number" id="admission_bed_no" name="admission_bed_no" autocomplete="off" maxlength="10" value="<?php echo set_value('admission_bed_no'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Patient Status  <span class="star">*</span></label>
@@ -150,41 +150,49 @@ header("location: index");
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Discharge Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Discharge Date & Time" id="dischrg_date_time" name="dischrg_date_time" autocomplete="off" required="" maxlength="10" disabled="" required="">
+                    <input type="text" class="form-control" placeholder="Choose Discharge Date & Time" id="dischrg_date_time" name="dischrg_date_time" autocomplete="off" required="" maxlength="10" disabled="" required="" value="<?php echo set_value('dischrg_date_time'); ?>">
               </div>
+              <div class="form-group">
+                  <label for="exampleInputPassword1">Refer Out Type <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="referout_type" name="referout_type" required="" disabled="">
+                      <option value="">Select Refer out type</option>
+                      <option value="01">Normal</option>
+                      <option value="02">LAMA</option>
+                    </select>
+                </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">ReferOut Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Transfer Date & Time" id="referout_date_time" name="referout_date_time" autocomplete="off" maxlength="10" disabled="" required="">
-              </div>
-              <div class="form-group">
-                  <label for="exampleInputPassword1"> Cause of ReferOut <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="10" disabled="" required="">
-              </div>   
+                    <input type="text" class="form-control" placeholder="Choose Transfer Date & Time" id="referout_date_time" name="referout_date_time" autocomplete="off" maxlength="10" disabled="" required="" value="<?php echo set_value('referout_date_time'); ?>">
+              </div>                 
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                  <label for="exampleInputPassword1">ReferOut to Whom <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="10" disabled="">
+                  <label for="exampleInputPassword1"> Cause of ReferOut <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="10" disabled="" required="" value="<?php echo set_value('cause_of_referout'); ?>">
               </div>
-              <div class="form-group">
+                <div class="form-group">
+                  <label for="exampleInputPassword1">ReferOut to Whom <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('referout_to_whom'); ?>">
+              </div>
+              <!--<div class="form-group">
                   <label for="exampleInputPassword1"> LAMA Date & Time <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Choose Force Transfer Date & Time" id="lama_datetime" name="lama_datetime" autocomplete="off" maxlength="10" disabled="">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Cause of LAMA <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Cause of force Transfer" id="lama_cause" name="lama_cause" autocomplete="off" maxlength="10" disabled="">
-              </div>
+              </div>-->
               <div class="form-group">
                   <label for="exampleInputPassword1">Absconded Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="absconded_datetime" name="absconded_datetime" autocomplete="off" maxlength="10" disabled="">
+                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="absconded_datetime" name="absconded_datetime" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('absconded_datetime'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Death Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="death_date_time" name="death_date_time" autocomplete="off" maxlength="10" disabled="">
+                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="death_date_time" name="death_date_time" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('death_date_time'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Cause of Death <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Cause of Death" id="cause_of_death" name="cause_of_death" autocomplete="off" maxlength="10" disabled="">
+                    <input type="text" class="form-control" placeholder="Cause of Death" id="cause_of_death" name="cause_of_death" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('cause_of_death'); ?>">
               </div> 
             </div>
             
@@ -230,59 +238,40 @@ header("location: index");
                   $("#referout_date_time").prop("disabled", true);
                   $("#cause_of_referout").prop("disabled", true);
                   $("#referout_to_whom").prop("disabled", true);
-                  $("#lama_datetime").prop("disabled", true);
-                  $("#lama_cause").prop("disabled", true);
                   $("#death_date_time").prop("disabled", true);
                   $("#cause_of_death").prop("disabled", true);
                   $("#absconded_datetime").prop("disabled", true);
+                  $("#referout_type").prop("disabled", true);
                 }
               
             else if ($(this).val() == "02") {
-                  $("#referout_date_time").prop("disabled", false);
-                  $("#cause_of_referout").prop("disabled", false);
-                  $("#referout_to_whom").prop("disabled", false);
-                  $("#dischrg_date_time").prop("disabled", true);                  
-                  $("#lama_datetime").prop("disabled", true);
-                  $("#lama_cause").prop("disabled", true);
+                  $("#referout_type").prop("disabled", false);
                   $("#death_date_time").prop("disabled", true);
                   $("#cause_of_death").prop("disabled", true);
-                  $("#absconded_datetime").prop("disabled", true);               
+                  $("#absconded_datetime").prop("disabled", true);
+                  $("#dischrg_date_time").prop("disabled", true);               
                 }
 
             else if ($(this).val() == "03") {
-                  $("#lama_datetime").prop("disabled", false);
-                  $("#lama_cause").prop("disabled", false);
-                  $("#dischrg_date_time").prop("disabled", true);
-                  $("#referout_date_time").prop("disabled", true);
-                  $("#cause_of_referout").prop("disabled", true);
-                  $("#referout_to_whom").prop("disabled", true);                  
-                  $("#death_date_time").prop("disabled", true);
-                  $("#cause_of_death").prop("disabled", true);
-                  $("#absconded_datetime").prop("disabled", true);            
-                }
-
-            else if ($(this).val() == "04") {
                   $("#absconded_datetime").prop("disabled", false);
-                  $("#lama_cause").prop("disabled", true);
                   $("#dischrg_date_time").prop("disabled", true);
                   $("#referout_date_time").prop("disabled", true);
                   $("#cause_of_referout").prop("disabled", true);
                   $("#referout_to_whom").prop("disabled", true);                  
                   $("#death_date_time").prop("disabled", true);
                   $("#cause_of_death").prop("disabled", true);
-                  $("#lama_datetime").prop("disabled", true);            
+                  $("#referout_type").prop("disabled", true);            
                 }    
                 
-            else if ($(this).val() == "06") {
+            else if ($(this).val() == "05") {
                   $("#death_date_time").prop("disabled", false);
                   $("#cause_of_death").prop("disabled", false);
                   $("#dischrg_date_time").prop("disabled", true);
                   $("#referout_date_time").prop("disabled", true);
                   $("#cause_of_referout").prop("disabled", true);
                   $("#referout_to_whom").prop("disabled", true);
-                  $("#lama_datetime").prop("disabled", true);
-                  $("#lama_cause").prop("disabled", true);
-                  $("#absconded_datetime").prop("disabled", true);       
+                  $("#absconded_datetime").prop("disabled", true); 
+                  $("#referout_type").prop("disabled", true);      
                 }
                             
             else {
@@ -290,11 +279,31 @@ header("location: index");
                   $("#referout_date_time").prop("disabled", true);
                   $("#cause_of_referout").prop("disabled", true);
                   $("#referout_to_whom").prop("disabled", true);
-                  $("#lama_datetime").prop("disabled", true);
-                  $("#lama_cause").prop("disabled", true);
                   $("#death_date_time").prop("disabled", true);
                   $("#cause_of_death").prop("disabled", true);
                   $("#absconded_datetime").prop("disabled", true);
+                  $("#referout_type").prop("disabled", true);
+            }
+        });
+
+   $('#referout_type').change(function () {
+            if ($(this).val() == "01") {                
+                 
+                  $("#referout_date_time").prop("disabled", false);
+                  $("#cause_of_referout").prop("disabled", false);
+                  $("#referout_to_whom").prop("disabled", false);                 
+                }
+              
+            else if ($(this).val() == "02") {
+                  $("#referout_date_time").prop("disabled", false);
+                  $("#cause_of_referout").prop("disabled", false);
+                  $("#referout_to_whom").prop("disabled", true);               
+                }
+                            
+            else {
+                  $("#referout_date_time").prop("disabled", true);
+                  $("#cause_of_referout").prop("disabled", true);
+                  $("#referout_to_whom").prop("disabled", true);
             }
         });
 

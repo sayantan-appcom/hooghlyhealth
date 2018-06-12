@@ -19,7 +19,7 @@ header("location: index");
 
     
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Health_Home/insert_diagnosis_test');?>" >
+    <form role="form" method="POST" action="<?php echo site_url('Health_Home/patient_test_insert_only');?>" onsubmit="return(validate());" >
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
 	<input type="hidden" name="user_type" id="user_type" value="<?php echo $user_type; ?>">
           <h3 class="star" align="center">
@@ -50,6 +50,7 @@ header("location: index");
 			   foreach($fetch_patient_details as $result1)
 			   {
 			   ?>
+			   <input type="hidden" name="patient_id" id="patient_id" value="<?php echo $result1['patient_id'];?>" /> 
                   <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo $result1['patient_name'];?>" readonly="">
 					</div>
@@ -83,11 +84,11 @@ header("location: index");
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputPassword1">Test Date <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Date" id="test_date" name="test_date" autocomplete="off" maxlength="10">
+                    <input type="text" class="form-control" placeholder="Choose Date" id="test_date" name="test_date" autocomplete="off" maxlength="10" required="">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" 
+                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required=""> 
                       <option value="">Select Disease Category</option>
                       <?php
                           foreach($get_disease as $row)
@@ -101,13 +102,13 @@ header("location: index");
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" >
+                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
                       <option value="">Select Disease Sub Category</option>
                     </select>
             </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Test Name <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="test_id" name="test_type_code" >
+                    <select class="form-control select2" style="width: 100%;" id="test_id" name="test_type_code" required="">
                       <option value="">Select Test Name</option>
                     </select>
                 </div>   
@@ -115,14 +116,11 @@ header("location: index");
             <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputPassword1"> Test Status <span class="star">*</span></label>
-                <select class="form-control select2" style="width: 100%;" id="PN_flag" name="PN_flag" >
+                <select class="form-control select2" style="width: 100%;" id="PN_flag" name="PN_flag" required="">
                   <option value="01">Positive</option>
                 </select>
                 </div>  
             </div>
-            
-        </div> 
-      </div>
     </div>
 
       <div class="box-footer" align="center">
@@ -137,6 +135,7 @@ header("location: index");
          </form>
       </div>   
     </section> 
+  </div>
  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
   <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>

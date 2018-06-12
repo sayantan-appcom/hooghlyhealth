@@ -43,7 +43,7 @@ header("location: index");
             }
   </style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini disableRightClick">
 <div class="wrapper">
 
   <header class="main-header">
@@ -89,7 +89,7 @@ header("location: index");
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">Change Password</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('Login/logout');?>" class="btn btn-default btn-flat">Log out</a>

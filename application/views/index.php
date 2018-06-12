@@ -22,7 +22,7 @@
   <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="disableRightClick">
   <!--banner-->
   <section id="banner" class="banner">
     <div class="bg-color">
@@ -526,7 +526,12 @@
           if ( ((charCode >= 48) && (charCode <= 57)) || charCode==8 || charCode==32 )
             return true;
             return false;
-      }            
+      } 
+
+    $('.disableRightClick').on("contextmenu",function(e){
+        //alert('You can not Use Right Click');
+        return false;
+    });             
   </script>
 </body>
 

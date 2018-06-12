@@ -39,23 +39,24 @@ header("location: index");
 
        <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title text-danger"><strong><u>Patient Details</u></strong></h3>
+          <h3 class="box-title text-danger"><strong><u>Patient Details1</u></strong></h3>
         </div>
        
         <div class="box-body">
           <div class="row">
             <div class="col-md-4">
                <div class="form-group">
-                  <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" maxlength="30" onKeyPress="return onlyLetters(event)" readonly="" value="<?php echo $patient_name;?>">
+		<label for="exampleInputPassword1">Patient Name1 <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)" value="<?php echo $patient_name;?>">
                 </div>
+			
                 <div class="form-group">
                   <label for="exampleInputPassword1">Patient Gurdain Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Gurdain Name" id="patient_gurdain_name" name="patient_gurdain_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)" required="">
+                    <input type="text" class="form-control" placeholder="Enter Patient Gurdain Name" id="patient_gurdain_name" name="patient_gurdain_name" autocomplete="off"  maxlength="30" onKeyPress="return onlyLetters(event)">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Relationship with Gurdain <span class="star">*</span></label>                    
-                    <select class="form-control select2" style="width: 100%;" id="relation_gurdain" name="relation_gurdain" required="">
+                    <select class="form-control select2" style="width: 100%;" id="relation_gurdain" name="relation_gurdain" >
                       <option value="">Select Relation</option>
                       <?php
                           foreach($get_relation as $row)
@@ -67,12 +68,11 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Age <span class="star">*</span></label>
-                   <!-- <input type="text" class="form-control" placeholder="Enter Patient Age" id="paient_age" name="paient_age" onKeyPress="return onlyNumbers(event)" autocomplete="off"  maxlength="3">-->
-				                <input class="form-control" type="text" name="patient_age_year" id="patient_age_year" onKeyPress="return onlyNumbers(event)" maxlength="3" placeholder="Enter Year" required="">        /    <input class="form-control" type="text" name="patient_age_month" id="patient_age_month" onKeyPress="return onlyNumbers(event)" maxlength="2" placeholder="Enter Month" required="">
+                    <input type="text" class="form-control" placeholder="Enter Patient Age" id="paient_age" name="paient_age" onKeyPress="return onlyNumbers(event)" autocomplete="off"  maxlength="3">
                 </div>  
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Gender <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="patient_gender" name="patient_gender" required="">
+                    <select class="form-control select2" style="width: 100%;" id="patient_gender" name="patient_gender" >
                       <option value="">Select Patient Gender</option>
                       <option value="01">Male</option>
                       <option value="02">Female</option>
@@ -85,31 +85,33 @@ header("location: index");
                 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient District <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="patient_district" name="patient_district" required="">
+                    <select class="form-control select2" style="width: 100%;" id="patient_district" name="patient_district" >
                       <option value="">Select Patient District</option>
                       <option value="06">Hooghly</option>
                     </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Patient village / town <span class="star">*</span> </label>
-                    <input type="text" class="form-control" placeholder="Enter Patient village / town" id="patient_village_town" name="patient_village_town" onKeyPress="return onlyLetters(event)" autocomplete="off" maxlength="15" required="">
+                    <input type="text" class="form-control" placeholder="Enter Patient village / town" id="patient_village_town" name="patient_village_town" onKeyPress="return onlyLetters(event)" autocomplete="off" maxlength="15" >
                 </div> 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Postal PIN <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient PIN" id="patient_pin" name="patient_pin" onKeyPress="return onlyNumbers(event)" autocomplete="off"  minlength="6" maxlength="6" required="">
+                    <input type="text" class="form-control" placeholder="Enter Patient PIN" id="patient_pin" name="patient_pin" onKeyPress="return onlyNumbers(event)" autocomplete="off"  minlength="6" maxlength="6">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Address <span class="star">*</span></label>
-                    <textarea class="form-control" id="patient_address" name="patient_address" autocomplete="off" rows="4" placeholder="Enter Patient Address"  maxlength="100" required=""></textarea>
+                    <textarea class="form-control" id="patient_address" name="patient_address" autocomplete="off" rows="4" placeholder="Enter Patient Address"  maxlength="100"></textarea>
                 </div>
             </div>
            
             <div class="col-md-4">
                 
                 <div class="form-group">
+		
                   <label for="exampleInputEmail1">Patient Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Mobile Number" id="patient_mobile" name="patient_mobile" autocomplete="off" minlength="10" maxlength="10" onKeyPress="return onlyNumbers(event)" readonly="" value="<?php echo $patient_mobile;?>">
+                    <input type="text" class="form-control" placeholder="Enter Patient Mobile Number" id="patient_mobile" name="patient_mobile" autocomplete="off" minlength="10" maxlength="10" onKeyPress="return onlyNumbers(event)" value="<?php echo $patient_mobile;?>">
                 </div>
+			
                 <div class="form-group">
                   <label for="exampleInputEmail1">Patient Phone Number </label>
                     <input type="text" class="form-control" placeholder="Enter Patient Phone Number Number" id="patient_phone_no" name="patient_phone_no" autocomplete="off" maxlength="12" onKeyPress="return onlyNumbers(event)">
@@ -145,11 +147,11 @@ header("location: index");
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputPassword1">Test Date <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Date" id="test_date" name="test_date" autocomplete="off" maxlength="10" required="">
+                    <input type="text" class="form-control" placeholder="Choose Date" id="test_date" name="test_date" autocomplete="off" maxlength="10">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required=""> 
+                    <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" 
                       <option value="">Select Disease Category</option>
                       <?php
                           foreach($get_disease as $row)
@@ -163,13 +165,13 @@ header("location: index");
             <div class="col-md-4">
               <div class="form-group">
                   <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
+                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" >
                       <option value="">Select Disease Sub Category</option>
                     </select>
             </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Test Name <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="test_id" name="test_type_code" required="">
+                    <select class="form-control select2" style="width: 100%;" id="test_id" name="test_type_code" >
                       <option value="">Select Test Name</option>
                     </select>
                 </div>   
@@ -177,7 +179,7 @@ header("location: index");
             <div class="col-md-4">
             <div class="form-group">
               <label for="exampleInputPassword1"> Test Status <span class="star">*</span></label>
-                <select class="form-control select2" style="width: 100%;" id="PN_flag" name="PN_flag" required="">
+                <select class="form-control select2" style="width: 100%;" id="PN_flag" name="PN_flag" >
                   <option value="01">Positive</option>
                 </select>
                 </div>  

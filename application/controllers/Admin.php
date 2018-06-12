@@ -351,6 +351,7 @@ class Admin extends CI_Controller {
 		{
             		$this->load->view('admin/header');	
 					$this->load->view('admin/nav');
+					$data['get_institute']=$this->Mod_admin->get_institute();
 					$data['get_disease']=$this->Mod_admin->get_disease();
 					$this->load->view('admin/addition_subcat_test',$data);		
 					$this->load->view('admin/footer');
@@ -366,6 +367,7 @@ class Admin extends CI_Controller {
 
 	public function add_subcategory()
 		{
+			$this->form_validation->set_rules('institution_flag','Institution Category','trim|required|xss_clean');
 			$this->form_validation->set_rules('disease_code','Disease Category','trim|required|xss_clean');
 			$this->form_validation->set_rules('disease_subcase_code','Disease Sub-category','trim|required|xss_clean');
 			
@@ -373,12 +375,12 @@ class Admin extends CI_Controller {
 			if ($this->form_validation->run() == TRUE) 
 				{
 					
-					 $disease_code = $this->input->post('disease_code');
+					$institution_flag = $this->input->post('institution_flag');
+					$disease_code = $this->input->post('disease_code');
 					$disease_subcase_code = $this->input->post('disease_subcase_code');
 					$fetch_disease_sub_category=$this->Mod_admin->fetch_disease_sub_category($disease_code);
-				  $fetch_disease_sub_category;
-				
-					$result=$this->Mod_admin->insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category);
+				  				
+					$result=$this->Mod_admin->insert_subcategory($institution_flag,$disease_code,$disease_subcase_code,$fetch_disease_sub_category);
 
 						if ($result == TRUE)
 			 				{	
@@ -391,6 +393,7 @@ class Admin extends CI_Controller {
 
 					$this->load->view('admin/header');	
 					$this->load->view('admin/nav');
+					$data['get_institute']=$this->Mod_admin->get_institute();
 					$data['get_disease']=$this->Mod_admin->get_disease();
 					$this->load->view('admin/addition_subcat_test',$data);		
 					$this->load->view('admin/footer');					
@@ -399,6 +402,7 @@ class Admin extends CI_Controller {
 				{
 					$this->load->view('admin/header');	
 					$this->load->view('admin/nav');
+					$data['get_institute']=$this->Mod_admin->get_institute();
 					$data['get_disease']=$this->Mod_admin->get_disease();
 					$this->load->view('admin/addition_subcat_test',$data);		
 					$this->load->view('admin/footer');	

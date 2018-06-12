@@ -19,7 +19,7 @@ header("location: index");
 
     
     <section class="content">
-    <form role="form" method="POST" action="">
+    <form role="form" method="POST" action="<?php echo site_url('Health_Home/admission_details_next');?>">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -38,7 +38,7 @@ header("location: index");
             <div class="col-md-6">
               <div class="form-group">
                   <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="50" onKeyPress="return onlyLetters(event)">
+                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="50" onKeyPress="return onlyLetters(event)" value="<?php echo set_value('patient_name'); ?>">
                 </div>
                 
             </div>
@@ -55,31 +55,56 @@ header("location: index");
       
       <div class="box-footer" align="center">
                 <button type="submit" class="btn btn-lg btn-success" id="search_admission">Submit</button>
-              </div> 
+                <!--<button type="refrsh" class="btn btn-lg btn-primary" onClick="window.location.href= <?php //echo base_url('Health_Home/admission_search'); ?>">Refresh</button>-->
+      </div>
+</div> 
+              <div class="row hidden patient">
+            <div class="col-md-6 col-md-offset-3">
+              <div class="form-group">
+                
+                    <div class="btn btn-primary">
+                    
+                    <button type="submit" class="btn btn-primary">Add New Patient & Admission Details</button>
+
+              </div>    
+              </div>                
+            </div>            
+          </div>   
+
          </form>
-      </div>  
+       
 
       
           <div class="row hidden msg">
             <div class="col-md-6 col-md-offset-3">
               <div class="form-group">
                   <div class="btn btn-lg btn-primary">
-                    <a href="<?php echo site_url('Health_Home/admission_details');?>"><font color="#FFFFFF">Add Patient & Admission Details</font></a>
+                    <a href="<?php echo site_url('Health_Home/admission_details');?>" id='p_name'><font color="#FFFFFF">Add Patient & Admission Details</font></a>
+                    
                   </div>
               </div>                
             </div>            
           </div>
 
-          <div class="row hidden patient">
-            <div class="col-md-6 col-md-offset-3">
-              <div class="form-group">
-                
-                    <div class="btn btn-lg btn-primary">
-                    <a href="<?php echo site_url('Health_Home/admission_details_only');?>" id="patient_id" name="patient_id"><font color="#FFFFFF">Add Admission Details</font></a>
-              </div>    
-              </div>                
-            </div>            
-          </div>   
+          <div class="container show hidden">
+            <table class="table" id="show_patient">
+              <thead>
+              <tr>
+                <th class="text-center">Patient ID</th>
+                <th class="text-center">Patient Name</th>
+                <th class="text-center">Patient Mobile</th>
+                <th class="text-center">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+               <!-- <th class="text-center patientid"></th>
+                <th class="text-center patientname"></th>
+                <th class="text-center patientmobile"></th>-->
+             
+            </tbody>
+            </table>
+          </div>
+          
 
     </section>    
   </div>
@@ -138,7 +163,7 @@ header("location: index");
 
     $('#search_admission').click(function(e)
      { 
-     // alert("NIBU");
+      //alert("NIBU");
           e.preventDefault();
            valid = true; 
           
@@ -169,20 +194,31 @@ header("location: index");
                           },
 
                     success: function(data) { 
-
+                      /*alert("nibu");
+                      console.log(data);*/
                       report=JSON.parse(JSON.stringify(data));
-                      if(report.Patient_ID != undefined)
+                      if(report.length > 0)
                       {
-                        Patient_ID=report.Patient_ID;  
-                        alert(report.Status+" Your Patient ID : "+report.Patient_ID + $(".patient").val());
-                        var href = $('#patient_id').prop('href');
-                        $('#patient_id').prop('href',href+'/'+report.Patient_ID);
+                       
+                        $('.show').removeClass('hidden');
+                      
+                        $('#show_patient > tbody').empty();
+                        $.each(report,function(index){
+                         // alert("nib");
+                    $('#show_patient > tbody').append("<tr><td align='center'>"+report[index].patient_id+"</td><td align='center'>"+report[index].patient_name+"</td><td align='center'>"+report[index].patient_mobile+"</td><td align='center'> <div class='btn btn-primary'><a href='<?php echo site_url('Health_Home/admission_details_only');?>/"+report[index].patient_id+"'><font color='#FFFFFF'>Add Admission Details</font></a></div></td></tr>");
+                      
+                    });
+
+
+                        /*var href = $('#patient_id').prop('href');
+                        $('#patient_id').prop('href',href+'/'+report.Patient_Name+'/'+report.Patient_Mobile);*/
                         $('.patient').removeClass('hidden');
                         //$('.chck').html(report[0].Patient_ID);
                       }
                           else{
                             alert(report.Status);
-                          
+                            var href = $('#p_name').prop('href');
+                        $('#p_name').prop('href',href+'/'+report.Patient_Name+'/'+report.Patient_Mobile);
                           $('.msg').removeClass('hidden');
                           }
                            
@@ -194,7 +230,9 @@ header("location: index");
                 async: false
         });
 
-       $('#search_admission').prop('disabled',false);
-  }); 
+      // $('#search_admission').prop('disabled',false);
+  });
+
+  
  
   </script>

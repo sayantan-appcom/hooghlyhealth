@@ -12,14 +12,14 @@ header("location: index");
    
     <section class="content-header">
       <h1>
-        Application Form Entry for <b><?php echo $user_name; ?> </b>
+        Application Form of search patient for Diagnosis Test 
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
 
     
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Health_Home/search_patient');?>"  onsubmit="return(validate());">
+    <form role="form" method="POST" action="<?php echo site_url('Health_Home/search_patient');?>">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -61,13 +61,13 @@ header("location: index");
          </form>
       </div>  
 
-      <div class="box box-primary">
+    <!--  <div class="box box-primary">
         <div class="box-body">
-          <div class="row">
+           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                  <div class="btn btn-lg btn-primary"><a href="<?php echo site_url('Health_Home/patient_details');?>"><font color="#FFFFFF">Add Patient & Patient Test Details</font></a></div>
-              </div>                
+                  <div class="btn btn-lg btn-primary"><a href="<?php //echo site_url('Health_Home/patient_details');?>"><font color="#FFFFFF">Add Patient & Patient Test Details</font></a></div>
+              </div>               
             </div>
             <div class="col-md-6">
               <div class="form-group">
@@ -76,7 +76,7 @@ header("location: index");
             </div>
           </div>
         </div>  
-      </div>  
+      </div> -->  
 
     </section>    
   </div>
@@ -138,13 +138,6 @@ header("location: index");
      });
    });    
 
-     function validate()
-      {
-           var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
-          if (r==true)
-            return true;
-          else
-            return false;
-      }               
+                 
   
   </script>

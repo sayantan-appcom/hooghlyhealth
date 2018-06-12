@@ -25,5 +25,11 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url();?>assets/dist/js/demo.js"></script>
 <script src="<?php echo base_url();?>assets/js/admin_script.js"></script>
+<script type="text/javascript">
+   $('.disableRightClick').on("contextmenu",function(e){
+        //alert('You can not Use Right Click');
+        return false;
+    });
+</script>
 </body>
 </html> 

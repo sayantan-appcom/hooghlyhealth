@@ -57,7 +57,7 @@ Class Mod_admin extends CI_Model {
 
     public function get_institute()
     	{   
-			$this->db->select ('inst_type_id,inst_type_name');
+			$this->db->select ('inst_type_id,inst_type_name,sub_disease_flag');
 			$this->db->from('institution_type');
 			$query = $this->db->get();
 	        return $query->result();
@@ -266,13 +266,14 @@ Class Mod_admin extends CI_Model {
 	        return $query->result();
     	}	
 
-    public function insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category)
+    public function insert_subcategory($institution_flag,$disease_code,$disease_subcase_code,$fetch_disease_sub_category)
     	{ $disease_sub_id1= $fetch_disease_sub_category; 
 		$disease_sub_id=$disease_sub_id1+1;			
 			$data=array(
 				'disease_sub_name'=>$disease_subcase_code,
 				'disease_category_id'=>$disease_code,
-				'disease_sub_id'=>$disease_sub_id
+				'disease_sub_id'=>$disease_sub_id,
+				'sub_disease_flag'=>$institution_flag,
 				);
 			
 			return $this->db->insert('disease_subcatagory',$data);
@@ -320,7 +321,7 @@ Class Mod_admin extends CI_Model {
 				'disease_sub_category_id'=>$disease_subcat_id
 				);
 			
-			return $this->db->insert('test_type',$data);
+			return $this->db->insert('test_master',$data);
     	} 	
 //............from satantan da 23.05.2018 start..............//
     public function edit_admin_user($user_state,$user_district,$user_type)
@@ -393,7 +394,7 @@ Class Mod_admin extends CI_Model {
 // end of 23.05.2018 //
 
 /////////////////////////////////fetch_disease_sub_category////////////////////////////////////////////////////
-public function fetch_disease_sub_category($disease_code)
+/*public function fetch_disease_sub_category($disease_code)
 {
 $this->db->select('MAX(convert(disease_sub_id),UNSIGNED INTEGER) AS disease_sub_id ' );
 $this->db->from('disease_subcatagory');
@@ -402,15 +403,24 @@ $this->db->where($condition);
 $query=$this->db->get();
 $ret = $query->row();
 return $ret->disease_sub_id;
+}*/
 
+public function fetch_disease_sub_category()
+{
+$this->db->select('MAX(disease_sub_id) AS disease_sub_id');
+$this->db->from('disease_subcatagory');
+$query=$this->db->get();
+$ret = $query->row();
+return $ret->disease_sub_id;
 
 }
+
 //////////////////////////////////fetch_test_type_sub_category/////////////////////////////////////////////////////
 
  public function fetch_test_type_sub_category()
 {
 $this->db->select('MAX(test_type_code) AS test_type_code ' );
-$this->db->from('test_type');
+$this->db->from('test_master');
 $query=$this->db->get();
 $ret = $query->row();
 return $ret->test_type_code;
