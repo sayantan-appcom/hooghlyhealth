@@ -8,7 +8,7 @@
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
 
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
+  
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/style.css">
@@ -19,7 +19,7 @@
     Author URL: https://bootstrapmade.com
   ======================================================= -->
 
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+
 </head>
 
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60" class="disableRightClick">

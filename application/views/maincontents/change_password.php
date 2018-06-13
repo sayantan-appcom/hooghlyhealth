@@ -31,7 +31,7 @@ header("location: index");
     <div class="content py-5  bg-secondary">
 <div class="container">
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-8">
                     <span class="anchor" id="formChangePassword"></span>
                     <hr class="mb-5">
 
@@ -55,18 +55,15 @@ header("location: index");
              </h3>
                                 <div class="form-group">
                                     <label for="inputPasswordOld"><strong>Current Password</strong></label>
-                                    <input type="password" class="form-control" id="current_password" name="current_password">
+                                    <input type="password" class="form-control" id="current_password" name="current_password" required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPasswordNew"><strong>New Password</strong></label>
-                                    <input type="password" class="form-control" id="new_password" name="new_password" minlength="8" maxlength="20">
-                                    <span class="form-text small text-muted">
-                                            The password must be 8-20 characters, and must <em>not</em> contain spaces.
-                                        </span>
+                                    <input type="password" class="form-control" id="new_password" name="new_password" required="">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputPasswordNewVerify"><strong>Verify Password</strong></label>
-                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" minlength="8" maxlength="20">
+                                    <input type="password" class="form-control" id="confirm_password" name="confirm_password">
                                     <span class="form-text small text-muted">
                                             To confirm, type the new password again.
                                         </span>
@@ -82,6 +79,37 @@ header("location: index");
                     <!-- /form card change password -->
                     <hr class="mb-5">
                 </div>
+
+                <div class="col-md-4">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+             <!-- <h3 class="box-title  text-danger"><strong>Password Change Mandatory</strong></h3>-->
+            </div>
+
+              <div class="box-body"><br><br><br>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password field must be at least one lowercase letter.</strong></label>                 
+                </div>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password field must be at least one uppercase letter.</strong></label>
+                </div>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password field must have at least one number.</strong></label>
+                </div>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password field must have at least one special character (Accept only '@' , '#' , '$').</strong></label>
+                </div>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password field must be at least 5 characters in length.</strong></label>
+                </div>
+                <div class="form-group">
+                  <label for="" class="text-warning"><strong>*** New Password  field cannot exceed 30 characters in length.</strong></label>
+                </div>
+              </div>     
+          </div>
+        </div>
+
+
     </div>
 </div>
 </div>

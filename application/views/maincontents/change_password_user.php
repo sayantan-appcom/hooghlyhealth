@@ -17,10 +17,11 @@ header("location: index");
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title  text-danger"><strong>Change Password Here<br><sub>(Read password change mandatory before change password)</sub></strong></h3>
+
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form class="form" method="POST" role="form" action="<?php echo site_url('Admin/password_change');?>">
+            <form class="form" method="POST" role="form" action="<?php echo site_url('Health_Home/password_change');?>">
                                 <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
                                 <h3 class="star" align="center">
                     <?php 
@@ -52,7 +53,7 @@ header("location: index");
   </div>
 </div>
 
-  <div class="col-md-4">
+        <div class="col-md-4">
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title  text-danger"><strong>Password Change Mandatory</strong></h3>

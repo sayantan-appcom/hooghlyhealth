@@ -656,6 +656,99 @@ public function patient_test_insert_only()
 							}	
 }
 
+	//.............. Change Password ..........//
+ 	public function change_password()
+		{
+			$this->load->view('maincontents/header');	
+			$this->load->view('maincontents/nav');
+			$this->load->view('maincontents/change_password_user');		
+			$this->load->view('maincontents/footer');	
+
+		}
+
+	public function password_change()
+		{
+			$this->form_validation->set_rules('user_id', 'User ID', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('current_password', 'Current Password', 'trim|required|xss_clean');
+			$this->form_validation->set_rules('new_password', 'New Password', 'trim|required|callback_valid_password|xss_clean');
+			$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|xss_clean|matches[new_password]');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$user_id = $this->input->post('user_id');
+				$current_password = md5($this->input->post('current_password'));
+				$new_password = $this->input->post('new_password');
+				$confirm_password = $this->input->post('confirm_password');
+
+				$password=$this->Mod_health->get_password($user_id);
+				if($password == $current_password)
+				{
+					$result=$this->Mod_health->get_change_password($user_id,$current_password,$new_password,$confirm_password);
+					if ($result == TRUE)
+			 				{
+			 					$this->session->set_flashdata('change_success',"Password Changed Successfully !");										
+							}
+					else
+			 				{
+			 					$this->session->set_flashdata('change_success',"Password Changed Unsuccessfully !");										
+							}								 
+				}
+				else
+			 				{
+			 					$this->session->set_flashdata('change_success',"Current Password does not matched ! Please enter password");										
+							}
+						}
+				
+					$this->load->view('maincontents/header');	
+					$this->load->view('maincontents/nav');
+					$this->load->view('maincontents/change_password_user');		
+					$this->load->view('maincontents/footer');
+		}			
+
+	public function valid_password($new_password = '')
+    {
+        $new_password = trim($new_password);
+        $regex_lowercase = '/[a-z]/';
+        $regex_uppercase = '/[A-Z]/';
+        $regex_number = '/[0-9]/';
+        $regex_special = '/[!@#$%^&*()\-_=+{};:,<.>§~]/';
+       /* if (empty($new_password))
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field is required.');
+            return FALSE;
+        }*/
+        if (preg_match_all($regex_lowercase, $new_password) < 1)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field must be at least one lowercase letter.');
+            return FALSE;
+        }
+        if (preg_match_all($regex_uppercase, $new_password) < 1)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field must be at least one uppercase letter.');
+            return FALSE;
+        }
+        if (preg_match_all($regex_number, $new_password) < 1)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field must have at least one number.');
+            return FALSE;
+        }
+        if (preg_match_all($regex_special, $new_password) < 1)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field must have at least one special character.' . ' ' . htmlentities('@#$'));
+            return FALSE;
+        }
+        if (strlen($new_password) < 5)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field must be at least 5 characters in length.');
+            return FALSE;
+        }
+        if (strlen($new_password) > 30)
+        {
+            $this->form_validation->set_message('valid_password', 'The {field} field cannot exceed 30 characters in length.');
+            return FALSE;
+        }
+        return TRUE;
+    }
 
 	
 

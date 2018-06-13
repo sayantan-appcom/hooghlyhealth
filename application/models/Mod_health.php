@@ -406,7 +406,36 @@ return $query->result_array();
 
 				  $value=$query->num_rows();
 				  return $value;
-	}							
+	}
+
+	//.......... Get Password ..........//
+
+	public function get_password($user_id) 
+	{
+
+	   	$this->db->select('user_password');
+		$this->db->from('user_login');
+		$this->db->where('user_id',$user_id);
+		$this->db->limit(1);
+		$query = $this->db->get();
+		$flag = $query->row();
+		return $flag->user_password;
+	}
+
+//.......... Update Password ..........//
+	public function get_change_password($user_id,$current_password,$new_password,$confirm_password) 
+	{
+		date_default_timezone_set('Asia/Kolkata');
+        $update_timestamp=date("Y-m-d H:i:s");
+		//$this->db->set('user_password', $new_password);
+		$data = array(
+               'user_password' => md5($new_password),
+               'password_update_time' => $update_timestamp
+            );   
+		$this->db->where('user_id', $user_id);  
+		return $this->db->update('user_login',$data); 
+	   	
+	}									
 		
 
 }

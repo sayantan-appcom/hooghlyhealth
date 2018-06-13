@@ -2,6 +2,7 @@
 if (isset($this->session->userdata['logged_in'])) {
 $user_id = ($this->session->userdata['logged_in']['user_id']);
 $user_type = ($this->session->userdata['logged_in']['user_type']);
+$user_name = ($this->session->userdata['logged_in']['user_name']);
 } else {
 header("location: index");
 }
@@ -48,9 +49,9 @@ header("location: index");
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="../../index2.html" class="logo">
+    <a href="" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><img src="<?php echo base_url();?>assets/img/bengal-logo.png" alt="Logo" height="40" width="50" class="text-left"></span>
+      <span class="logo-mini">DIMS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><img src="<?php echo base_url();?>assets/img/bengal-logo.png" alt="Logo" height="40" width="50" class="text-left">   <b>Health Care</b></span>
     </a>
@@ -80,7 +81,7 @@ header("location: index");
                 <img src="<?php echo base_url();?>assets/img/icon.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php //echo $userfetch['username']; ?>
+                  <?php echo $user_name; ?>
                   <small></small>
                 </p>
               </li>
@@ -89,7 +90,7 @@ header("location: index");
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Change Password</a>
+                  <a href="<?php echo site_url('Health_Home/change_password');?>" class="btn btn-default btn-flat">Change Password</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo site_url('Login/logout');?>" class="btn btn-default btn-flat">Log out</a>
