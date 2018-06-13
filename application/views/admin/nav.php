@@ -85,6 +85,13 @@ header("location: index");
           <i class="fa fa-plus"></i> Institute wise Report (VBD)<br> 
         </a>         
       </li>
+	      <li> 
+        <a href="<?php echo site_url('Reports/vbd_report_other_datewise'); ?>">          
+          <i class="fa fa-plus"></i> Institute wise Report-NURSING HOME (VBD)<br> 
+        </a>         
+      </li>
+	  
+	  
       <li> 
         <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
           <i class="fa fa-plus"></i> Category wise Report (VBD) <br> 

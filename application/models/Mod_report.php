@@ -178,21 +178,24 @@ Class Mod_report extends CI_Model {
 public function fetch_instituion_details($inst_name)
 {
 
-$this->db->select('district.district_name,block_muni.blockmuni,user_profile_inst.inst_name,user_profile_inst.inst_mobile,user_profile_inst.user_id');
-$this->db->from('user_area');
-$this->db->join('district','district.district_code=user_area.district_code');
-$this->db->join('block_muni','block_muni.blockminicd=user_area.block_code');
-$this->db->join('user_profile_inst','user_profile_inst.user_id=user_area.user_id');
-$this->db->where('user_profile_inst.user_id',$inst_name);
-$query = $this->db->get();
- return $query->result_array();
+			$this->db->select('district.district_name,block_muni.blockmuni,user_profile_inst.inst_name,user_profile_inst.inst_mobile,user_profile_inst.user_id');
+			$this->db->from('user_area');
+			$this->db->join('district','district.district_code=user_area.district_code');
+			$this->db->join('block_muni','block_muni.blockminicd=user_area.block_code');
+			$this->db->join('user_profile_inst','user_profile_inst.user_id=user_area.user_id');
+			$this->db->where('user_profile_inst.user_id',$inst_name);
+			$query = $this->db->get();
+			return $query->result_array();
 
 }
 ///////////////////////////////////fetch Disease subcategory////////////////////////////////////////////////////////////////
-public function fetch_all_disease_subcategory()
+public function fetch_all_disease_subcategory($inst_type)
 {
 $this->db->select('*');
 $this->db->from('disease_subcatagory');
+$this->db->join('institution_type','institution_type.sub_disease_flag=disease_subcatagory.sub_disease_flag');
+$condition="institution_type.inst_type_id='".$inst_type."' ";
+$this->db->where($condition);
 $query=$this->db->get();
 return $query->result_array();
 
@@ -200,12 +203,14 @@ return $query->result_array();
 }
 public function fetch_positive_test($disease_sub_id,$institution_code)
 {
-$this->db->select('patient_details.registration_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile,patient_details.patient_pin,patient_details.registration_id,user_profile_inst.inst_name,patient_details.paient_age,patient_details.patient_gender,test_type.test_type_name,disease_subcatagory.disease_sub_name,user_profile_inst.inst_mobile,user_profile_inst.inst_addr,patient_details.patient_gender,patient_details.patient_gurdain_name');
-$this->db->from('patient_details');
-$this->db->join('test_type',' test_type.test_type_code=patient_details.test_type_code');
-$this->db->join('disease_subcatagory',' disease_subcatagory.disease_sub_id=patient_details.disease_subcase_code');
+//$this->db->distinct();
+$this->db->select('patient_details.patient_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile, patient_details.patient_pin,user_profile_inst.inst_name,patient_details.paient_age, patient_details.patient_gender,test_master.test_type_name,disease_subcatagory.disease_sub_name, user_profile_inst.inst_mobile,user_profile_inst.inst_addr,patient_details.patient_gender,patient_details.patient_gurdain_name');
+$this->db->from('patient_test_details');
+$this->db->join('patient_details','patient_details.patient_id=patient_test_details.patient_id');
+$this->db->join('test_master','test_master.test_type_code=patient_test_details.test_id');
+$this->db->join('disease_subcatagory','disease_subcatagory.disease_sub_id=test_master.disease_sub_category_id');
 $this->db->join('user_profile_inst',' user_profile_inst.user_id=patient_details.institution_code');
-$condition="patient_details.disease_subcase_code='".$disease_sub_id."' AND patient_details.institution_code='".$institution_code."' ";
+$condition="disease_subcatagory.disease_sub_id='".$disease_sub_id."' AND patient_details.institution_code='".$institution_code."' ";
 $this->db->where($condition);
 $query=$this->db->get();
 return $query->result_array();

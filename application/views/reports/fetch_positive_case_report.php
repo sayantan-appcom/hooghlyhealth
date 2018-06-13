@@ -76,7 +76,7 @@
 				?>
   			<tr class="bg-warning">
 
-  			<td class="text-center"> <?php echo $x['registration_id']; ?> </td>
+  			<td class="text-center"> <?php echo $x['patient_id']; ?> </td>
   			<td class="text-center"> <?php echo $x['patient_name']; ?> </td>
   			<td class="text-center"> <?php echo $x['patient_gurdain_name']; ?> </td>
   			<td class="text-center"> 
@@ -96,7 +96,36 @@
   				}	 
   				?> 
   			</td>
-            <td class="text-center"> <?php echo $x['paient_age']; ?> </td>
+            <td class="text-center"> <?php  $age= $x['paient_age']; 
+			$year=explode("/",$age);
+		
+			 $patient_year=$year[0];
+			 $patient_month=$year[1];
+			 
+			//print_r($year);
+			if($patient_year!=0)
+			{
+			$current_year=$patient_year;
+			
+			
+			}
+			else
+			{
+			$current_year=0;
+			
+			}
+			if($patient_month!=0)
+			{
+			$current_month=$patient_month;
+			}
+			else
+			{
+			$current_month=$patient_month;
+			}
+			 echo $patient_current_age=$current_year. " "."year". " ".$current_month. " month";
+			 //echo $patient_year."/". $patient_month;
+			
+			?> </td>
             <td class="text-center"> <?php  echo $x['patient_address'] . " "."  pin code:". $x['patient_pin'] ; ?> </td>
             <td class="text-center"> <?php echo $x['patient_mobile']; ?> </td>
   			<td class="text-center"> <?php echo $x['test_type_name']; ?> </td>

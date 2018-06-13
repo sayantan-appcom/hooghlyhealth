@@ -15,7 +15,7 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Bone Disease Report - IDSP (FORM - L) Datewise</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Bone Disease Report - IDSP (FORM - P) Datewise</strong> </h2>
 <br><br>
 <div class="row">
 <?php
@@ -55,18 +55,22 @@ foreach($institution_details as $x)
 <div class="container">
 <table class="table" align="center" border="2">
   <tr class="bg-success">
-    <th class="text-center">Diseases</th>
-    <th class="text-center">No. Samples Tested </th>
-    <th class="text-center">No. found Positive </th>
-	<th class="text-center">No. found Negative </th>
+    <th class="text-center">S.NO</th>
+    <th class="text-center">Disease </th>
+    <th class="text-center">No. of Cases </th>
+
   </tr>
   <?php
     $institution_code=$x['user_id'];
+	$count=1;
   	foreach($fetch_all_disease_subcategory as $x)
 		{ 
 	?>
 
   <tr class="bg-info">
+  <th>
+  <?php echo $count;?>
+  </th>
   	<th class="text-center">	
 		<?php 
 			$disease_sub_id=$x['disease_sub_id'];
@@ -124,6 +128,7 @@ foreach($institution_details as $x)
 	</th>
   </tr>
  <?php 
+ $count++;
  }
  ?>
 </table>

@@ -98,9 +98,10 @@ public function Date_wise_report_FORM_L()
   $district_code=$this->input->post('district_code');
   $block_muni=$this->input->post('block_muni');
   $inst_name=$this->input->post('inst_name');
+  $inst_type=$this->input->post('inst_type');
   $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
   $data['state_code']=$state_code;
- $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory();
+  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
   $data['start_date']= $start_date;
   $data['end_date']= $end_date; 
 
@@ -118,7 +119,44 @@ $data['fetch_positive_test']=$this->Mod_report->fetch_positive_test($disease_sub
  $this->load->view('reports/fetch_positive_case_report',$data);
 
 
+}
+////////////////////////////VBD report for other disease//////////////////////////////
+	public function vbd_report_other_datewise()
+		{
+			$this->load->view('admin/header');
+			$this->load->view('admin/nav');
+			$data['get_state']=$this->Mod_report->get_state();
+			$data['get_institute']=$this->Mod_report->get_institute();
+			$this->load->view('reports/vbd_report_other_datewise',$data);		
+			$this->load->view('admin/footer');	
+
+		}
+		
+		
+///////////////////////////////Date Wise Report Form-P////////////////////////////////////////////////
+public function Date_wise_report_FORM_P()
+{
+  
+ 
+  $start_date=$this->input->post('from_date');
+  $end_date=$this->input->post('to_date');
+  $state_code=$this->input->post('state_code');
+  $district_code=$this->input->post('district_code');
+  $block_muni=$this->input->post('block_muni');
+  $inst_name=$this->input->post('inst_name');
+  $inst_type=$this->input->post('inst_type');
+  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
+  $data['state_code']=$state_code;
+  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
+  $data['start_date']= $start_date;
+  $data['end_date']= $end_date; 
+
+
+  $this->load->view('reports/Date_wise_report_FORM_P',$data);
+ 
 }	
+
+	
 		
 											 
 }
