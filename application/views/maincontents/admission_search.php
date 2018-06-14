@@ -114,54 +114,6 @@ header("location: index");
   <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
   <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
   <script type="text/javascript">
-  
-    
-     
-    $('#disease_code').change(function(e){
-     // alert("nibu");
-      var disease_category = $('#disease_code').val();
-  
-      // AJAX request
-      $.ajax({
-        url:'<?php  echo base_url('Health_Home/getsubdisease');?>',
-        method: 'post',
-        data: {
-            disease_category: disease_category
-        },
-        dataType: 'json',
-        success: function(response){
-          //alert("nibu");
-          $('#disease_subcase_code').empty();
-          $('#disease_subcase_code').append("<option value=''>Select Disease Sub Category</option>");
-          $.each(response,function(index,data){
-             $('#disease_subcase_code').append('<option value="'+data['disease_sub_id']+'">'+data['disease_sub_name']+'</option>');
-          });
-        }
-     });
-   });   
-
-   $('#disease_subcase_code').change(function(e){
-      //alert("nibu");
-
-      var disease_sub_category = $('#disease_subcase_code').val();
-  
-      // AJAX request
-      $.ajax({
-        url:'<?php  echo base_url('Health_Home/gettestname');?>',
-        method: 'post',
-        data: {
-            disease_sub_category: disease_sub_category
-        },
-        dataType: 'json',
-        success: function(response){
-          $('#test_type_code').empty();
-          $('#test_type_code').append("<option value=''>Select Test Name</option>");
-          $.each(response,function(index,data){
-             $('#test_type_code').append('<option value="'+data['test_type_code']+'">'+data['test_type_name']+'</option>');
-          });
-        }
-     });
-   });    
 
     $('#search_admission').click(function(e)
      { 

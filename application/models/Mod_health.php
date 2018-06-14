@@ -42,15 +42,12 @@ Class Mod_health extends CI_Model {
     	}				
 
     
-    public function getsubdisease($disease_category,$user_type)
+    public function getsubdisease($disease_category)
     	{   
 		
 			$this->db->select ('disease_sub_id,disease_sub_name');
-			$this->db->from('disease_subcatagory');
-			$this->db->join('disease_category','disease_category.disease_category_id=disease_subcatagory.disease_category_id');
-			$this->db->join('institution_type','institution_type.sub_disease_flag=disease_subcatagory.sub_disease_flag');
+			$this->db->from('disease_subcatagory');			
 			$this->db->where('disease_subcatagory.disease_category_id',$disease_category);
-			$this->db->where('institution_type.inst_type_id',$user_type);
 			$query = $this->db->get();
 	        return $query->result();
     	}
@@ -65,6 +62,14 @@ Class Mod_health extends CI_Model {
 			$query = $this->db->get();
 	        return $query->result();
     	} 
+
+    public function getsyndrome()
+    	{   
+			$this->db->select ('disease_syndrome_id,disease_syndrome_name');
+			$this->db->from('disease_syndromes');
+			$query = $this->db->get();
+	        return $query->result();
+    	}	
 
     
   	 public function getDistrict($state,$user_id)
@@ -245,7 +250,7 @@ return $query->result_array();
 }
 
 	// .......... Insert Admission Details .......... //
-	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -273,7 +278,7 @@ return $query->result_array();
 			$data1=array(
 				'patient_id' => $patient_id,
 				'institution_code' => $institution_code,
-				'disease_subcase_code'=>$disease_subcase_code,
+				'disease_syndrome_code'=>$disease_syndrome_code,
 				'doctor_name'=>$doctor_name,
 				'admission_date_time'=>$admission_date_time,
 				'admission_ward'=>$admission_ward,
@@ -297,7 +302,7 @@ return $query->result_array();
     	}
 
     // .......... Insert Only Admission Details .......... //
-	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -305,7 +310,7 @@ return $query->result_array();
 			$data=array(
 				'patient_id' => $patient_id,
 				'institution_code' => $institution_code,
-				'disease_subcase_code'=>$disease_subcase_code,
+				'disease_syndrome_code'=>$disease_syndrome_code,
 				'doctor_name'=>$doctor_name,
 				'admission_date_time'=>$admission_date_time,
 				'admission_ward'=>$admission_ward,

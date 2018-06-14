@@ -150,9 +150,9 @@ header("location: index");
                     </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Disease Sub Category <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="disease_subcase_code" name="disease_subcase_code" required="">
-                      <option value="">Select Disease Sub Category</option>
+                  <label for="exampleInputPassword1">Disease Assume Syndrome <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="disease_syndrome_code" name="disease_syndrome_code" required="">
+                      <option value="">Select Disease Syndrome</option>
                     </select>
             </div>
             <div class="form-group">
@@ -374,23 +374,21 @@ header("location: index");
     $('#disease_code').change(function(e){
      // alert("nibu");
       var disease_category = $('#disease_code').val();
-      var user_type = $('#user_type').val();
   
       // AJAX request
       $.ajax({
-        url:'<?php  echo base_url('Health_Home/getsubdisease');?>',
+        url:'<?php  echo base_url('Health_Home/getsyndrome');?>',
         method: 'post',
         data: {
-            disease_category : disease_category,
-            user_type : user_type
+            disease_category : disease_category
         },
         dataType: 'json',
         success: function(response){
           //alert("nibu");
-          $('#disease_subcase_code').empty();
-          $('#disease_subcase_code').append("<option value=''>Select Disease Sub Category</option>");
+          $('#disease_syndrome_code').empty();
+          $('#disease_syndrome_code').append("<option value=''>Select Disease Syndrome</option>");
           $.each(response,function(index,data){
-             $('#disease_subcase_code').append('<option value="'+data['disease_sub_id']+'">'+data['disease_sub_name']+'</option>');
+             $('#disease_syndrome_code').append('<option value="'+data['disease_syndrome_id']+'">'+data['disease_syndrome_name']+'</option>');
           });
         }
      });

@@ -57,10 +57,16 @@ class Health_Home extends CI_Controller {
 	public function getsubdisease()
 		{
             $disease_category = $this->input->post('disease_category');
-            $user_type = $this->input->post('user_type');
-			$data=$this->Mod_health->getsubdisease($disease_category,$user_type);
+			$data=$this->Mod_health->getsubdisease($disease_category);
 			echo json_encode($data);
 		}
+
+	public function getsyndrome()
+		{
+            $disease_category = $this->input->post('disease_category');
+			$data=$this->Mod_health->getsyndrome($disease_category);
+			echo json_encode($data);
+		}	
 		
 	public function patient_search()
 		{
@@ -392,7 +398,7 @@ public function  fetch_patient_details()
 					$patient_epic = $this->input->post('patient_epic');
 					$institution_code = $this->input->post('user_id');
 					$doctor_name = $this->input->post('doctor_name');
-					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$disease_syndrome_code = $this->input->post('disease_syndrome_code');
 					$admission_date_time = $this->input->post('admission_date_time');
 					$admission_ward = $this->input->post('admission_ward');
 					$admission_block = $this->input->post('admission_block');
@@ -412,7 +418,7 @@ public function  fetch_patient_details()
 
 					
 
-					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
 
 						if ($result == TRUE)
 			 				{										
@@ -486,7 +492,7 @@ public function  fetch_patient_details()
 					$patient_mobile = $this->input->post('patient_mobile');
 					$institution_code = $this->input->post('user_id');
 					$doctor_name = $this->input->post('doctor_name');
-					$disease_subcase_code = $this->input->post('disease_subcase_code');
+					$disease_syndrome_code = $this->input->post('disease_syndrome_code');
 					$admission_date_time = $this->input->post('admission_date_time');
 					$admission_ward = $this->input->post('admission_ward');
 					$admission_block = $this->input->post('admission_block');
@@ -502,7 +508,7 @@ public function  fetch_patient_details()
 					$death_date_time = $this->input->post('death_date_time'); 
 					$cause_of_death = $this->input->post('cause_of_death');
 
-					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_subcase_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
 
 						if ($result == TRUE)
 			 				{										

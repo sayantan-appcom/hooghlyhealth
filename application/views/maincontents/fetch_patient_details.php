@@ -151,15 +151,13 @@ header("location: index");
    $('#disease_code').change(function(e){
      // alert("nibu");
       var disease_category = $('#disease_code').val();
-	  var user_type = $('#user_type').val();
   
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Health_Home/getsubdisease');?>',
         method: 'post',
         data: {
-            disease_category: disease_category,
-			user_type : user_type
+            disease_category: disease_category
         },
         dataType: 'json',
         success: function(response){
