@@ -364,6 +364,17 @@ header("location: index");
 
     function validate()
       {
+        if($('#patient_age_year').val() > '130')
+          {
+            alert('You can not use year greater than 130');
+            return false;        
+          }
+
+         if($('#patient_age_month').val() > '12')
+          {
+            alert('You can not use month greater than 12');
+            return false;        
+          } 
            var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
           if (r==true)
             return true;
