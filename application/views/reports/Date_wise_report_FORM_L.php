@@ -28,7 +28,7 @@ foreach($institution_details as $x)
 <div class="row">
 <div class="container">
   <div class="col-md-4"><strong><mark>State:  <?php echo "WEST BENGAL";?></mark></strong></div>
-  <div class="col-md-4"><strong><mark>District: <?php echo $x['district_name'];?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>District:  <?php echo $x['district_name'];?></mark></strong></div>
   <div class="col-md-4"><strong><mark>Block:  <?php echo $x['blockmuni'];?></mark></strong></div>
 </div>
 <?php
@@ -36,9 +36,9 @@ foreach($institution_details as $x)
     $date=date("d-m-Y");
 ?>
 <div class="container">
-  <div class="col-md-4"><strong><mark>Reporting Date: <?php echo $date;?></mark></strong></div>
-  <div class="col-md-4"><strong><mark>Start Date: <?php echo $start_date;?></mark></strong></div>
-  <div class="col-md-4"><strong><mark>End Date:  <?php echo $end_date;?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>Reporting Date:  <?php echo $date;?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>Start Date:  <?php echo $start_date;?></mark></strong></div>
+  <div class="col-md-4"><strong><mark>End Date:   <?php echo $end_date;?></mark></strong></div>
 </div>
 
 <div class="container">
@@ -61,7 +61,7 @@ foreach($institution_details as $x)
 	<th class="text-center">No. found Negative </th>
   </tr>
   <?php
-    $institution_code=$x['user_id'];
+   echo $institution_code=$x['user_id'];
   	foreach($fetch_all_disease_subcategory as $x)
 		{ 
 	?>
@@ -70,7 +70,6 @@ foreach($institution_details as $x)
   	<th class="text-center">	
 		<?php 
 			$disease_sub_id=$x['disease_sub_id'];
-			 
 			echo $x['disease_sub_name'];
 			$positive=0;
 			$negative;
@@ -80,8 +79,6 @@ foreach($institution_details as $x)
     <th class="text-center">
 		<?php		 
 			$no_sample_tested=fetch_no_sample_tested($disease_sub_id,$start_date,$end_date,$institution_code);
-			
-			
 			foreach($no_sample_tested as $sample_tested)
                {
 				 if($sample_tested['total_Test']!=0)
@@ -92,18 +89,21 @@ foreach($institution_details as $x)
 					{
 						echo 0;
 					}
-			   }
+				}
+			   
 	    ?>	
 	</th>
     <th class="text-center star">
     <?php 
-	
-    if($sample_tested['POSITIVE']!=0)
+		$no_sample_tested=fetch_no_positive_tested($disease_sub_id,$start_date,$end_date,$institution_code);
+			foreach($no_sample_tested as $sample_tested1)
+               {
+    if($sample_tested1['POSITIVE']!=0)
     {
 	
 	?>
 	
-	<a class="star" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested['POSITIVE'];?></a>	
+	<a class="star" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested1['POSITIVE'];?></a>	
 	
 	
 <?php
@@ -114,12 +114,13 @@ foreach($institution_details as $x)
 	echo 0;
 
 	}
+	}
 	?>
 	</th>
 	<th class="text-center">
 	<?php
-	 //$negative=$sample_tested['total_Test']-$sample_tested['POSITIVE'];
-	 //echo $negative;
+	 $negative=$sample_tested['total_Test']-$sample_tested1['POSITIVE'];
+	 echo $negative;
 	 ?>
 	</th>
   </tr>

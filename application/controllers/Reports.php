@@ -101,7 +101,8 @@ public function Date_wise_report_FORM_L()
   $inst_type=$this->input->post('inst_type');
   $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
   $data['state_code']=$state_code;
-  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
+  //$data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
+  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory();
   $data['start_date']= $start_date;
   $data['end_date']= $end_date; 
 

@@ -57,7 +57,7 @@ Class Mod_admin extends CI_Model {
 
     public function get_institute()
     	{   
-			$this->db->select ('inst_type_id,inst_type_name,sub_disease_flag');
+			$this->db->select ('inst_type_id,inst_type_name');
 			$this->db->from('institution_type');
 			$query = $this->db->get();
 	        return $query->result();
@@ -266,14 +266,13 @@ Class Mod_admin extends CI_Model {
 	        return $query->result();
     	}	
 
-    public function insert_subcategory($institution_flag,$disease_code,$disease_subcase_code,$fetch_disease_sub_category)
+    public function insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category)
     	{ $disease_sub_id1= $fetch_disease_sub_category; 
 		$disease_sub_id=$disease_sub_id1+1;			
 			$data=array(
 				'disease_sub_name'=>$disease_subcase_code,
 				'disease_category_id'=>$disease_code,
-				'disease_sub_id'=>$disease_sub_id,
-				'sub_disease_flag'=>$institution_flag,
+				'disease_sub_id'=>$disease_sub_id
 				);
 			
 			return $this->db->insert('disease_subcatagory',$data);

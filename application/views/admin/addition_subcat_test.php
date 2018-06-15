@@ -34,19 +34,7 @@ header("location: index");
                         echo $this->session->flashdata('response');
                      ?>
              </h4>
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputPassword1">Select Institution Type <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="institution_flag" name="institution_flag" required="">
-                      <option value="">Select Institution Type</option>
-                      <?php
-                          foreach($get_institute as $row)
-                            { 
-                              echo '<option value="'.$row->sub_disease_flag.'">'.$row->inst_type_name.'</option>';
-                            }
-                      ?>
-                    </select>
-                </div>  
+              <div class="box-body">                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Disease Category <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="disease_code" name="disease_code" required="">

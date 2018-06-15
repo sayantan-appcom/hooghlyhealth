@@ -189,13 +189,13 @@ public function fetch_instituion_details($inst_name)
 
 }
 ///////////////////////////////////fetch Disease subcategory////////////////////////////////////////////////////////////////
-public function fetch_all_disease_subcategory($inst_type)
+public function fetch_all_disease_subcategory()
 {
 $this->db->select('*');
 $this->db->from('disease_subcatagory');
-$this->db->join('institution_type','institution_type.sub_disease_flag=disease_subcatagory.sub_disease_flag');
+/*$this->db->join('institution_type','institution_type.sub_disease_flag=disease_subcatagory.sub_disease_flag');
 $condition="institution_type.inst_type_id='".$inst_type."' ";
-$this->db->where($condition);
+$this->db->where($condition);*/
 $query=$this->db->get();
 return $query->result_array();
 
