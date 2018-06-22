@@ -63,7 +63,7 @@ header("location: index");
      </ul>     
   </li>
   <li class="treeview">
-    <a href="<?php //echo site_url('Admin/admin_home');?>">
+    <a href="<?php echo site_url('Admin/reset_password');?>">
       <i class="fa fa-home"></i> <span>Reset Password</span>         
     </a>        
   </li>
@@ -112,7 +112,7 @@ header("location: index");
     </ul>
 	  <li class="treeview">
     <a href="<?php echo site_url('Admin/user_details');?>">
-      <i class="fa fa-star"></i><span>User Details <br></span>         
+      <i class="fa fa-star"></i><span>View User Details <br></span>         
     </a>        
   </li>
   

@@ -5,12 +5,13 @@ Class Mod_admin extends CI_Model {
     public function __construct()
 	    {
 	        $this->load->database();
+	        $this->load->helper('string');
 	    }
 			// Read data using username and password
 
     public function admin_login($data) 
     	{	
-			$condition = "user_email =" . "'" . $data['email'] . "' AND " . "user_password =" . "'" . $data['password'] . "' AND " . "(user_type_cd = 01 OR user_type_cd = 02 OR user_type_cd = 04)";
+			$condition = "user_email =" . "'" . $data['email'] . "' AND " . "user_password =" . "'" . $data['password'] . "' AND " . "(user_type_cd = 01 OR user_type_cd = 02 OR user_type_cd = 03 OR user_type_cd = 04 OR user_type_cd = 05 OR user_type_cd = 06 OR user_type_cd = 07 OR user_type_cd = 08 OR user_type_cd = 09 OR user_type_cd = 10)";
 			$this->db->select('*');
 			$this->db->from('user_login');
 			$this->db->where($condition);
@@ -100,7 +101,15 @@ Class Mod_admin extends CI_Model {
 			$this->db->where('block_muni.subdivisioncd',$subdivision);
 			$query = $this->db->get();
 	        return $query->result();
-    	} 	
+    	}
+
+    public function get_block_muni()
+    	{   
+			$this->db->select ('blockminicd,blockmuni');
+			$this->db->from('block_muni');
+			$query = $this->db->get();
+	        return $query->result();
+    	} 	 	
 
     public function get_max_rs()
     	{
@@ -477,7 +486,47 @@ return $query->result_array();
 		$this->db->where('user_id', $user_id);  
 		return $this->db->update('user_login',$data); 
 	   	
-	}	
+	}
+
+//........... Start Reset Password ...........//
+
+	public function getEmailUser($user_type)
+    	{   
+			$this->db->select ('user_id,user_email');
+			$this->db->from('user_profile_admin');
+			$this->db->where('user_type_cd',$user_type);
+			$query = $this->db->get();
+	        return $query->result();
+    	} 
+
+    public function getEmailInstitution($institution_block)
+    	{   
+			$this->db->select ('user_profile_inst.inst_email');
+			$this->db->from('user_profile_inst');
+			$this->db->join('user_area','user_area.user_id=user_profile_inst.user_id');
+			$this->db->where('user_area.block_code',$institution_block);
+			$query = $this->db->get();
+	        return $query->result();
+    	} 	
+
+    public function getResetUser($user_email,$password)
+    	{  
+    		//$password= random_string('num', 8); 			
+			$this->db->where('user_email',$user_email);
+			$this->db->update('user_login',array('user_password'=>MD5($password),'reset_password_flag'=>1));
+			return $password;
+    	}
+
+    public function getInstitutionUser($user_email,$password)
+    	{  
+    		//$password= random_string('num', 8); 			
+			$this->db->where('user_email',$user_email);
+			$this->db->update('user_login',array('user_password'=>MD5($password),'change_password_flag'=>0,'reset_password_flag'=>1));
+			return $password;
+    	}	 
+
+//.......... End Reset Password ..........//    			
+
 
 }
 ?>

@@ -226,7 +226,7 @@ class Health_Home extends CI_Controller {
 					$this->load->view('maincontents/header');
 								$this->load->view('maincontents/nav');
 								$data = array(
-					'success_message' => ' Ther is no total test details entry first enter your total case  details'					
+					'success_message' => ' There are no total test details entry first enter your total case  details'					
 				);			
 							  $this->load->view('maincontents/patient_search',$data);
 			                  $this->load->view('maincontents/footer');
@@ -373,7 +373,37 @@ public function  fetch_patient_details()
 	// .......... Admission Insert ..........//
 	public function insert_admission()
 		{
+			$this->form_validation->set_rules('patient_name','Patient Name','trim|xss_clean|required|max_length[30]');
+			$this->form_validation->set_rules('patient_gurdain_name','Patient Gurdain Name','trim|xss_clean|required|max_length[30]');
+			$this->form_validation->set_rules('relation_gurdain','Relation With Gurdain','trim|xss_clean|required|max_length[15]');
+			//$this->form_validation->set_rules('paient_age','Patient Age','trim|required|xss_clean|max_length[3]');
+			$this->form_validation->set_rules('patient_age_year','Patient Age','trim|required|xss_clean|max_length[3]');
+			$this->form_validation->set_rules('patient_gender','Patient Gender','trim|required|xss_clean');
+			$this->form_validation->set_rules('patient_district','Patient District','trim|required|xss_clean');
+			$this->form_validation->set_rules('patient_village_town','Patient Villege / Town','trim|xss_clean|required|max_length[15]');
+			$this->form_validation->set_rules('patient_pin','Patient PIN','trim|required|xss_clean|min_length[6]|max_length[6]');
+			$this->form_validation->set_rules('patient_address','Patient Address','trim|required|xss_clean|max_length[100]');
+			$this->form_validation->set_rules('patient_mobile','Patient Mobile','trim|xss_clean|integer|min_length[10]|max_length[10]');
+			$this->form_validation->set_rules('patient_phone_no','Patient Phone Number','trim|xss_clean|integer|min_length[8]|max_length[12]');
+			$this->form_validation->set_rules('patient_email','Patient Email Id','trim|valid_email|xss_clean|max_length[50]');
+			$this->form_validation->set_rules('patient_aadhar','Patient Aadhar Number','trim|xss_clean|integer|min_length[16]|max_length[16]');
+			$this->form_validation->set_rules('patient_epic','Institution EPIC Number','trim|xss_clean|max_length[15]');
+			$this->form_validation->set_rules('disease_syndrome_code','Disease Assume Syndrome','trim|required|xss_clean');
 			$this->form_validation->set_rules('doctor_name','Doctor Name','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_date_time','Admission Date & Time','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_ward','Admission Ward','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_block','Admission Block','trim|xss_clean');
+			$this->form_validation->set_rules('admission_floor','Admission Floor','trim|xss_clean');
+			$this->form_validation->set_rules('admission_bed_no','Admission Bed Number','trim|xss_clean');
+			$this->form_validation->set_rules('patient_status','Patient Status','trim|required|xss_clean|callback_check_date');
+			$this->form_validation->set_rules('dischrg_date_time','Discharge Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('referout_type','Refer Out Type','trim|xss_clean');
+			$this->form_validation->set_rules('referout_date_time','ReferOut Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('cause_of_referout','Cause of ReferOut','trim|xss_clean');
+			$this->form_validation->set_rules('referout_to_whom','ReferOut to Whom','trim|xss_clean');
+			$this->form_validation->set_rules('absconded_datetime','Absconded Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('death_date_time','Death Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('cause_of_death','Cause of Death','trim|xss_clean');
 			
 			if ($this->form_validation->run() == TRUE) 
 				{					
@@ -480,7 +510,23 @@ public function  fetch_patient_details()
 	// .......... Only Admission Insert ..........//
 	public function insert_admission_only()
 		{
+			$this->form_validation->set_rules('disease_syndrome_code','Disease Assume Syndrome','trim|required|xss_clean');
 			$this->form_validation->set_rules('doctor_name','Doctor Name','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_date_time','Admission Date & Time','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_ward','Admission Ward','trim|required|xss_clean');
+			$this->form_validation->set_rules('admission_block','Admission Block','trim|xss_clean');
+			$this->form_validation->set_rules('admission_floor','Admission Floor','trim|xss_clean');
+			$this->form_validation->set_rules('admission_bed_no','Admission Bed Number','trim|xss_clean');
+			$this->form_validation->set_rules('patient_status','Patient Status','trim|required|xss_clean|callback_check_date');
+			$this->form_validation->set_rules('dischrg_date_time','Discharge Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('referout_type','Refer Out Type','trim|xss_clean');
+			$this->form_validation->set_rules('referout_date_time','ReferOut Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('cause_of_referout','Cause of ReferOut','trim|xss_clean');
+			$this->form_validation->set_rules('referout_to_whom','ReferOut to Whom','trim|xss_clean');
+			$this->form_validation->set_rules('absconded_datetime','Absconded Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('death_date_time','Death Date & Time','trim|xss_clean');
+			$this->form_validation->set_rules('cause_of_death','Cause of Death','trim|xss_clean');
+			
 			
 			if ($this->form_validation->run() == TRUE) 
 				{					
@@ -512,14 +558,21 @@ public function  fetch_patient_details()
 
 						if ($result == TRUE)
 			 				{										
-								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");				
+								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");
+								$this->load->view('maincontents/header');
+								$this->load->view('maincontents/nav');
+								$this->load->view('maincontents/admission_search');		
+								$this->load->view('maincontents/footer');				
 							} 						
 					
-     		 }
+     		 
 						else
 							{
 								$this->session->set_flashdata('admission_msg',"Admission Details not  Saved Successfully !");
-							}	
+								
+							}
+						}	
+							
 
 						$this->load->view('maincontents/header');
 						$this->load->view('maincontents/nav');
@@ -528,6 +581,41 @@ public function  fetch_patient_details()
 			
 		}
 
+	//.......... date validation...........//
+	public function check_date()
+	{
+		$admission_date_time = $this->input->post('admission_date_time');
+		$dischrg_date_time = $this->input->post('dischrg_date_time');
+		$referout_date_time = $this->input->post('referout_date_time');
+		$absconded_datetime = $this->input->post('absconded_datetime');
+		$death_date_time = $this->input->post('death_date_time');
+		if($dischrg_date_time != '' && $admission_date_time >= $dischrg_date_time)
+		{
+			$this->form_validation->set_message('check_date', 'The Discharge date must not be Previous than Admission date');
+        		return false; 
+   		}
+   		else if($referout_date_time != '' && $admission_date_time >= $referout_date_time)
+		{
+			$this->form_validation->set_message('check_date', 'The ReferOut date must not be Previous than Admission date');
+        		return false; 
+   		}
+   		else if($absconded_datetime != '' && $admission_date_time >= $absconded_datetime)
+		{
+			$this->form_validation->set_message('check_date', 'The Absconded date must not be Previous than Admission date');
+        		return false; 
+   		}
+   		else if($death_date_time != '' && $admission_date_time >= $death_date_time)
+		{
+			$this->form_validation->set_message('check_date', 'The Death date must not be Previous than Admission date');
+        		return false; 
+   		}
+    	else 
+    	{
+        	return true;
+		}
+	}	
+
+	
 	//............................//
 	/////////////////////////////////////// search_patient////////////////////////////////////////////////////////////////
 

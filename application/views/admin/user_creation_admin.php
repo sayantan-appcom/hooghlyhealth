@@ -195,7 +195,7 @@ header("location: index");
    }); 
 
    $('#user_type').change(function () {
-            if ($(this).val() == "07") {                
+            if ($(this).val() == "06") {                
                   $("#user_subdivision").prop("disabled", false);
                   $("#user_block").prop("disabled", true);
                 }  

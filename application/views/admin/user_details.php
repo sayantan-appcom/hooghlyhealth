@@ -12,7 +12,7 @@ header("location: index");
     <section class="content-header">
 	   <div class="container-fluid" id="user_details">
       <h1>
-        Admin User Creation Form
+        View User Details
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
@@ -21,7 +21,7 @@ header("location: index");
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <form role="form" method="POST" action="<?php echo site_url('Admin/admin_user_insert');?>">
+        <form role="form" method="POST">
           <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
@@ -53,6 +53,17 @@ header("location: index");
                       
                     </select>
                 </div>
+                     
+              </div>
+             </div>
+            </div> 
+
+            <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <!-- form start -->
+            
+              <div class="box-body">                
   
                <div class="form-group">
                   <label for="exampleInputEmail1">Sub-division <span class="star">*</span></label>
@@ -61,9 +72,9 @@ header("location: index");
                     </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Instituion Name <span class="star">*</span></label>
+                  <label for="exampleInputEmail1">Instituion Type <span class="star">*</span></label>
                        <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
-                      <option value="">Select State</option>
+                      <option value="">Select Institution Type</option>
                       <?php
                           foreach($get_institute as $row)
                             { 
@@ -76,8 +87,6 @@ header("location: index");
               </div>
              </div>
             </div> 
-              <!-- /.box-body -->
-      
    
         
       <div class="box-footer" align="center">
@@ -87,7 +96,8 @@ header("location: index");
 
          </form>
 
-      </div>   
+      </div>  
+      <div class="show_details"> </div> 
     </section>    
   </div>
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
@@ -117,7 +127,6 @@ header("location: index");
    $('#inst_district').change(function(e){
      
     var inst_district = $('#inst_district').val();
-  alert(inst_district);
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Admin/getSubdivision');?>',
@@ -142,11 +151,8 @@ header("location: index");
         var inst_district = $('#inst_district').val();
 	    var inst_subdivision = $('#inst_subdivision').val();
 	    var inst_type = $('#inst_type').val();
-		alert(inst_subdivision);
-			alert(inst_type);
-
         
-           $('#inst_edit').prop('disabled',true);
+           //$('#inst_edit').prop('disabled',true);
      var report;
 
         $.ajax({
@@ -164,7 +170,7 @@ header("location: index");
       
       },
             success: function(data) { console.log(data);
-                $('.content-wrapper').html(data);
+                $('.show_details').html(data);
                 //window.location.href = "llms_update_form.php";
                },
             error: function (jqXHR, textStatus, errorThrown) {

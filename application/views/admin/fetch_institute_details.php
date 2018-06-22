@@ -7,16 +7,16 @@ $user_type = ($this->session->userdata['logged_in']['user_type']);
 header("location: index");
 }
 ?>
-<html>
-<body>
-<div>
+
     <section class="content-header">
       <h1>
         Institution Details       
       </h1>
     
     </section>
-	<table align="center" border="2">
+    <br><br>
+    <section class="content">
+	<table align="center" border="2" class="table">
 	<tr>
 	<th class="text-center"> INSTITUTE NAME:</th>
 	<th class="text-center"> INSTITUTE LICENSE NO:</th>
@@ -41,11 +41,6 @@ header("location: index");
 	<?php
 	}?>
 	</table>
+	</section>
 	
-</div>
 
-<script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-</body>
-</html>

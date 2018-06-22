@@ -648,13 +648,23 @@ class Admin extends CI_Controller {
 //////////////////////////////////// user details edit////////////////////////
 	public function use_details()
  		{
+ 			$this->form_validation->set_rules('inst_district', 'District', 'trim|required|xss_clean');
+ 			$this->form_validation->set_rules('inst_subdivision', 'Subdivision', 'trim|required|xss_clean');
+ 			$this->form_validation->set_rules('inst_type', 'Institution Type', 'trim|required|xss_clean');
 
-			 $inst_district=$this->input->post('inst_district');
-			 $inst_subdivision=$this->input->post('inst_subdivision');
-			 $inst_type=$this->input->post('inst_type');
-			 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_subdivision,$inst_district,$inst_type);
-			$this->load->view('admin/fetch_institute_details',$data);
- 
+			if ($this->form_validation->run() == TRUE) 
+			 { 
+				 $inst_district=$this->input->post('inst_district');
+				 $inst_subdivision=$this->input->post('inst_subdivision');
+				 $inst_type=$this->input->post('inst_type');
+				 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_subdivision,$inst_district,$inst_type);
+
+				 if($data == TRUE)
+				 {
+				 	$this->load->view('admin/fetch_institute_details',$data);
+				 }				
+			 }			
+ 			
  		}
 
  //.............. Change Password ..........//
@@ -750,6 +760,98 @@ class Admin extends CI_Controller {
             return FALSE;
         }
         return TRUE;
-    }				
+    }
+
+    //.......... Start Reset Password ..........//
+
+    public function reset_password()
+		{
+			$this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$data['get_user']=$this->Mod_admin->get_user();
+			$data['get_institute']=$this->Mod_admin->get_institute();
+			$data['get_block_muni']=$this->Mod_admin->get_block_muni();
+			$this->load->view('admin/reset_password',$data);		
+			$this->load->view('admin/footer');	
+
+		}
+
+	public function getEmailUser()
+		{
+            $user_type = $this->input->post('user_type');
+			$data=$this->Mod_admin->getEmailUser($user_type);
+			echo json_encode($data);
+		}
+
+	public function getEmailInstitution()
+		{
+            $institution_block = $this->input->post('institution_block');
+			$data=$this->Mod_admin->getEmailInstitution($institution_block);
+			echo json_encode($data);
+		}	
+		
+	public function getResetUser()
+		{
+           
+			$this->form_validation->set_rules('user_email', 'User Email', 'trim|required|xss_clean');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$user_email = $this->input->post('user_email');
+				$password= random_string('nozero', 8);
+				$result=$this->Mod_admin->getResetUser($user_email,$password);
+				if ($result == TRUE)
+			 				{
+			 					$this->session->set_flashdata('reset_user_success',"Password Reset Successfully ! New Password :".$password);										
+							}
+					else
+			 				{
+			 					$this->session->set_flashdata('reset_user_success',"Password Reset not successfully !");										
+							}
+
+			$this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$data['get_user']=$this->Mod_admin->get_user();
+			$data['get_institute']=$this->Mod_admin->get_institute();
+			$data['get_block_muni']=$this->Mod_admin->get_block_muni();
+			$this->load->view('admin/reset_password',$data);		
+			$this->load->view('admin/footer');				
+
+				}
+		}
+
+	public function getInstitutionUser()
+		{
+           
+			$this->form_validation->set_rules('institution_email', 'User Email', 'trim|required|xss_clean');
+
+			if ($this->form_validation->run() == TRUE)
+			{
+				$institution_email = $this->input->post('institution_email');
+				$password= random_string('nozero', 8);
+				$result=$this->Mod_admin->getInstitutionUser($institution_email,$password);
+				if ($result == TRUE)
+			 				{
+			 					$this->session->set_flashdata('reset_institution_success',"Password Reset Successfully ! New Password :".$password);										
+							}
+					else
+			 				{
+			 					$this->session->set_flashdata('reset_institution_success',"Password Reset not successfully !");										
+							}
+
+			$this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$data['get_user']=$this->Mod_admin->get_user();
+			$data['get_institute']=$this->Mod_admin->get_institute();
+			$data['get_block_muni']=$this->Mod_admin->get_block_muni();
+			$this->load->view('admin/reset_password',$data);		
+			$this->load->view('admin/footer');				
+
+				}
+		}   	          
+
+			 
+		
+//.......... End Reset Password ..........//										
 
 }

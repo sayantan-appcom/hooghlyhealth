@@ -162,7 +162,7 @@ header("location: index");
                 
               <div class="form-group">
                   <label for="exampleInputPassword1">Admission Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('admission_date_time'); ?>">
+                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" value="<?php echo set_value('admission_date_time'); ?>">
               </div>
                            
               <div class="form-group">
@@ -205,7 +205,7 @@ header("location: index");
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Discharge Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Discharge Date & Time" id="dischrg_date_time" name="dischrg_date_time" autocomplete="off" required="" maxlength="10" disabled="" required="" value="<?php echo set_value('dischrg_date_time'); ?>">
+                    <input type="text" class="form-control" placeholder="Choose Discharge Date & Time" id="dischrg_date_time" name="dischrg_date_time" autocomplete="off" required="" disabled="" required="" value="<?php echo set_value('dischrg_date_time'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Refer Out Type <span class="star">*</span></label>
@@ -217,17 +217,17 @@ header("location: index");
                 </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">ReferOut Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Transfer Date & Time" id="referout_date_time" name="referout_date_time" autocomplete="off" maxlength="10" disabled="" required="" value="<?php echo set_value('referout_date_time'); ?>">
+                    <input type="text" class="form-control" placeholder="Choose Transfer Date & Time" id="referout_date_time" name="referout_date_time" autocomplete="off" disabled="" required="" value="<?php echo set_value('referout_date_time'); ?>">
               </div>                 
             </div>
             <div class="col-md-4">
                 <div class="form-group">
                   <label for="exampleInputPassword1"> Cause of ReferOut <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="10" disabled="" required="" value="<?php echo set_value('cause_of_referout'); ?>">
+                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="20" disabled="" required="" value="<?php echo set_value('cause_of_referout'); ?>">
               </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">ReferOut to Whom <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('referout_to_whom'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="20" disabled="" value="<?php echo set_value('referout_to_whom'); ?>">
               </div>
               <!--<div class="form-group">
                   <label for="exampleInputPassword1"> LAMA Date & Time <span class="star">*</span></label>
@@ -239,15 +239,15 @@ header("location: index");
               </div>-->
               <div class="form-group">
                   <label for="exampleInputPassword1">Absconded Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="absconded_datetime" name="absconded_datetime" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('absconded_datetime'); ?>">
+                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="absconded_datetime" name="absconded_datetime" autocomplete="off" disabled="" value="<?php echo set_value('absconded_datetime'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Death Date & Time <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="death_date_time" name="death_date_time" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('death_date_time'); ?>">
+                    <input type="text" class="form-control" placeholder="Choose Death Date & Time" id="death_date_time" name="death_date_time" autocomplete="off" disabled="" value="<?php echo set_value('death_date_time'); ?>">
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1">Cause of Death <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Cause of Death" id="cause_of_death" name="cause_of_death" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('cause_of_death'); ?>">
+                    <input type="text" class="form-control" placeholder="Cause of Death" id="cause_of_death" name="cause_of_death" autocomplete="off" maxlength="20" disabled="" value="<?php echo set_value('cause_of_death'); ?>">
               </div> 
             </div>
             
@@ -256,7 +256,7 @@ header("location: index");
     </div>
 
       <div class="box-footer" align="center">
-                <button type="submit" class="btn btn-lg btn-success" id="">Submit</button>
+                <button type="submit" class="btn btn-lg btn-success" id="admission_submit">Submit</button>
               </div>   
             </div>
 
@@ -362,25 +362,59 @@ header("location: index");
             }
         });
 
-    function validate()
+        function validate()
       {
-        if($('#patient_age_year').val() > '130')
+       var admission = $('#admission_date_time').val();
+       var discharge = $('#dischrg_date_time').val();
+       var referout = $('#referout_date_time').val();
+       var absconded = $('#absconded_datetime').val();
+       var death = $('#death_date_time').val();
+       var age_year =$('#patient_age_year').val();
+       var age_month =$('#patient_age_month').val();
+
+       if(age_year >120)
+       {
+        alert("Year must not exceeded than 120");
+        return false;
+       }
+
+       if(age_month >12)
+       {
+        alert("Month must not exceeded than 12");
+        return false;
+       }
+
+       if(discharge != '' && admission >= discharge)
           {
-            alert('You can not use year greater than 130');
+            alert("The Discharge date must not be Previous than Admission date");
             return false;        
           }
 
-         if($('#patient_age_month').val() > '12')
+      if(referout != '' && admission >= referout)
           {
-            alert('You can not use month greater than 12');
+            alert("The ReferOut date must not be Previous than Admission date");
             return false;        
-          } 
+          }
+          
+       if(absconded != '' && admission >= absconded)
+          {
+            alert("The Absconded date must not be Previous than Admission date");
+            return false;        
+          }
+          
+       if(death != '' && admission >= death)
+          {
+            alert("The Death date must not be Previous than Admission date");
+            return false;        
+          }
+                   
            var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
           if (r==true)
             return true;
           else
             return false;
       }
+
 
     $('#disease_code').change(function(e){
      // alert("nibu");

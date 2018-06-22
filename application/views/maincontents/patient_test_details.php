@@ -19,7 +19,7 @@ header("location: index");
 
     
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Health_Home/insert_diagnosis_test');?>" >
+    <form role="form" method="POST" action="<?php echo site_url('Health_Home/insert_diagnosis_test');?>" onsubmit="return(validate());">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
 	<input type="hidden" name="user_type" id="user_type" value="<?php echo $user_type; ?>">
           <h3 class="star" align="center">
@@ -256,18 +256,22 @@ header("location: index");
      function validate()
       {
 
-          if($('#patient_age_year').val() > '130')
-          {
-            alert('You can not use year greater than 130');
-            return false;        
-          }
+        var age_year =$('#patient_age_year').val();
+       var age_month =$('#patient_age_month').val();
 
-         if($('#patient_age_month').val() > '12')
-          {
-            alert('You can not use month greater than 12');
-            return false;        
-          } 
-           var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
+       if(age_year >120)
+       {
+        alert("Year must not exceeded than 120");
+        return false;
+       }
+
+       if(age_month >12)
+       {
+        alert("Month must not exceeded than 12");
+        return false;
+       }
+
+       var r=confirm("Do you really want to submit the form? Once Submit the information you can not change anything !")
           if (r==true)
             return true;
           else
