@@ -15,7 +15,7 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Bone Disease Report - IDSP (FORM - L) Datewise</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Borne Disease Report - IDSP (FORM - L) Datewise</strong> </h2>
 <br><br>
 <div class="row">
 <?php

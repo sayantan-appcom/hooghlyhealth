@@ -21,25 +21,36 @@ return $row;
 
 function fetch_no_positive_tested($disease_sub_id,$start_date1,$end_date1,$institution_code)
 {
-
- $ci =& get_instance();
- $ci->load->database();
-
-
- //$sql="SELECT SUM(patient_test_details.PN_flag) AS POSITIVE FROM patient_test_details LEFT JOIN test_data ON test_data.test_id=patient_test_details.test_id LEFT JOIN test_master ON test_master.test_type_code=test_data.test_id LEFT JOIN disease_subcatagory ON disease_subcatagory.disease_sub_id=test_master.disease_sub_category_id  WHERE disease_subcatagory.disease_sub_id='$disease_sub_id' AND patient_test_details.test_date between '$start_date1' AND '$end_date1' AND patient_test_details.institution_code='$institution_code' ";
- //////////////////////////running query/////////////////////
- 
- /* $sql="SELECT COUNT(patient_test_details.PN_flag) AS POSITIVE FROM patient_test_details,test_master,disease_subcatagory WHERE patient_test_details.test_id=test_master.test_type_code AND  test_master.disease_sub_category_id=disease_subcatagory.disease_sub_id AND patient_test_details.institution_code='$institution_code' AND patient_test_details.test_date BETWEEN '$start_date1' AND '$end_date1' AND disease_subcatagory.disease_sub_id='$disease_sub_id '";*/
-   //////////////////////////running query/////////////////////
-   
-   
    
 ///////////////////////////////////////Inner join/////////////////////
-
+ $ci =& get_instance();
+ $ci->load->database();
  $sql="SELECT COUNT(patient_test_details.PN_flag) AS POSITIVE FROM patient_test_details INNER JOIN test_master ON test_master.test_type_code =patient_test_details.test_id INNER JOIN disease_subcatagory ON disease_subcatagory.disease_sub_id=test_master.disease_sub_category_id WHERE patient_test_details.institution_code='$institution_code' AND patient_test_details.test_date BETWEEN '$start_date1' AND '$end_date1' AND disease_subcatagory.disease_sub_id='$disease_sub_id '";
+$query = $ci->db->query($sql);
+$row = $query->result_array();
+return $row;
+
+}
+
+function fetch_no_case($disease_syndrome_id,$start_date,$end_date,$institution_code)
+{
+
+$sql=" SELECT COUNT(*) AS CASES FROM admission_details  WHERE admission_details.disease_syndrome_code='$disease_syndrome_id'  AND  admission_details.institution_code='$institution_code' AND admission_details.admission_date_time BETWEEN '$start_date' AND '$end_date'";
+ $ci =& get_instance();
+ $ci->load->database();
+$query = $ci->db->query($sql);
+$row = $query->result_array();
+return $row;
+
+}
 
 
+function fetch_all_positive_case($disease_sub_id)
+{
 
+$sql="select disease_subcatagory.disease_sub_id,count(patient_test_details.PN_flag) as positive_flag from patient_test_details INNER JOIN test_master ON test_master.test_type_code=patient_test_details.test_id INNER JOIN disease_subcatagory ON disease_subcatagory.disease_sub_id= test_master.disease_sub_category_id AND disease_subcatagory.disease_sub_id='$disease_sub_id'  GROUP BY disease_subcatagory.disease_sub_id";
+ $ci =& get_instance();
+ $ci->load->database();
 $query = $ci->db->query($sql);
 $row = $query->result_array();
 return $row;

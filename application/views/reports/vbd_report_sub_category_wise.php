@@ -12,13 +12,13 @@ header("location: index");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Vector Borne Disease Report
+        Vector Bone Disease Report Sub Category Wise
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
 
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Reports/Date_wise_report_FORM_L');?>"  onsubmit="return(validate());" target="_blank">
+    <form role="form" method="POST" action="<?php echo site_url('Reports/fetch_vbd_report_sub_category_wise');?>"  onsubmit="return(validate());" target="_blank">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -30,7 +30,7 @@ header("location: index");
 
        <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title text-danger"><strong><u>Report for Diagnosis Test</u></strong></h3>
+          <h3 class="box-title text-danger"><strong><u>Report for Admission </u></strong></h3>
         </div>
        
         <div class="box-body">
@@ -60,45 +60,39 @@ header("location: index");
                     <select class="form-control select2" style="width: 100%;" id="subdiv_code" name="subdiv_code" required="">
                       <option value="">Select Sub-division</option>
                     </select>
-                </div>
-            
-                <div class="form-group">
+                </div>            
+                
+            </div>
+			
+           
+            <div class="col-md-6">
+			<div class="form-group">
                   <label for="exampleInputPassword1">Block / Municipality <span class="star">*</span></label>
                     <select class="form-control select2" style="width: 100%;" id="block_muni" name="block_muni" required="">
                       <option value="">Select Block / Municipality</option>
                     </select>
                 </div> 
-            </div>
-			
-           
-            <div class="col-md-6">
 			         <div class="form-group">
-                  <label for="exampleInputPassword1">Institution Type <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
-                      <option value="">Select Institution Type</option>
+                  <label for="exampleInputPassword1">Disease Category<span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="category_name" name="category_name" required="">
+                      <option value="">Select Disease category</option>
                       <?php
-                          foreach($get_institute as $row)
+                          foreach($get_disease_category as $row)
                             { 
-                              echo '<option value="'.$row->inst_type_id.'">'.$row->inst_type_name.'</option>';
+                              echo '<option value="'.$row->disease_category_id.'">'.$row->disease_category_name.'</option>';
                             }
                       ?>
                     </select>
                 </div> 
-                 <div class="form-group">
-                  <label for="exampleInputPassword1">Institution Name <span class="star">*</span></label>
-                     <select class="form-control select2" style="width: 100%;" id="inst_name" name="inst_name" required="">
-                      <option value="">Select Institute Name</option>
-                     
+         
+            	         <div class="form-group">
+                  <label for="exampleInputPassword1">Disease Sub Category<span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="sub_category_id" name="sub_category_name" required="">
+                      <option value="">Select Disease category</option>
+            
                     </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">From Date <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="from_date" name="from_date" autocomplete="off" required="" maxlength="10">
                 </div> 
-                <div class="form-group">
-                  <label for="exampleInputPassword1">To Date <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="to_date" name="to_date" autocomplete="off" required="" maxlength="10">
-                </div>                 
+                             
             </div>         
                        
           </div>
@@ -231,6 +225,28 @@ header("location: index");
         }
      });
    });  
-                      
+       
+///////////////////////////fetc disease sub category/////////////////////////////////////////////
+ $('#category_name').change(function(e){
+      //alert("nibu");
+
+      var category_name = $('#category_name').val();
+  alert(category_name);
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/getSubcategory_report');?>',
+        method: 'post',
+        data: {
+            category_name: category_name
+        },
+        dataType: 'json',
+        success: function(response){
+          $.each(response,function(index,data){
+             $('#sub_category_id').append('<option value="'+data['disease_sub_id']+'">'+data['disease_sub_name']+'</option>');
+          });
+        }
+     });
+	 });
+	                  
 
 </script> 

@@ -148,7 +148,8 @@ public function Date_wise_report_FORM_P()
   $inst_type=$this->input->post('inst_type');
   $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
   $data['state_code']=$state_code;
-  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
+  $data['fetch_all_disease_admission']=$this->Mod_report->fetch_all_disease_admission();
+
   $data['start_date']= $start_date;
   $data['end_date']= $end_date; 
 
@@ -156,8 +157,75 @@ public function Date_wise_report_FORM_P()
   $this->load->view('reports/Date_wise_report_FORM_P',$data);
  
 }	
+//////////////////////////////////  fetch_admission_patient_details////////////////////////////////////
+public function fetch_admission_patient_details()
+{
+$disease_syndrome_id=$this->uri->segment(3);
+$institution_code=$this->uri->segment(4);
 
-	
+$data['fetch_admission_patient_details']=$this->Mod_report->fetch_admission_patient_details($disease_syndrome_id,$institution_code);
+ $this->load->view('reports/fetch_admission_patient_details',$data);
+
+
+}
+////////////////////////vbd report category wise//////////////////////////////////////////
+	public function vbd_report_category_wise()
+		{
+			$this->load->view('admin/header');
+			$this->load->view('admin/nav');
+			$data['get_state']=$this->Mod_report->get_state();
+			$data['get_disease_category']=$this->Mod_report->get_disease_category();
+			$data['get_institute']=$this->Mod_report->get_institute();
+			$this->load->view('reports/vbd_report_category_wise',$data);		
+			$this->load->view('admin/footer');	
+
+		}
+		
+////////////////////////////////////// fetch_vbd_report_category_wise/////////////////////////////////////
+ public function fetch_vbd_report_category_wise()
+ {
+ 	
+    $category_id=$this->input->post('category_name');
+    $data['fetch_sub_category_name']=$this->Mod_report->fetch_sub_category_name($category_id);
+    $this->load->view('reports/fetch_vbd_report_category_wise',$data);	
+ 
+ 
+ }	
+ 
+ ////////////////////////vbd report sub category wise//////////////////////////////////////////
+	public function vbd_report_subcategory_wise()
+		{
+			$this->load->view('admin/header');
+			$this->load->view('admin/nav');
+			$data['get_state']=$this->Mod_report->get_state();
+			$data['get_disease_category']=$this->Mod_report->get_disease_category();
+			//$data['get_institute']=$this->Mod_report->get_institute();
+			$this->load->view('reports/vbd_report_sub_category_wise',$data);		
+			$this->load->view('admin/footer');	
+
+		}
+		
+///////////////////////////////// fetch sub category////////////////////////////////////////////
+		
+	public function getSubcategory_report()
+		{
+         $category_id = $this->input->post('category_name');
+			
+		
+			$data=$this->Mod_report->getsubdisease($category_id);
+			echo json_encode($data);
+		}			
+ 	
+////////////////////////////////////// fetch_vbd_report_category_wise/////////////////////////////////////
+ public function fetch_vbd_report_sub_category_wise()
+ {
+ 	
+    $sub_category_id=$this->input->post('sub_category_name');
+    $data['fetch_sub_category_name']=$this->Mod_report->fetch_sub_category_positive_test($sub_category_id);
+    $this->load->view('reports/fetch_vbd_report_sub_category_wise',$data);	
+ 
+ 
+ }	
 		
 											 
 }

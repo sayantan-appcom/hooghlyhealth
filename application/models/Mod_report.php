@@ -216,7 +216,57 @@ $query=$this->db->get();
 return $query->result_array();
 
 }
+////////////////////////////////// fetch all disease admission/////////////////////////////////////
+ 
+ public function fetch_all_disease_admission()
+ {
+ 
+     $this->db->select('*');
+     $this->db->from('disease_syndromes');
+     $query=$this->db->get();
+      return $query->result_array();
+ }
+ 
+ //////////////////////////////////////////////////////
+ 
+ public function fetch_admission_patient_details($disease_syndrome_id,$institution_code)
+{
+//$this->db->distinct();
+$this->db->select('patient_details.patient_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile, patient_details.patient_pin,user_profile_inst.inst_name,patient_details.paient_age, patient_details.patient_gender, user_profile_inst.inst_mobile,user_profile_inst.inst_addr,patient_details.patient_gender,patient_details.patient_gurdain_name,admission_details.doctor_name,disease_syndromes.disease_syndrome_name,admission_details.admission_date_time');
+$this->db->from('admission_details');
+$this->db->join('patient_details','patient_details.patient_id=admission_details.patient_id');
+$this->db->join('user_profile_inst',' user_profile_inst.user_id=admission_details.institution_code');
+$this->db->join('disease_syndromes',' disease_syndromes.disease_syndrome_id=admission_details.disease_syndrome_code');
+$condition="admission_details.disease_syndrome_code='".$disease_syndrome_id."' AND admission_details.institution_code='".$institution_code."' ";
+$this->db->where($condition);
+$query=$this->db->get();
+return $query->result_array();
 
+}
+////////////////////////////////////////////////////get_disease_category////////////////////////////////////
+public function get_disease_category()
+{
+$this->db->select('*');
+$this->db->from('disease_category');
+$query=$this->db->get();
+return $query->result();
+
+}
+////////////////////////////////////fetch_sub_category_name//////////////////////////////////////////////////
+public function fetch_sub_category_positive_test($sub_category_id)
+{
+$this->db->select('disease_subcatagory.disease_sub_name,count(patient_test_details.PN_flag) as positive_flag,disease_category.disease_category_name');
+$this->db->from('patient_test_details');
+$this->db->join('test_master','test_master.test_type_code=patient_test_details.test_id ');
+$this->db->join('disease_subcatagory','disease_subcatagory.disease_sub_id= test_master.disease_sub_category_id');
+$this->db->join('disease_category','disease_category.disease_category_id= disease_subcatagory.disease_sub_id');
+$condition="disease_subcatagory.disease_sub_id='$sub_category_id'  GROUP BY disease_subcatagory.disease_sub_id";
+$this->db->where($condition);
+$query=$this->db->get();
+return $query->result_array();
+
+
+}
 }
 ?>
 

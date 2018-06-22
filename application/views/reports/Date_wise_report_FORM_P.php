@@ -15,7 +15,7 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Bone Disease Report - IDSP (FORM - P) Datewise</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Borne Disease Report - IDSP (FORM - P) Datewise</strong> </h2>
 <br><br>
 <div class="row">
 <?php
@@ -53,9 +53,9 @@ foreach($institution_details as $x)
 ?>
 <br><br>
 <div class="container">
-<table class="table" align="center" border="2">
+<table class="table" align="center"  border="2">
   <tr class="bg-success">
-    <th class="text-center">S.NO</th>
+    <th class="text-center">Sl.NO</th>
     <th class="text-center">Disease </th>
     <th class="text-center">No. of Cases </th>
 
@@ -63,69 +63,47 @@ foreach($institution_details as $x)
   <?php
     $institution_code=$x['user_id'];
 	$count=1;
-  	foreach($fetch_all_disease_subcategory as $x)
+  	foreach($fetch_all_disease_admission as $x)
 		{ 
 	?>
 
   <tr class="bg-info">
-  <th>
+  <th class="text-center">
   <?php echo $count;?>
   </th>
   	<th class="text-center">	
 		<?php 
-			$disease_sub_id=$x['disease_sub_id'];
+		 $disease_syndrome_id=$x['disease_syndrome_id'];
 			 
-			echo $x['disease_sub_name'];
-			$positive=0;
-			$negative;
+			echo $x['disease_syndrome_name'];
+	
 		?>
 	
 	</th>
     <th class="text-center">
-		<?php		 
-			$no_sample_tested=fetch_no_sample_tested($disease_sub_id,$start_date,$end_date,$institution_code);
-			
-			
-			foreach($no_sample_tested as $sample_tested)
+		<?php	
+		// echo $disease_syndrome_id;
+			$fetch_no_case=fetch_no_case($disease_syndrome_id,$start_date,$end_date,$institution_code);
+
+			foreach($fetch_no_case as $fetch_case)
                {
-				 if($sample_tested['total_Test']!=0)
+				 if($fetch_case['CASES']!=0)
 					{
-				 echo $sample_tested['total_Test'];
+				 ?>
+<a class="star" href="<?php echo site_url('Reports/fetch_admission_patient_details'); ?>/<?php echo $disease_syndrome_id;?>/<?php echo $institution_code;?>"><?php echo $fetch_case['CASES'];?></a>	
+					<?php
 					}
 				  else
 					{
 						echo 0;
 					}
 			   }
+			   
+			   
 	    ?>	
 	</th>
-    <th class="text-center star">
-    <?php 
-	
-    if($sample_tested['POSITIVE']!=0)
-    {
-	
-	?>
-	
-	<a class="star" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested['POSITIVE'];?></a>	
-	
-	
-<?php
-	
-	}
-	else
-	{
-	echo 0;
 
-	}
-	?>
-	</th>
-	<th class="text-center">
-	<?php
-	 //$negative=$sample_tested['total_Test']-$sample_tested['POSITIVE'];
-	 //echo $negative;
-	 ?>
-	</th>
+
   </tr>
  <?php 
  $count++;

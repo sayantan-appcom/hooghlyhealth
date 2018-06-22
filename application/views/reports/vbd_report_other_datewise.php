@@ -12,7 +12,7 @@ header("location: index");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Vector Bone Disease Report For Admission
+        Vector Borne Disease Report For Admission
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>

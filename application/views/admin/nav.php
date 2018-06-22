@@ -80,30 +80,30 @@ header("location: index");
         </span> 
     </a>
     <ul class="treeview-menu">      
-      <li> 
+       <li> 
         <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
           <i class="fa fa-plus"></i> Institute wise Report (VBD)<br> 
         </a>         
       </li>
-	      <li> 
+        <li> 
         <a href="<?php echo site_url('Reports/vbd_report_other_datewise'); ?>">          
           <i class="fa fa-plus"></i> Institute wise Report-NURSING HOME (VBD)<br> 
         </a>         
       </li>
-	  
-	  
+    
+    
       <li> 
-        <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
+        <a href="<?php echo site_url('Reports/vbd_report_category_wise'); ?>">          
           <i class="fa fa-plus"></i> Category wise Report (VBD) <br> 
         </a>         
       </li>
       <li> 
-        <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
+        <a href="<?php echo site_url('Reports/vbd_report_subcategory_wise'); ?>">          
           <i class="fa fa-plus"></i> Sub Category wise Report (VBD) <br> 
         </a>         
       </li> 
       <li> 
-        <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
+        <a href="<?php //echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
           <i class="fa fa-plus"></i> Test Status wise Report (VBD) <br> 
         </a>         
       </li>
