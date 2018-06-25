@@ -12,13 +12,13 @@ header("location: index");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Vector Bone Disease Report Sub Category Wise
+        Vector Bone Disease Report Block wise
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
 
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Reports/fetch_vbd_report_sub_category_wise');?>"  onsubmit="return(validate());" target="_blank">
+    <form role="form" method="POST" action="<?php echo site_url('Reports/fetch_vbd_report_sub_category_wise');?>" target="_blank">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -30,7 +30,7 @@ header("location: index");
 
        <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title text-danger"><strong><u>Report for Admission </u></strong></h3>
+          <h3 class="box-title text-danger"><strong><u>Sub Category wise Report</u></strong></h3>
         </div>
        
         <div class="box-body">
@@ -121,42 +121,7 @@ header("location: index");
       autoclose: true,
       format: 'dd-mm-yyyy'
     });
-	////////////////////////////////////////////fetch Institution Name///////////////////////////////////////////
-   $('#inst_type').change(function(e){
-   
-
-      var inst_district = $('#district_code').val();
-	  var inst_subdivision= $('#subdiv_code').val();
-	  var inst_block=$('#block_muni').val();
-	  var inst_type=$('#inst_type').val();
-	     /*alert(inst_district);
-		   alert(inst_subdivision);
-		   
-	  alert(inst_block);
-	  alert(inst_type);*/
-  
-      // AJAX request
-      $.ajax({
-        url:'<?php  echo base_url('Reports/get_institution_name');?>',
-        method: 'post',
-        data: {
-            inst_district: inst_district,
-			inst_subdivision:inst_subdivision,
-			inst_block:inst_block,
-			inst_type:inst_type
-        },
-        dataType: 'json',
-        success: function(response){
-		//console.log(response);
-		 $('#inst_name').empty();
-          $('#inst_name').append("<option value=''>Select Institution</option>");
-          $.each(response,function(index,data){
-             $('#inst_name').append('<option value="'+data['user_id']+'">'+data['inst_name']+'</option>');
-          });
-        }
-     });
-   });  
-   
+	
    //////////////////////////////////fetch district////////////////////////////////////////////////////////
    $('#state_code').change(function(e){
       //alert("nibu");
@@ -231,7 +196,6 @@ header("location: index");
       //alert("nibu");
 
       var category_name = $('#category_name').val();
-  alert(category_name);
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Reports/getSubcategory_report');?>',

@@ -15,7 +15,14 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Borne Disease Report -Sub Category WISE</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Borne Disease Report (Sub Category wise)</strong> </h2>
+<?php 
+  foreach($fetch_block_muni as $a)
+    { ?>
+      <h3 align="center" class=""> Block : <?php echo $a['blockmuni'];
+                                                $blockmuni_code=$a['blockminicd'];
+            ?> </h3>
+ <?php } ?>     
 <br><br>
 <div class="row">
 <?php
@@ -26,15 +33,61 @@ $this->load->helper('report');
 ?>
 <br><br>
 <div class="container">
-<div>Disease Name:<?php echo $disease_category_name;?>
-</div>
 <table class="table" align="center" border="2">
+  <?php 
+  foreach($fetch_sub_category_name as $y)
+    { ?>
+  <tr>
+    <th colspan="2" class="text-center">Disease Name : <?php echo $y['disease_sub_name'];?> </th>
+  </tr>
+  <?php } ?>
+ 
   <tr class="bg-success">
-    
+    <th class="text-center">Test Name</th>
     <th class="text-center"> Total Positive Case </th>
   
   </tr>
+  <?php
+  // echo $institution_code=$x['user_id'];
+    foreach($gettestname as $x)
+    { 
+  ?>
 
+  <tr class="bg-info">
+    <th class="text-center">  
+    <?php 
+       $test_type_code=$x['test_type_code'];
+      echo $x['test_type_name'];
+      
+    ?>
+  
+  </th>
+    <th class="text-center">
+    <?php    
+      $fetch_positive_case=fetch_positive_case($test_type_code,$blockmuni_code);
+      foreach($fetch_positive_case as $sample_tested)
+               {
+         if($sample_tested['positive_flag']!=0)
+          {
+         echo $sample_tested['positive_flag'];
+          }
+          else
+          {
+            echo 0;
+          }
+        }
+        
+     
+         
+      ?>  
+  </th>
+
+
+  </tr>
+ <?php 
+ }
+//}
+ ?>
 </table>
 </div>
 </div>

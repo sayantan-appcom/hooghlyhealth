@@ -138,8 +138,8 @@ class Health_Home extends CI_Controller {
 			 				{
 			 					$this->load->view('maincontents/header');
 								$this->load->view('maincontents/nav');
-								$data = array(
-					'test_suc_msg' => 'Test data saved successfullly!');	
+								$data['get_disease']=$this->Mod_health->get_disease();
+								$this->session->set_flashdata('test_suc_msg',"Test data saved successfullly !");
 								$this->load->view('maincontents/entry_test_data',$data);
 								$this->load->view('maincontents/footer');										
 							} 
@@ -149,8 +149,8 @@ class Health_Home extends CI_Controller {
 							{
 								$this->load->view('maincontents/header');
 								$this->load->view('maincontents/nav');
-								$data = array(
-					'test_suc_msg' => 'Test data not saved successfullly!');	
+								$data['get_disease']=$this->Mod_health->get_disease();
+								$this->session->set_flashdata('test_suc_msg',"Test data not saved successfullly !");									
 								$this->load->view('maincontents/entry_test_data',$data);
 								$this->load->view('maincontents/footer');
 							} 
@@ -557,12 +557,13 @@ public function  fetch_patient_details()
 					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
 
 						if ($result == TRUE)
-			 				{										
-								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");
+			 				{								
+								
 								$this->load->view('maincontents/header');
 								$this->load->view('maincontents/nav');
 								$this->load->view('maincontents/admission_search');		
-								$this->load->view('maincontents/footer');				
+								$this->load->view('maincontents/footer');
+								$this->session->set_flashdata('admission_msg',"Admission Details Saved Successfully !");				
 							} 						
 					
      		 

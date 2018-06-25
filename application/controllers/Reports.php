@@ -186,7 +186,10 @@ $data['fetch_admission_patient_details']=$this->Mod_report->fetch_admission_pati
  {
  	
     $category_id=$this->input->post('category_name');
-    $data['fetch_sub_category_name']=$this->Mod_report->fetch_sub_category_name($category_id);
+    $block_muni=$this->input->post('block_muni');
+    $data['fetch_block_muni']=$this->Mod_report->fetch_block_muni($block_muni);
+    $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
+    //print_r($data);
     $this->load->view('reports/fetch_vbd_report_category_wise',$data);	
  
  
@@ -221,6 +224,9 @@ $data['fetch_admission_patient_details']=$this->Mod_report->fetch_admission_pati
  {
  	
     $sub_category_id=$this->input->post('sub_category_name');
+    $block_muni=$this->input->post('block_muni');
+    $data['fetch_block_muni']=$this->Mod_report->fetch_block_muni($block_muni);
+    $data['gettestname']=$this->Mod_report->gettestname($sub_category_id);
     $data['fetch_sub_category_name']=$this->Mod_report->fetch_sub_category_positive_test($sub_category_id);
     $this->load->view('reports/fetch_vbd_report_sub_category_wise',$data);	
  

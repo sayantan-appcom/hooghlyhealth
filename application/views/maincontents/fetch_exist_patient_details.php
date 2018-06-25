@@ -11,10 +11,10 @@ header("location: index");
   <div class="content-wrapper">
     <section class="content">
       <h3 align="center" class="text-danger"><strong><u>Patient Details with the same mobile number</u></strong></h3>
-      <table class="table">
+      <table class="table table-bordered">
          <tr>
            <th class="text-center"> Patient ID</th>
-           <th class="text-center"> PAtient Name</th>
+           <th class="text-center"> Patient Name</th>
            <th class="text-center"> Mobile No</th>
            <th class="text-center"> Action</th>
          </tr>
@@ -25,7 +25,7 @@ header("location: index");
             foreach($fetch_exist_patient_details as $fetch_details)
             {
             ?>
-          <th class="text-center">
+          <th scope="row" class="text-center">
             <?php echo $fetch_details['patient_id'];?>
           </th>
           <th class="text-center">
@@ -61,6 +61,4 @@ header("location: index");
     </section>    
   </div>
  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
-  <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
-  <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
   

@@ -17,7 +17,7 @@
 		
 			}
 			?>
-<h2 align="center"><span class="label label-success"><b>List Of Patient Details  - (Disease/Syndrome Name:-<?php echo $disease_syndrome_name;?>)   </b></span></h2>
+<h2 align="center"><span class="label label-success"><b>List of Patient Details  - (Disease/Syndrome Name :- <?php echo $disease_syndrome_name;?>)   </b></span></h2>
 <br />
 <div class="container">
   <div class="" align="left"> <strong> District  : HOOGHLY </strong> </div>
@@ -39,7 +39,7 @@
 <div class="container">
   <table class="table" align="center" border="2">
     <tr class="bg-success">
-      <th class="text-center">Registration ID</th>
+      <th class="text-center">Patient ID / Registration ID</th>
       <th class="text-center">Patient Name</th>
       <th class="text-center">Patient Gurdain Name</th>
       <th class="text-center">Patient Gender</th>
@@ -115,5 +115,11 @@
 <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$('.disableRightClick').on("contextmenu",function(e){
+        alert('You can not Use Right Click');
+        return false;
+    });
+</script>
 </body>
 </html>

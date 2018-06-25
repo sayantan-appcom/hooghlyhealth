@@ -82,12 +82,12 @@ header("location: index");
     <ul class="treeview-menu">      
        <li> 
         <a href="<?php echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
-          <i class="fa fa-plus"></i> Institute wise Report (VBD)<br> 
+          <i class="fa fa-plus"></i>Institute wise Diagnosis<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Test Report (VBD)<br> 
         </a>         
       </li>
         <li> 
         <a href="<?php echo site_url('Reports/vbd_report_other_datewise'); ?>">          
-          <i class="fa fa-plus"></i> Institute wise Report-NURSING HOME (VBD)<br> 
+          <i class="fa fa-plus"></i> Institute wise Admission <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Report (VBD)<br> 
         </a>         
       </li>
     
@@ -103,7 +103,7 @@ header("location: index");
         </a>         
       </li> 
       <li> 
-        <a href="<?php //echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
+        <a href="#">          
           <i class="fa fa-plus"></i> Test Status wise Report (VBD) <br> 
         </a>         
       </li>

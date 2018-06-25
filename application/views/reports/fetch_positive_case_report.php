@@ -2,23 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Report of Hopghly Health</title>
-   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
-  <!-- jQuery 2.2.3 -->
-
+<title>District Status Report</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.css" />
+<link rel="stylesheet" type="text/css" href="<?php echo base_url();?>assets/css/bootstrap-theme.min.css" />
 </head>
-<body class="bg-danger">
-<html lang="en">
- <head>
- 	<meta name="viewport" content="width=device-width, initial-scale=1">
- 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
- 	<title>District Status Report</title>
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap-theme.min.css">
- </head>	
-	<body class="bg-danger disableRightClick">
+
+<body class="bg-danger disableRightClick">
 		<?php
 			foreach($fetch_positive_test as $x)
 			{
@@ -27,15 +18,14 @@
 			}
 			?>
 	
-		<h2 align="center"><span class="label label-success"><b>List Of Positive Cases-<?php echo $disease_sub_name;?> </b></span></h2>
+		<h2 align="center"><span class="label label-success"><b>List of Positive Cases - <?php echo $disease_sub_name; ?> </b></span></h2>
         
         <br>
         <div class="container">
-        	<div class="col-md-2 col-md-offset-3" align="left">
+        	<div align="left">
         		<strong> District  : HOOGHLY  </strong>
         	</div>
-        	<div class="col-md-3 col-md-offset-2" align="right">
-			<?php
+        	<?php
 			foreach($fetch_positive_test as $x)
 			{
 			$institution_name=$x['inst_name'];
@@ -43,25 +33,24 @@
 			$institution_Address=$x['inst_addr'];
 			}
 			?>
-			<strong> Institution Name:<?php echo $institution_name;?>
-			</strong>
-			<strong> Institution Mobile:<?php echo $institution_mobile;?>
-			</strong>
-			<strong> Institution Address:<?php echo $institution_Address;?>
-			</strong>
-			
-		</div>
+		<div align="right">
+        	<strong> Institution Name:<?php echo $institution_name;?> </strong>
+        </div>
+        <div align="left">
+        	<strong> Institution Address:<?php echo $institution_Address;?> </strong>
+        </div>
+        <div align="right">
+        	<strong> Institution Mobile:<?php echo $institution_mobile;?> </strong>
+        </div>
 			
 			</div>
 
-        	</div>
-
-        </div>
+        	
         <br>
 		<div class="container">
   			<table class="table" align="center" border="2">
   				 <tr class="bg-success">
-  					<th class="text-center">Registration ID</th>
+  					<th class="text-center">Patient ID / Registration ID</th>
   					<th class="text-center">Patient Name</th>
   					<th class="text-center">Patient Gurdain Name</th>
   					<th class="text-center">Patient Gender</th>
@@ -136,7 +125,12 @@
     	</div>
 
 	
-
+<script type="text/javascript">
+  $('.disableRightClick').on("contextmenu",function(e){
+        alert('You can not Use Right Click');
+        return false;
+    });
+</script>
 	
 	</body>
 </html>

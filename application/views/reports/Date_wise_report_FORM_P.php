@@ -55,7 +55,7 @@ foreach($institution_details as $x)
 <div class="container">
 <table class="table" align="center"  border="2">
   <tr class="bg-success">
-    <th class="text-center">Sl.NO</th>
+    <th class="text-center">Sl.No</th>
     <th class="text-center">Disease </th>
     <th class="text-center">No. of Cases </th>
 
@@ -90,7 +90,7 @@ foreach($institution_details as $x)
 				 if($fetch_case['CASES']!=0)
 					{
 				 ?>
-<a class="star" href="<?php echo site_url('Reports/fetch_admission_patient_details'); ?>/<?php echo $disease_syndrome_id;?>/<?php echo $institution_code;?>"><?php echo $fetch_case['CASES'];?></a>	
+<a class="star" target="_blank" href="<?php echo site_url('Reports/fetch_admission_patient_details'); ?>/<?php echo $disease_syndrome_id;?>/<?php echo $institution_code;?>"><?php echo $fetch_case['CASES'];?></a>	
 					<?php
 					}
 				  else

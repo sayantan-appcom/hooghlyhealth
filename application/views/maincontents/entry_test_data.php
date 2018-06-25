@@ -24,11 +24,8 @@ header("location: index");
     <input type="hidden" name="user_type" id="user_type" value="<?php echo $user_type; ?>">
           <h3 class="star" align="center">
                     <?php 
-                        echo validation_errors();  
-                        
-                        if (isset($test_suc_msg ) ) {
-                          echo $test_suc_msg;
-                          }                                       
+                        echo validation_errors();                          
+                        echo $this->session->flashdata('test_suc_msg');                                       
                      ?>
              </h3>
       

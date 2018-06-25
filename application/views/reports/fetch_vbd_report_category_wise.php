@@ -15,7 +15,14 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Borne Disease Report -Category WISE</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Borne Disease Report (Category wise)</strong> </h2>
+<?php 
+  foreach($fetch_block_muni as $a)
+    { ?>
+      <h3 align="center" class=""> Block : <?php echo $a['blockmuni'];
+                                                $blockmuni_code=$a['blockminicd'];
+            ?> </h3>
+ <?php } ?>
 <br><br>
 <div class="row">
 <?php
@@ -34,7 +41,7 @@ $this->load->helper('report');
   </tr>
   <?php
   // echo $institution_code=$x['user_id'];
-  	foreach($fetch_sub_category_name as $x)
+  	foreach($fetch_subcategory_name as $x)
 		{ 
 	?>
 
@@ -49,7 +56,7 @@ $this->load->helper('report');
 	</th>
     <th class="text-center">
 		<?php		 
-			$fetch_all_positive_case=fetch_all_positive_case($disease_sub_id);
+			$fetch_all_positive_case=fetch_all_positive_case($disease_sub_id,$blockmuni_code);
 			foreach($fetch_all_positive_case as $sample_tested)
                {
 				 if($sample_tested['positive_flag']!=0)

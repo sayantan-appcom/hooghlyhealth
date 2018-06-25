@@ -10,75 +10,29 @@ header("location: index");
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-     <div class="container-fluid">
-     
+	   <div class="container-fluid" id="user_details">
+      <h1>
+        View User Details
+      </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
 
     <!-- Main content -->
     <section class="content">
       <div class="row">
-           <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Admin User Details</h3>
-            </div>
-            <!-- form start -->
-            <form role="form" method="POST" action="<?php echo base_url('Admin/getResetUser');?>" onsubmit="return(validate());">
-               <h3 class="star" align="center">
+        <!-- left column -->
+        <form role="form" method="POST">
+          <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
-                        echo $this->session->flashdata('reset_user_success');                  
+                        echo $this->session->flashdata('response');
                      ?>
              </h3>
-              <div class="box-body">
-                <div class="form-group">
-                  <label for="exampleInputName">Select Type <span class="star">*</span></label>
-                  <select class="form-control select2" style="width: 100%;" id="user_type" name="user_type" required="">
-                      <option value="">Select Type</option>
-                      <option value="01">District level user</option>
-                      <option value="02">Sub-division level user</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Select District <span class="star">*</span></label>
-                  <select class="form-control select2" style="width: 100%;" id="user_email" name="user_email" required="">
-                    <option value="">Select District</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Select Sub-division <span class="star">*</span></label>
-                  <select class="form-control select2" style="width: 100%;" id="user_email" name="user_email" required="">
-                    <option value="">Select Sub-division</option>
-                  </select>
-                </div>
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer">
-                <button class="btn btn-primary">View</button>
-              </div>
-            </form>
-          </div>       
-
-        </div>
-
         <div class="col-md-6">
           <!-- general form elements -->
           <div class="box box-primary">
-            <div class="box-header with-border">
-              <h3 class="box-title">Institution User Details</h3>
-            </div>
-            <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST" action="<?php echo base_url('Admin/getInstitutionUser');?>" onsubmit="return(validate());">
-               <h3 class="star" align="center">
-                    <?php 
-                        echo validation_errors();
-                        echo $this->session->flashdata('reset_institution_success');                  
-                     ?>
-             </h3>
+            
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">State <span class="star">*</span></label>
@@ -99,6 +53,17 @@ header("location: index");
                       
                     </select>
                 </div>
+                     
+              </div>
+             </div>
+            </div> 
+
+            <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <!-- form start -->
+            
+              <div class="box-body">                
   
                <div class="form-group">
                   <label for="exampleInputEmail1">Sub-division <span class="star">*</span></label>
@@ -107,9 +72,9 @@ header("location: index");
                     </select>
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Instituion Name <span class="star">*</span></label>
+                  <label for="exampleInputEmail1">Instituion Type <span class="star">*</span></label>
                        <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
-                      <option value="">Select State</option>
+                      <option value="">Select Institution Type</option>
                       <?php
                           foreach($get_institute as $row)
                             { 
@@ -118,21 +83,23 @@ header("location: index");
                       ?>
                     </select>
                 </div>  
+                     
               </div>
-              <!-- /.box-body -->
+             </div>
+            </div> 
+   
+        
+      <div class="box-footer" align="center">
+                <button type="submit" class="btn btn-lg btn-success" id="inst_edit">Submit</button>
+              </div>   
 
-              <div class="box-footer">
-                <button type="submit" class="btn btn-primary">View</button>
-              </div>
-            </form>
-          </div>
-        </div>
 
-      </div>
+         </form>
 
+      </div>  
+      <div class="show_details"> </div> 
     </section>    
   </div>
-  
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script type="text/javascript">
    
@@ -160,7 +127,6 @@ header("location: index");
    $('#inst_district').change(function(e){
      
     var inst_district = $('#inst_district').val();
-  alert(inst_district);
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Admin/getSubdivision');?>',
@@ -180,16 +146,13 @@ header("location: index");
  
     ////////////////////////////////////Admin institute user/////////////////////////////////////////////
     $('#inst_edit').click(function(e)   
-  { 
+	{ 
   
         var inst_district = $('#inst_district').val();
-      var inst_subdivision = $('#inst_subdivision').val();
-      var inst_type = $('#inst_type').val();
-    alert(inst_subdivision);
-      alert(inst_type);
-
+	    var inst_subdivision = $('#inst_subdivision').val();
+	    var inst_type = $('#inst_type').val();
         
-           $('#inst_edit').prop('disabled',true);
+           //$('#inst_edit').prop('disabled',true);
      var report;
 
         $.ajax({
@@ -201,13 +164,13 @@ header("location: index");
       data:{
        
         inst_district:inst_district,
-    inst_subdivision:inst_subdivision,
-    inst_type:inst_type
+		inst_subdivision:inst_subdivision,
+		inst_type:inst_type
        
       
       },
             success: function(data) { console.log(data);
-                $('.content-wrapper').html(data);
+                $('.show_details').html(data);
                 //window.location.href = "llms_update_form.php";
                },
             error: function (jqXHR, textStatus, errorThrown) {

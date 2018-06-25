@@ -71,14 +71,14 @@ Class Mod_report extends CI_Model {
     	}
 
 
-    public function gettestname($disease_sub_category)
+    public function gettestname($sub_category_id)
     	{   
 			$this->db->select ('test_type_code,test_type_name');
-			$this->db->from('test_type');
-			$this->db->join('disease_subcatagory', 'disease_subcatagory.disease_sub_id=test_type.disease_sub_category_id');
-			$this->db->where('test_type.disease_sub_category_id',$disease_sub_category);
+			$this->db->from('test_master');
+			$this->db->join('disease_subcatagory', 'disease_subcatagory.disease_sub_id=test_master.disease_sub_category_id');
+			$this->db->where('test_master.disease_sub_category_id',$sub_category_id);
 			$query = $this->db->get();
-	        return $query->result();
+	        return $query->result_array();
     	} 
 
     
@@ -253,7 +253,7 @@ return $query->result();
 
 }
 ////////////////////////////////////fetch_sub_category_name//////////////////////////////////////////////////
-public function fetch_sub_category_positive_test($sub_category_id)
+/*public function fetch_sub_category_positive_test($sub_category_id)
 {
 $this->db->select('disease_subcatagory.disease_sub_name,count(patient_test_details.PN_flag) as positive_flag,disease_category.disease_category_name');
 $this->db->from('patient_test_details');
@@ -266,7 +266,38 @@ $query=$this->db->get();
 return $query->result_array();
 
 
+}*/
+public function fetch_sub_category_positive_test($sub_category_id)
+{
+$this->db->select('disease_subcatagory.disease_sub_name');
+$this->db->from('disease_subcatagory');
+$this->db->where('disease_subcatagory.disease_sub_id',$sub_category_id);
+$query=$this->db->get();
+return $query->result_array();
 }
+
+//.......... Sub Category ..........//
+
+public function fetch_subcategory_name($category_id)
+{
+$this->db->select('disease_sub_id,disease_sub_name');
+$this->db->from('disease_subcatagory');
+$this->db->where('disease_category_id',$category_id);
+$query=$this->db->get();
+return $query->result_array();
+}
+
+public function fetch_block_muni($block_muni)
+{
+$this->db->select('blockmuni,blockminicd');
+$this->db->from('block_muni');
+$this->db->where('blockminicd',$block_muni);
+$query=$this->db->get();
+return $query->result_array();
+}
+
+
+
 }
 ?>
 

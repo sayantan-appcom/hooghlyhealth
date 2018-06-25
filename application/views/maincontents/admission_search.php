@@ -38,7 +38,7 @@ header("location: index");
             <div class="col-md-6">
               <div class="form-group">
                   <label for="exampleInputPassword1">Patient Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="50" onKeyPress="return onlyLetters(event)" value="<?php echo set_value('patient_name'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Patient Name" id="patient_name" name="patient_name" autocomplete="off" required="" maxlength="50" onKeyPress="return onlyLetters(event)" value="">
                 </div>
                 
             </div>

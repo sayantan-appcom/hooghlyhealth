@@ -61,7 +61,7 @@ foreach($institution_details as $x)
 	<th class="text-center">No. found Negative </th>
   </tr>
   <?php
-   echo $institution_code=$x['user_id'];
+    $institution_code=$x['user_id'];
   	foreach($fetch_all_disease_subcategory as $x)
 		{ 
 	?>
@@ -103,7 +103,7 @@ foreach($institution_details as $x)
 	
 	?>
 	
-	<a class="star" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested1['POSITIVE'];?></a>	
+	<a class="star" target="_blank" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested1['POSITIVE'];?></a>	
 	
 	
 <?php
