@@ -296,7 +296,26 @@ $query=$this->db->get();
 return $query->result_array();
 }
 
+/////////////////////////// fetch subdivision/////////////////////////////////
+public function fetchsubdivision($district_code)
+{
+$this->db->select('*');
+$this->db->from('subdivisions');
+$this->db->where('district_code',$district_code);
+$query=$this->db->get();
+return $query->result_array();
 
+}
+//////////////////////////////fetch block/////////////////////////
+public function fetchblock($subdivision_code)
+{
+$this->db->select('*');
+$this->db->from('block_muni');
+$this->db->where('subdivisioncd',$subdivision_code);
+$query=$this->db->get();
+return $query->result_array();
+
+}
 
 }
 ?>

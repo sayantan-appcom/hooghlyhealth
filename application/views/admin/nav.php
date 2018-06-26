@@ -103,9 +103,24 @@ header("location: index");
         </a>         
       </li> 
       <li> 
-        <a href="#">          
-          <i class="fa fa-plus"></i> Test Status wise Report (VBD) <br> 
+		<a href="#">
+      <i class="fa fa-star"></i> <span>Status Report (VBD)</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span> 
+    </a>
+		<ul class="treeview-menu">      
+       <li> 
+        <a href="<?php echo site_url('Reports/fetch_vbd_report_district_status_wise'); ?>">          
+          <i class="fa fa-plus"></i> District Status Report
         </a>         
+      </li>
+	  <li> 
+       <a href="<?php echo site_url('Reports/vbd_report_category_wise'); ?>">         
+          <i class="fa fa-plus"></i> VBD Status Report
+        </a>         
+      </li>
+	 </ul>          
       </li>
 	  
                  
@@ -113,7 +128,10 @@ header("location: index");
 	  <li class="treeview">
     <a href="<?php echo site_url('Admin/user_details');?>">
       <i class="fa fa-star"></i><span>View User Details <br></span>         
-    </a>        
+    </a>
+	
+	
+	        
   </li>
   
     

@@ -202,7 +202,7 @@ $data['fetch_admission_patient_details']=$this->Mod_report->fetch_admission_pati
 			$this->load->view('admin/nav');
 			$data['get_state']=$this->Mod_report->get_state();
 			$data['get_disease_category']=$this->Mod_report->get_disease_category();
-			//$data['get_institute']=$this->Mod_report->get_institute();
+			$data['get_institute']=$this->Mod_report->get_institute();
 			$this->load->view('reports/vbd_report_sub_category_wise',$data);		
 			$this->load->view('admin/footer');	
 
@@ -232,6 +232,39 @@ $data['fetch_admission_patient_details']=$this->Mod_report->fetch_admission_pati
  
  
  }	
+ 
+ ////////////////////////////////////// fetch_vbd_report_district_status_wise/////////////////////////////////////
+ public function fetch_vbd_report_district_status_wise()
+ {
+            $this->load->view('admin/header');
+			$this->load->view('admin/nav');
+			$data['get_state']=$this->Mod_report->get_state();
+			$data['get_disease_category']=$this->Mod_report->get_disease_category();
+			$this->load->view('reports/vbd_status_report_district_wise',$data);		
+			$this->load->view('admin/footer');		
+ 
+ 
+ }
+ public function fetch_vbd_report_district_wise()
+ {
+ $district_code=$this->input->post('district_code');
+ $category_id=$this->input->post('category_name');
+ $data['category_name']=$category_id;
+ $data['fetch_subdivision']=$this->Mod_report->fetchsubdivision($district_code);
+ $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
+ $this->load->view('reports/vbd_report_status_district_wise',$data);	
+ }
+ 
+ /////////////////////////////// fecth vbd report status blockwise/////////////////////////////////////////
+  public function fetch_vbd_report_status_block_wise()
+ {
+
+ $subdivision_code=$this->uri->segment(3);
+ $category_id=$this->uri->segment(4);
+ $data['fetch_block']=$this->Mod_report->fetchblock($subdivision_code);
+ $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
+ $this->load->view('reports/vbd_report_status_block_wise',$data);	
+ }
 		
 											 
 }
