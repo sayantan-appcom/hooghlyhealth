@@ -563,7 +563,6 @@ class Admin extends CI_Controller {
 			 $inst_subdivision = $this->input->post('inst_subdivision');
 			 $inst_block = $this->input->post('inst_block');
 			 $inst_type = $this->input->post('inst_type');
-		
 		     $data=$this->Mod_admin->get_institution_name($inst_district,$inst_subdivision,$inst_block,$inst_type);
 		     echo json_encode($data);
 
@@ -577,7 +576,7 @@ class Admin extends CI_Controller {
 
 			 $user_id=$this->input->post('inst_name');
 			 $data['edit_institute_details']=$this->Mod_admin->edit_institute_details($user_id);
-			$this->load->view('admin/edit_institute_form',$data);
+			 $this->load->view('admin/edit_institute_form',$data);
  
  		}
  //////////Institution  user update//////////////

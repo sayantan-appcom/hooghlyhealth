@@ -478,10 +478,9 @@ public function  fetch_patient_details()
 			//echo $abc=$result['patient_id'];
 			if($result != NULL)
 			{
-				//echo $abc=$result['patient_id'];
-				//echo json_encode(array(/*"Patient_ID"=>$result['patient_id'],"Patient_Name"=>$result['patient_name'],"Patient_Mobile"=>$result['patient_mobile'],*/"Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));
-				echo json_encode($result/*,$patient_name,$patient_mobile*/);
-				//echo json_encode(array("Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));
+				
+				echo json_encode($result);
+			
 			}
 			if($result==false)
 			{
@@ -784,20 +783,26 @@ public function patient_test_insert_only()
 			 					$this->session->set_flashdata('change_success',"Password Changed Successfully !");										
 							}
 					else
-			 				{
+			 		{
 			 					$this->session->set_flashdata('change_success',"Password Changed Unsuccessfully !");										
-							}								 
+					}								 
 				}
 				else
-			 				{
-			 					$this->session->set_flashdata('change_success',"Current Password does not matched ! Please enter password");										
-							}
-						}
+			 	{
+			 					$this->session->set_flashdata('change_success',"Current Password does not matched ! Please enter password");
+								
+																		
+				}
+				
+				
+			}
 				
 					$this->load->view('maincontents/header');	
 					$this->load->view('maincontents/nav');
 					$this->load->view('maincontents/change_password_user');		
 					$this->load->view('maincontents/footer');
+					
+					
 		}			
 
 	public function valid_password($new_password = '')
@@ -844,6 +849,82 @@ public function patient_test_insert_only()
         }
         return TRUE;
     }
+	
+/////////////////////////////////////////// test_data_entry//////////////////////////////////////////////////////	
+		public function test_data_edit()
+		{
+				$this->load->view('maincontents/header');
+				$this->load->view('maincontents/nav');	
+				$data['get_disease']=$this->Mod_health->get_disease();	
+				$this->load->view('maincontents/edit_test_data',$data);		
+				$this->load->view('maincontents/footer');	
+
+		}
+		
+		public function test_data_edit_fetch()
+		{
+				
+				
+				$test_date=$this->input->post('test_date');
+				$test_id=$this->input->post('test_id');
+				$user_id=$this->input->post('user_id');
+				$data['edit_test_details']=$this->Mod_health->edit_test_details($test_date,$test_id,$user_id);
+				$row=$this->Mod_health->test_details_row($test_date,$test_id,$user_id);
+
+				
+			if($row>0)
+			{
+				
+				$this->load->view('maincontents/fetch_test_data',$data);
+				
+			}
+				
+			if($row==0)
+				{
+			
+	     $this->load->view('maincontents/fetch_test_data_unsess');			
+				
+				
+				}
+				
+		
+		}
+		
+		
+		public function test_data_update()
+		{
+		
+		        $user_id=$this->input->post('user_id');
+				$total_tested=$this->input->post('total_tested');
+				$result=$this->Mod_health->test_data_update($user_id,$total_tested);
+		        if ($result == TRUE)
+			{
+			 					
+								$this->session->set_flashdata('test_suc_msg',"update test data sucessfully !");										
+			}
+			else
+			 {
+			 					
+								$this->session->set_flashdata('test_suc_msg',"update test data unsucessfully!");										
+					
+					
+			 }	
+				
+				
+				//$this->load->view('maincontents/fetch_test_data',$data);
+					$this->load->view('maincontents/header');	
+					$this->load->view('maincontents/nav');
+					$data['get_disease']=$this->Mod_health->get_disease();	
+				    $this->load->view('maincontents/edit_test_data',$data);		
+				    $this->load->view('maincontents/footer');	
+
+		
+		
+		}
+	
+	
+	
+	
 
 	
 

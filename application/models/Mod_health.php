@@ -440,6 +440,46 @@ return $query->result_array();
 		$this->db->where('user_id', $user_id);  
 		return $this->db->update('user_login',$data); 
 	   	
+	}
+	
+public function edit_test_details($test_date,$test_id,$user_id)
+{
+
+           $this->db->select('*');
+		   $this->db->from('test_data');
+		   $condition="test_data.test_date='".$test_date."' AND test_data.test_id='".$test_id."' AND test_data.institution_code='".$user_id."'";
+		   $this->db->where($condition);
+		   $query = $this->db->get();
+		   return $query->result_array();
+
+}	
+
+
+public function test_details_row($test_date,$test_id,$user_id)
+{
+
+           $this->db->select('*');
+		   $this->db->from('test_data');
+		   $condition="test_data.test_date='".$test_date."' AND test_data.test_id='".$test_id."' AND test_data.institution_code='".$user_id."'";
+		   $this->db->where($condition);
+		   $query = $this->db->get();
+		   $rowcount=$query->num_rows();
+		   return $rowcount;
+
+}	
+//.......... Update Password ..........//
+	public function test_data_update($user_id,$total_tested) 
+	{
+		date_default_timezone_set('Asia/Kolkata');
+        $update_timestamp=date("Y-m-d H:i:s");
+		//$this->db->set('user_password', $new_password);
+		$data = array(
+               'total_tested'=>$total_tested,
+			   'update_timestamp'=> $update_timestamp
+            );   
+		$this->db->where('institution_code', $user_id);  
+		return $this->db->update('test_data',$data); 
+	   	
 	}									
 		
 

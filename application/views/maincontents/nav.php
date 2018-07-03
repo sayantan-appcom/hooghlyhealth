@@ -15,7 +15,7 @@ header("location: index");
   </li>
   <li class="treeview">
     <a href="#">
-      <i class="fa fa-star"></i> <span>Application Form</span>
+      <i class="fa fa-star"></i> <span>Application Form Entry</span>
         <span class="pull-right-container">
       <i class="fa fa-angle-left pull-right"></i>
         </span> 
@@ -40,31 +40,42 @@ header("location: index");
           <i class="fa fa-plus"></i> Admission cum Registration           
         </a> 
          <?php } ?>       
-      </li>  
-                 
+      </li>      
     </ul>
     
   </li>
 
-<!--<li class="treeview">
+<li class="treeview">
     <a href="#">
-      <i class="fa fa-star"></i> <span>Reports</span>
+      <i class="fa fa-star"></i> <span>Application Form Edit</span>
         <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
+      <i class="fa fa-angle-left pull-right"></i>
         </span> 
     </a>
-    <ul class="treeview-menu">      
+    <ul class="treeview-menu">
       <li> 
-        <a href="<?php //echo site_url('Reports/vbd_report_lab_datewise'); ?>">          
-          <i class="fa fa-plus"></i> Vector Bone Disease Report
+        <a href="<?php echo site_url('Health_Home/test_data_edit'); ?>">          
+          <i class="fa fa-plus"></i> Total Test Edit            
+        </a>       
+      </li>  
+
+      <li> 
+        <a href="<?php //echo site_url('Health_Home/patient_search'); ?>">          
+          <i class="fa fa-plus"></i> Diagnosis Test Edit            
+        </a>       
+      </li>  
+
+      <li>        
+        <?php if($user_type=='07'){ ?>
+        <a href="<?php //echo site_url('Health_Home/admission_search'); ?>">
+          
+          <i class="fa fa-plus"></i> Admission Edit          
         </a> 
-        
-      </li> 
-                 
+         <?php } ?>       
+      </li>      
     </ul>
     
-  </li>-->
-
+  </li>
   </ul>
  </section>
 </aside>   

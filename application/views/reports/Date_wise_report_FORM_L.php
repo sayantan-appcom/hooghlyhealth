@@ -73,9 +73,7 @@ foreach($institution_details as $x)
 			echo $x['disease_sub_name'];
 			$positive=0;
 			$negative;
-		?>
-	
-	</th>
+		?>	</th>
     <th class="text-center">
 		<?php		 
 			$no_sample_tested=fetch_no_sample_tested($disease_sub_id,$start_date,$end_date,$institution_code);
@@ -91,22 +89,9 @@ foreach($institution_details as $x)
 					}
 				}
 			   
-	    ?>	
-	</th>
+	    ?>	</th>
     <th class="text-center star">
-    <?php 
-		$no_sample_tested=fetch_no_positive_tested($disease_sub_id,$start_date,$end_date,$institution_code);
-			foreach($no_sample_tested as $sample_tested1)
-               {
-    if($sample_tested1['POSITIVE']!=0)
-    {
-	
-	?>
-	
-	<a class="star" target="_blank" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested1['POSITIVE'];?></a>	
-	
-	
-<?php
+    <?php
 	
 	}
 	else
@@ -116,13 +101,21 @@ foreach($institution_details as $x)
 	}
 	}
 	?>
-	</th>
+    <?php 
+		$no_sample_tested=fetch_no_positive_tested($disease_sub_id,$start_date,$end_date,$institution_code);
+			foreach($no_sample_tested as $sample_tested1)
+               {
+    if($sample_tested1['POSITIVE']!=0)
+    {
+	
+	?>
+	
+	<a class="star" target="_blank" href="<?php echo site_url('Reports/fetch_positive_test'); ?>/<?php echo $disease_sub_id;?>/<?php echo $institution_code;?>  "><?php echo $sample_tested1['POSITIVE'];?></a></th>
 	<th class="text-center">
 	<?php
 	 $negative=$sample_tested['total_Test']-$sample_tested1['POSITIVE'];
 	 echo $negative;
-	 ?>
-	</th>
+	 ?>	</th>
   </tr>
  <?php 
  }
