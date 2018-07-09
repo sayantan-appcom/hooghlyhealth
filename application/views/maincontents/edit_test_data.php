@@ -83,12 +83,14 @@ header("location: index");
  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
   <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
+    <script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
   <script type="text/javascript">
   
     $('#test_date').datepicker({
-     // autoclose: true,
-      
-      dateFormat: 'dd-mm-yy'
+    autoclose: true,
+      startDate: '-21d',
+      endDate: new Date(),
+      format: 'yyyy-mm-dd'
     });
      
     $('#disease_code').change(function(e){
@@ -152,11 +154,11 @@ header("location: index");
 //////////////////////////////////edit test data/////////////////////////////////
    $('#test_edit').click(function(e)   { 
   
-      alert("sayantan");
+     // alert("sayantan");
 	var test_date=$('#test_date').val();
 	var test_id=$('#test_id').val();
 	var user_id=$('#user_id').val();
- alert(user_id);
+
      var report;
 
         $.ajax({

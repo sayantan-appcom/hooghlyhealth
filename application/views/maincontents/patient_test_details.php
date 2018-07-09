@@ -197,14 +197,14 @@ header("location: index");
     </section> 
  <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script src="<?php echo base_url();?>assets/js/user_form.js"></script>
-  <script src="<?php echo base_url();?>assets/js/jquery-ui.js"></script>
+   <script src="<?php echo base_url();?>assets/js/bootstrap-datepicker.js"></script>
   <script type="text/javascript">
 
     $('#test_date').datepicker({
-     // autoclose: true,
-      minDate: '-21',
-      maxDate: '0',
-      dateFormat: 'dd-mm-yy'
+      autoclose: true,
+      startDate: '-21d',
+      endDate: new Date(),
+      format: 'yyyy-mm-dd'
     });
 
    $('#disease_code').change(function(e){

@@ -33,14 +33,18 @@ header("location: index");
         </a>       
       </li>  
 
-      <li>        
-        <?php if($user_type=='07'){ ?>
-        <a href="<?php echo site_url('Health_Home/admission_search'); ?>">
-          
+      <?php if($user_type=='07'){ ?>
+      <li> 
+        <a href="<?php echo site_url('Health_Home/admission_search'); ?>"> 
           <i class="fa fa-plus"></i> Admission cum Registration           
-        </a> 
-         <?php } ?>       
-      </li>      
+        </a>  
+      </li> 
+      <li> 
+        <a href="<?php echo site_url('Health_Home/patient_outcome'); ?>"> 
+          <i class="fa fa-plus"></i> Patient Outcome           
+        </a>  
+      </li> 
+      <?php } ?>       
     </ul>
     
   </li>
@@ -76,6 +80,44 @@ header("location: index");
     </ul>
     
   </li>
-  </ul>
+
+    <li class="treeview">
+    <a href="#">
+      <i class="fa fa-star"></i> <span>Reports</span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span> 
+    </a>
+    <ul class="treeview-menu">      
+       <li> 
+	   <?php
+	   if($user_type=='07'&& $user_type='08')
+	   {
+	   ?>
+        <a href="<?php echo site_url('Reports/vbd_report_lab_wise'); ?>">          
+          <i class="fa fa-plus"></i>Diagnosis Test Report
+        </a> 
+		<?php 
+		}
+		?>        
+      </li>
+        <li> 
+		<?php
+		  if($user_type='08')
+	   {
+	   ?>
+        <a href="<?php echo site_url('Reports/vbd_report_other_institute_wise'); ?>">          
+          <i class="fa fa-plus"></i>Admission Report<br> 
+        </a> 
+		<?php
+		}
+		?>        
+      </li>
+    
+
+  
+
+	 </ul>          
+      </li>
  </section>
 </aside>   

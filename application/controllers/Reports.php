@@ -113,7 +113,9 @@ public function fetch_positive_test()
 {
 		$disease_sub_id=$this->uri->segment(3);
 		$institution_code=$this->uri->segment(4);
-		$data['fetch_positive_test']=$this->Mod_report->fetch_positive_test($disease_sub_id,$institution_code);
+		$start_date=$this->uri->segment(5);
+		$end_date=$this->uri->segment(6);
+		$data['fetch_positive_test']=$this->Mod_report->fetch_positive_test($disease_sub_id,$institution_code,$start_date,$end_date);
 	    $this->load->view('reports/fetch_positive_case_report',$data);
 
 
@@ -145,6 +147,7 @@ public function Date_wise_report_FORM_P()
 		  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
 		  $data['state_code']=$state_code;
 		  $data['fetch_all_disease_admission']=$this->Mod_report->fetch_all_disease_admission();
+		 
 		  $data['start_date']= $start_date;
 		  $data['end_date']= $end_date; 
 		  $this->load->view('reports/Date_wise_report_FORM_P',$data);
@@ -254,6 +257,66 @@ public function fetch_admission_patient_details()
 		 $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
  		 $this->load->view('reports/vbd_report_status_block_wise',$data);	
  }
+ 
+ ////////////////////////////vbd report institution wise//////////////////////////////////////////////////
+ 	public function vbd_report_lab_wise()
+		{
+				$this->load->view('maincontents/header');
+			    $this->load->view('maincontents/nav');
+				$this->load->view('reports/vbd_report_lab_wise');		
+				$this->load->view('maincontents/footer');	
+
+		}
 		
+		
+///////////////////////////////////////date wise vbd report form-l lab wise/////////////////////////////////
+public function Date_wise_report_FORM_L_lab_wise()
+{
+  
+ 
+			  $start_date=$this->input->post('from_date');
+			  $end_date=$this->input->post('to_date');
+			  $state_code=$this->input->post('state_code');
+			  $inst_name=$this->input->post('user_id');
+			  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
+			  $data['state_code']=$state_code;
+			  //$data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
+			  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory();
+			  $data['start_date']= $start_date;
+			  $data['end_date']= $end_date; 
+			  $this->load->view('reports/Date_wise_report_FORM_L_lab_wise',$data);
+ 
+}	
+
+/////////////////////////////////////////// vbd_report_other_institute_wise///////////////////
+
+	public function vbd_report_other_institute_wise()
+		{
+				$this->load->view('maincontents/header');
+			    $this->load->view('maincontents/nav');
+				$this->load->view('reports/vbd_report_other_institute_wise');		
+				$this->load->view('maincontents/footer');		
+
+		}	
+		
+		
+		///////////////////////////////Date Wise Report Form-P////////////////////////////////////////////////
+public function Date_wise_report_FORM_P_institute_wise()
+{
+ 
+		  $start_date=$this->input->post('from_date');
+		  $end_date=$this->input->post('to_date');
+		 
+		  $inst_name=$this->input->post('user_id');
+		 // $inst_type=$this->input->post('inst_type');
+		  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
+		  //$data['state_code']=$state_code;
+		  $data['fetch_all_disease_admission']=$this->Mod_report->fetch_all_disease_admission();
+		 
+		  $data['start_date']= $start_date;
+		  $data['end_date']= $end_date; 
+		  $this->load->view('reports/Date_wise_report_FORM_P_institute_wise',$data);
+ 
+}	
 											 
 }

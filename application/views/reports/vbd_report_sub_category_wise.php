@@ -115,11 +115,13 @@ header("location: index");
 <script type="text/javascript">
   $('#from_date').datepicker({
       autoclose: true,
-      format: 'dd-mm-yyyy'
+      endDate: new Date(),
+      format: 'yyyy-mm-dd'
     });
   $('#to_date').datepicker({
       autoclose: true,
-      format: 'dd-mm-yyyy'
+      endDate: new Date(),
+      format: 'yyyy-mm-dd'
     });
 	
    //////////////////////////////////fetch district////////////////////////////////////////////////////////

@@ -395,15 +395,7 @@ public function  fetch_patient_details()
 			$this->form_validation->set_rules('admission_block','Admission Block','trim|xss_clean');
 			$this->form_validation->set_rules('admission_floor','Admission Floor','trim|xss_clean');
 			$this->form_validation->set_rules('admission_bed_no','Admission Bed Number','trim|xss_clean');
-			$this->form_validation->set_rules('patient_status','Patient Status','trim|required|xss_clean|callback_check_date');
-			$this->form_validation->set_rules('dischrg_date_time','Discharge Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('referout_type','Refer Out Type','trim|xss_clean');
-			$this->form_validation->set_rules('referout_date_time','ReferOut Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('cause_of_referout','Cause of ReferOut','trim|xss_clean');
-			$this->form_validation->set_rules('referout_to_whom','ReferOut to Whom','trim|xss_clean');
-			$this->form_validation->set_rules('absconded_datetime','Absconded Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('death_date_time','Death Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('cause_of_death','Cause of Death','trim|xss_clean');
+			
 			
 			if ($this->form_validation->run() == TRUE) 
 				{					
@@ -434,21 +426,13 @@ public function  fetch_patient_details()
 					$admission_block = $this->input->post('admission_block');
 					$admission_floor = $this->input->post('admission_floor');
 					$admission_bed_no = $this->input->post('admission_bed_no');
-					$patient_status = $this->input->post('patient_status');
-					$dischrg_date_time = $this->input->post('dischrg_date_time');
-					$referout_type = $this->input->post('referout_type');
-					$referout_date_time = $this->input->post('referout_date_time');
-					$cause_of_referout = $this->input->post('cause_of_referout'); 
-					$referout_to_whom = $this->input->post('referout_to_whom');
-					$absconded_datetime = $this->input->post('absconded_datetime');
-					$death_date_time = $this->input->post('death_date_time'); 
-					$cause_of_death = $this->input->post('cause_of_death');
+					
 
 					$patient_id = $date.$max;
 
 					
 
-					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$patient_age_year,$patient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_id);
 
 						if ($result == TRUE)
 			 				{										
@@ -516,16 +500,7 @@ public function  fetch_patient_details()
 			$this->form_validation->set_rules('admission_block','Admission Block','trim|xss_clean');
 			$this->form_validation->set_rules('admission_floor','Admission Floor','trim|xss_clean');
 			$this->form_validation->set_rules('admission_bed_no','Admission Bed Number','trim|xss_clean');
-			$this->form_validation->set_rules('patient_status','Patient Status','trim|required|xss_clean|callback_check_date');
-			$this->form_validation->set_rules('dischrg_date_time','Discharge Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('referout_type','Refer Out Type','trim|xss_clean');
-			$this->form_validation->set_rules('referout_date_time','ReferOut Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('cause_of_referout','Cause of ReferOut','trim|xss_clean');
-			$this->form_validation->set_rules('referout_to_whom','ReferOut to Whom','trim|xss_clean');
-			$this->form_validation->set_rules('absconded_datetime','Absconded Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('death_date_time','Death Date & Time','trim|xss_clean');
-			$this->form_validation->set_rules('cause_of_death','Cause of Death','trim|xss_clean');
-			
+						
 			
 			if ($this->form_validation->run() == TRUE) 
 				{					
@@ -542,18 +517,9 @@ public function  fetch_patient_details()
 					$admission_ward = $this->input->post('admission_ward');
 					$admission_block = $this->input->post('admission_block');
 					$admission_floor = $this->input->post('admission_floor');
-					$admission_bed_no = $this->input->post('admission_bed_no');
-					$patient_status = $this->input->post('patient_status');
-					$dischrg_date_time = $this->input->post('dischrg_date_time');
-					$referout_type = $this->input->post('referout_type');
-					$referout_date_time = $this->input->post('referout_date_time');
-					$cause_of_referout = $this->input->post('cause_of_referout'); 
-					$referout_to_whom = $this->input->post('referout_to_whom'); 
-					$absconded_datetime = $this->input->post('absconded_datetime');
-					$death_date_time = $this->input->post('death_date_time'); 
-					$cause_of_death = $this->input->post('cause_of_death');
+					$admission_bed_no = $this->input->post('admission_bed_no');					
 
-					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id);
+					$result=$this->Mod_health->get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_id);
 
 						if ($result == TRUE)
 			 				{								
@@ -669,10 +635,9 @@ public function patient_test_insert_only()
 					$patient_id =$this->input->post('patient_id');
 					/////12.06.2018///////////////
 					 $fetch_test_count=$this->Mod_health->fetch_test_count($test_date,$test_type_code,$institution_code);
-					 //$fetch_test_count;
 					
 					$fetch_positive_test_case=$this->Mod_health->fetch_positive_test_case($test_date,$test_type_code,$institution_code);
-					//echo  $fetch_positive_test_case;
+					
 				
 					if($fetch_test_count==0)
 					{
@@ -916,13 +881,107 @@ public function patient_test_insert_only()
 					$this->load->view('maincontents/nav');
 					$data['get_disease']=$this->Mod_health->get_disease();	
 				    $this->load->view('maincontents/edit_test_data',$data);		
-				    $this->load->view('maincontents/footer');	
-
-		
+				    $this->load->view('maincontents/footer');			
 		
 		}
 	
+	// .......... Patient Outcome .......... //
+	public function patient_outcome()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');	
+			$this->load->view('maincontents/patient_outcome');		
+			$this->load->view('maincontents/footer');	
+
+		}
+
+
+
+////////////////////////////////////checck_patient_outcome/////////////////////////////////
+		
+		public function check_patient_outcome()
+		{
+			$admission_date_time = $this->input->post('admission_date_time');
+			//echo $admission_date_time;
+			
+			$patient_mobile = $this->input->post('patient_mobile');
+			$result=$this->Mod_health->check_patient_outcome($admission_date_time,$patient_mobile);
 	
+		
+			if($result != NULL)
+			{
+				
+				echo json_encode($result);
+			
+			}
+			if($result==false)
+			{
+				echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! ","Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));	
+			}
+
+		}
+		////////////////////////////////// patient outcome only//////////////////////////
+		
+			public function patient_outcome_only()
+		{
+			$this->load->view('maincontents/header');
+			$this->load->view('maincontents/nav');
+			$patient_id=$this->uri->segment(3);
+			$admission_date_time=$this->uri->segment(4);
+		    $admission_date_time1=substr($admission_date_time,0,10);
+		   
+	
+			$data['fetch_patient_details']=$this->Mod_health->fetch_patient_details_outcome($patient_id,$admission_date_time1);
+			print_r($data);
+			
+			$data['patient_status']=$this->Mod_health->patient_status();
+			$this->load->view('maincontents/patient_outcome_only',$data);
+			$this->load->view('maincontents/footer');	
+
+		}
+		
+		
+////////////////////////// patient_outcome_insert//////////////////////////////////////
+
+public function patient_outcome_insert()
+{
+  					   $patient_id = $this->input->post('patient_id');
+					   $admission_date_time = $this->input->post('admission_date_time');
+					    echo $admission_date_time1=substr($admission_date_time,0,10);
+						
+				       $patient_status = $this->input->post('patient_status');
+				       $dischrg_date_time=$this->input->post('dischrg_date_time');
+				       $referout_type=$this->input->post('referout_type');
+					   $referout_date_time=$this->input->post('referout_date_time');
+					   $cause_of_referout=$this->input->post('cause_of_referout');
+					   $referout_to_whom=$this->input->post('referout_to_whom');
+					   $absconded_datetime=$this->input->post('absconded_datetime');
+					   $death_date_time=$this->input->post('death_date_time');
+					   $cause_of_death=$this->input->post('cause_of_death');
+					   $return=$this->Mod_health->patient_outcome_insert($patient_id,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$admission_date_time1);
+					if($return=="1")
+					 {
+					  $this->session->set_flashdata('message',"Data Updated Successfully ! ");			
+					  $this->load->view('maincontents/header');
+			          $this->load->view('maincontents/nav');	
+			          $this->load->view('maincontents/patient_outcome');		
+			          $this->load->view('maincontents/footer');	
+		
+					 }
+			
+					else
+					 {
+						$this->session->set_flashdata('message',"Data can not update Successfully ! ");	
+				        $this->load->view('maincontents/header');
+			            $this->load->view('maincontents/nav');	
+			            $this->load->view('maincontents/patient_outcome');		
+			            $this->load->view('maincontents/footer');
+					 }  
+
+
+}		
+		
+
 	
 	
 

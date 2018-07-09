@@ -250,7 +250,7 @@ return $query->result_array();
 }
 
 	// .......... Insert Admission Details .......... //
-	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission($patient_name,$patient_gurdain_name,$relation_gurdain,$paient_age_year,$paient_age_month,$patient_gender,$patient_district,$patient_village_town,$patient_pin,$patient_address,$patient_mobile,$patient_phone_no,$patient_email,$patient_aadhar,$patient_epic,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -285,15 +285,6 @@ return $query->result_array();
 				'admission_block'=>$admission_block,
 				'admission_floor'=>$admission_floor,
 				'admission_bed_no'=>$admission_bed_no,
-				'patient_status'=>$patient_status,
-				'dischrg_date_time'=>$dischrg_date_time,
-				'referout_type' => $referout_type,
-				'referout_date_time'=>$referout_date_time,
-				'cause_of_referout'=>$cause_of_referout,
-				'referout_to_whom'=>$referout_to_whom,
-				'absconded_datetime'=>$absconded_datetime,
-				'death_date_time'=>$death_date_time,
-				'cause_of_death'=>$cause_of_death,
 				'create_timestamp' => $create_timestamp
 				);
 			 
@@ -302,7 +293,7 @@ return $query->result_array();
     	}
 
     // .......... Insert Only Admission Details .......... //
-	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$patient_id)
+	public function get_insert_admission_only($patient_name,$patient_gurdain_name,$paient_age,$patient_mobile,$institution_code,$doctor_name,$disease_syndrome_code,$admission_date_time,$admission_ward,$admission_block,$admission_floor,$admission_bed_no,$patient_id)
     	{   
 			date_default_timezone_set('Asia/Kolkata');
         	$create_timestamp=date("Y-m-d H:i:s");
@@ -317,15 +308,6 @@ return $query->result_array();
 				'admission_block'=>$admission_block,
 				'admission_floor'=>$admission_floor,
 				'admission_bed_no'=>$admission_bed_no,
-				'patient_status'=>$patient_status,
-				'dischrg_date_time'=>$dischrg_date_time,
-				'referout_type' => $referout_type,
-				'referout_date_time'=>$referout_date_time,
-				'cause_of_referout'=>$cause_of_referout,
-				'referout_to_whom'=>$referout_to_whom,
-				'absconded_datetime'=>$absconded_datetime,
-				'death_date_time'=>$death_date_time,
-				'cause_of_death'=>$cause_of_death,
 				'create_timestamp' => $create_timestamp
 				);
 			 
@@ -480,7 +462,65 @@ public function test_details_row($test_date,$test_id,$user_id)
 		$this->db->where('institution_code', $user_id);  
 		return $this->db->update('test_data',$data); 
 	   	
-	}									
+	}	
+	
+	    /////////////////////////////check patient record/////////////////////////////////
+	public function check_patient_outcome($admission_date_time,$patient_mobile)
+		{
+		
+		$this->db->select('admission_details.patient_id,patient_name,patient_mobile,admission_details.admission_date_time');
+		$this->db->from('patient_details');
+		$this->db->join('admission_details', 'admission_details.patient_id=patient_details.patient_id');
+		//$condition="patient_details.patient_mobile='".$patient_mobile."' AND (DATE_FORMAT(admission_details.admission_date_time,"%Y-%m-%d")='".$admission_date_time."') ";
+	   $condition="patient_details.patient_mobile='".$patient_mobile."' AND DATE_FORMAT(admission_details.admission_date_time, '%Y-%m-%d')='".$admission_date_time."' ";
+		$this->db->where($condition);
+		$query = $this->db->get();
+	    return $query->result_array();   
+		
+		}	
+		
+	
+	////////////////////////////////////////// patient_outcome_insert////////////////////////////////////////
+	
+		public function patient_outcome_insert($patient_id,$patient_status,$dischrg_date_time,$referout_type,$referout_date_time,$cause_of_referout,$referout_to_whom,$absconded_datetime,$death_date_time,$cause_of_death,$admission_date_time1)
+		{
+		
+		$data=array(
+				'patient_status'=>$patient_status,
+				'dischrg_date_time'=>$dischrg_date_time,
+				'referout_type'=>$referout_type,
+				'referout_date_time'=>$referout_date_time,
+				'cause_of_referout'=>$cause_of_referout,
+				'referout_to_whom'=>$referout_to_whom,
+				'absconded_datetime'=>$absconded_datetime,
+				'death_date_time'=>$death_date_time,
+				'cause_of_death'=>$cause_of_death
+				
+				);
+				$condition="admission_details.patient_id='".$patient_id."' AND DATE_FORMAT(admission_details.admission_date_time, '%Y-%m-%d')='".$admission_date_time1."' ";
+				//$this->db->where('patient_id',$patient_id);
+				$this->db->where($condition);
+				$flag = $this->db->update('admission_details', $data);
+				return $flag;	
+	
+		
+		}	
+		
+//////////////////////////////// patient_details_outcome//////////////////////////////
+
+public function fetch_patient_details_outcome($patient_id,$admission_date_time1)
+{
+	$this->db->select('*');
+		$this->db->from('patient_details');
+		$this->db->join('admission_details', 'admission_details.patient_id=patient_details.patient_id');
+		//$condition="patient_details.patient_mobile='".$patient_mobile."' AND (DATE_FORMAT(admission_details.admission_date_time,"%Y-%m-%d")='".$admission_date_time."') ";
+	   $condition="patient_details.patient_id='".$patient_id."'  AND DATE_FORMAT(admission_details.admission_date_time, '%Y-%m-%d')='".$admission_date_time1."' ";
+		$this->db->where($condition);
+		$query = $this->db->get();
+	    return $query->result_array(); 
+
+}		
+										
 		
 
 }

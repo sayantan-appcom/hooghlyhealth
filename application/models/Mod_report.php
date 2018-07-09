@@ -201,7 +201,7 @@ return $query->result_array();
 
 
 }
-public function fetch_positive_test($disease_sub_id,$institution_code)
+public function fetch_positive_test($disease_sub_id,$institution_code,$start_date,$end_date)
 {
 //$this->db->distinct();
 $this->db->select('patient_details.patient_id,patient_details.patient_name,patient_details.patient_address,patient_details.patient_mobile, patient_details.patient_pin,user_profile_inst.inst_name,patient_details.paient_age, patient_details.patient_gender,test_master.test_type_name,disease_subcatagory.disease_sub_name, user_profile_inst.inst_mobile,user_profile_inst.inst_addr,patient_details.patient_gender,patient_details.patient_gurdain_name');
@@ -210,7 +210,8 @@ $this->db->join('patient_details','patient_details.patient_id=patient_test_detai
 $this->db->join('test_master','test_master.test_type_code=patient_test_details.test_id');
 $this->db->join('disease_subcatagory','disease_subcatagory.disease_sub_id=test_master.disease_sub_category_id');
 $this->db->join('user_profile_inst',' user_profile_inst.user_id=patient_details.institution_code');
-$condition="disease_subcatagory.disease_sub_id='".$disease_sub_id."' AND patient_details.institution_code='".$institution_code."' ";
+//$condition="disease_subcatagory.disease_sub_id='".$disease_sub_id."' AND patient_details.institution_code='".$institution_code."' ";
+$condition="disease_subcatagory.disease_sub_id='".$disease_sub_id."' AND patient_details.institution_code='".$institution_code."' AND patient_test_details.test_date BETWEEN '$start_date' AND '$end_date' ";
 $this->db->where($condition);
 $query=$this->db->get();
 return $query->result_array();

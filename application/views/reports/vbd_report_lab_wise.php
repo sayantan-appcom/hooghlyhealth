@@ -12,13 +12,13 @@ header("location: index");
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Vector Bone Disease Report Block wise 
+        Vector Borne Disease Report Private Lab wise
       </h1>
       <h5 align="right" class="star">(*) fields are mandatory</h5>
     </section>
 
     <section class="content">
-    <form role="form" method="POST" action="<?php echo site_url('Reports/fetch_vbd_report_category_wise');?>"  onsubmit="return(validate());" target="_blank">
+    <form role="form" method="POST" action="<?php echo site_url('Reports/Date_wise_report_FORM_L_lab_wise');?>"  onsubmit="return(validate());" target="_blank">
     <input type="hidden" name="user_id" id="user_id" value="<?php echo $user_id; ?>">
           <h3 class="star" align="center">
                     <?php 
@@ -30,63 +30,30 @@ header("location: index");
 
        <div class="box box-info">
         <div class="box-header with-border">
-          <h3 class="box-title text-danger"><strong><u> Disease Category wise Report </u></strong></h3>
+          <h3 class="box-title text-danger"><strong><u>Report for Diagnosis Test</u></strong></h3>
         </div>
        
         <div class="box-body">
           <div class="row">
             <div class="col-md-6">
-               <div class="form-group">
-                  <label for="exampleInputEmail1">State <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="state_code" name="state_code" required="">
-                      <option value="">Select State</option>
-                      <?php
-                          foreach($get_state as $row)
-                            { 
-                              echo '<option value="'.$row->state_code.'">'.$row->state_name.'</option>';
-                            }
-                      ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputPassword1">District <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="district_code" name="district_code" required="">
-                      <option value="">Select District</option>
-                      
-                    </select>
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Sub-division <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="subdiv_code" name="subdiv_code" required="">
-                      <option value="">Select Sub-division</option>
-                    </select>
-                </div>            
-                
+             
+           
+            
+            
+            
             </div>
 			
            
             <div class="col-md-6">
-			<div class="form-group">
-                  <label for="exampleInputPassword1">Block / Municipality <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="block_muni" name="block_muni" required="">
-                      <option value="">Select Block / Municipality</option>
-                    </select>
+		
+                <div class="form-group">
+                  <label for="exampleInputPassword1">From Date <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="from_date" name="from_date" autocomplete="off" required="" maxlength="10">
                 </div> 
-			         <div class="form-group">
-                  <label for="exampleInputPassword1">Disease Category<span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="category_name" name="category_name" required="">
-                      <option value="">Select Disease category</option>
-                      <?php
-                          foreach($get_disease_category as $row)
-                            { 
-                              echo '<option value="'.$row->disease_category_id.'">'.$row->disease_category_name.'</option>';
-                            }
-                      ?>
-                    </select>
-                </div> 
-         
-            
-                             
+                <div class="form-group">
+                  <label for="exampleInputPassword1">To Date <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Choose Admission Date" id="to_date" name="to_date" autocomplete="off" required="" maxlength="10">
+                </div>                 
             </div>         
                        
           </div>
@@ -117,7 +84,42 @@ header("location: index");
       endDate: new Date(),
       format: 'yyyy-mm-dd'
     });
-	
+	////////////////////////////////////////////fetch Institution Name///////////////////////////////////////////
+   $('#inst_type').change(function(e){
+   
+
+      var inst_district = $('#district_code').val();
+	  var inst_subdivision= $('#subdiv_code').val();
+	  var inst_block=$('#block_muni').val();
+	  var inst_type=$('#inst_type').val();
+	     /*alert(inst_district);
+		   alert(inst_subdivision);
+		   
+	  alert(inst_block);
+	  alert(inst_type);*/
+  
+      // AJAX request
+      $.ajax({
+        url:'<?php  echo base_url('Reports/get_institution_name');?>',
+        method: 'post',
+        data: {
+            inst_district: inst_district,
+			inst_subdivision:inst_subdivision,
+			inst_block:inst_block,
+			inst_type:inst_type
+        },
+        dataType: 'json',
+        success: function(response){
+		//console.log(response);
+		 $('#inst_name').empty();
+          $('#inst_name').append("<option value=''>Select Institution</option>");
+          $.each(response,function(index,data){
+             $('#inst_name').append('<option value="'+data['user_id']+'">'+data['inst_name']+'</option>');
+          });
+        }
+     });
+   });  
+   
    //////////////////////////////////fetch district////////////////////////////////////////////////////////
    $('#state_code').change(function(e){
       //alert("nibu");
