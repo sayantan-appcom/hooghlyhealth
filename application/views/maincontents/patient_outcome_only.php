@@ -165,15 +165,15 @@ header("location: index");
   <script src="<?php echo base_url();?>assets/js/bootstrap-datetimepicker.min.js"></script>
   <script type="text/javascript">
     $('#dischrg_date_time').datetimepicker({startDate: new Date() -21,
-      endDate: new Date(),format: 'dd-mm-yyyy hh:ii'});
+      endDate: new Date(),format: 'yyyy-mm-dd hh:ii'});
     $('#referout_date_time').datetimepicker({startDate: new Date() -21,
-      endDate: new Date(),format: 'dd-mm-yyyy hh:ii'});
+      endDate: new Date(),format: 'yyyy-mm-dd hh:ii'});
     $('#lama_datetime').datetimepicker({startDate: new Date() -21,
-      endDate: new Date(),format: 'dd-mm-yyyy hh:ii'});
+      endDate: new Date(),format: 'yyyy-mm-dd hh:ii'});
     $('#death_date_time').datetimepicker({startDate: new Date() -21,
-      endDate: new Date(),format: 'dd-mm-yyyy hh:ii'});
+      endDate: new Date(),format: 'yyyy-mm-dd hh:ii'});
     $('#absconded_datetime').datetimepicker({startDate: new Date() -21,
-      endDate: new Date(),format: 'dd-mm-yyyy hh:ii'});
+      endDate: new Date(),format: 'yyyy-mm-dd hh:ii'});
     
    
 

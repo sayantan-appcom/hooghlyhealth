@@ -88,31 +88,31 @@ header("location: index");
           <i class="fa fa-angle-left pull-right"></i>
         </span> 
     </a>
-    <ul class="treeview-menu">      
-       <li> 
-	   <?php
-	   if($user_type=='07'&& $user_type='08')
-	   {
-	   ?>
+    <ul class="treeview-menu">  
+      <?php
+     if($user_type=='07' || $user_type=='08')
+     {
+     ?>    
+       <li> 	   
         <a href="<?php echo site_url('Reports/vbd_report_lab_wise'); ?>">          
           <i class="fa fa-plus"></i>Diagnosis Test Report
-        </a> 
-		<?php 
-		}
-		?>        
+        </a> 		        
       </li>
-        <li> 
-		<?php
-		  if($user_type='08')
-	   {
-	   ?>
+      <?php 
+    }
+    ?>
+    <?php
+      if($user_type=='07')
+     {
+     ?>
+        <li> 		
         <a href="<?php echo site_url('Reports/vbd_report_other_institute_wise'); ?>">          
           <i class="fa fa-plus"></i>Admission Report<br> 
-        </a> 
-		<?php
-		}
-		?>        
+        </a> 		        
       </li>
+      <?php
+    }
+    ?>
     
 
   
