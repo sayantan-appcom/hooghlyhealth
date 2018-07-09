@@ -15,7 +15,8 @@ class Login extends CI_Controller {
      } 
 
 	public function index()
-	{
+	{				
+
 		$this->load->helper('captcha');
 		$vals = array(
 		        'img_path'      => './captcha/',
@@ -30,8 +31,7 @@ class Login extends CI_Controller {
 				);
 		$cap = create_captcha($vals);
 		$data['captcha'] = $cap['image'];
-		$this->session->set_userdata('captchaword', $cap['word']);		
-
+		$this->session->set_userdata('captchaword', $cap['word']);
 		$this->load->view('index',$data);
 	}
 
@@ -53,6 +53,29 @@ class Login extends CI_Controller {
 		echo $cap['image'];
 	}
 
+	public function UserLogin()
+	{
+		$this->load->helper('captcha');
+		$vals = array(
+		        'img_path'      => './captcha/',
+		        'img_url'       => base_url().'captcha/',
+		        'font_size'		=> 60,
+		        'img_width' => 120,
+    			'img_height' => 30,
+    			//'word_length' => 6,
+    			'word' =>rand(100000,999999),
+		        'expiration'	=> 900
+
+				);
+		$cap = create_captcha($vals);
+		$data['captcha'] = $cap['image'];
+		$this->session->set_userdata('captchaword', $cap['word']);
+		$this->load->view('header');
+		$this->load->view('nav');
+		$this->load->view('user_login',$data);
+		$this->load->view('footer');
+	}
+
 
 	public function user_login_process()
 	{
@@ -71,6 +94,7 @@ class Login extends CI_Controller {
 			if(isset($this->session->userdata['logged_in']))
 			{
 				unset($this->session->userdata['logged_in']);
+				unset($this->session->userdata['captchaword']);
 			}
 				$this->index();
 			}
@@ -119,13 +143,28 @@ class Login extends CI_Controller {
 		    }
 			else
 			{				
-				echo "Invalid Email OR Password! Please check it carefully";
+				//echo "Invalid Email OR Password! Please check it carefully";
+				//$this->session->set_flashdata('login_msg',"Invalid Email OR Password!");
+				//$this->UserLogin();
+				echo "<script>
+					alert('Invalid Email OR Password! Please check it carefully');
+					 </script>";
+				$this->index();
 			} 
 		}
 		/*else {
 			echo "Invalid Captcha! Please check captcha carefully";
 			}
 		}	*/
+	}
+
+	public function home()
+	{
+		$this->load->view('maincontents/header');	
+		$this->load->view('maincontents/nav');
+		$this->load->view('maincontents/home');		
+		$this->load->view('maincontents/footer');
+
 	}
 
 	public function validate_captcha()
@@ -135,7 +174,15 @@ class Login extends CI_Controller {
 			if($post_captcha != $set_captcha)
 			{
 				$this->form_validation->set_message('validate_captcha', 'Wrong Captcha Code ! Enter Correct Captcha Code');
-			        return false;
+			       // return false;
+			       
+
+			    echo "<script>
+					alert('Wrong Captcha Code ! Enter Correct Captcha Code');
+					 </script>";
+				return false;	  
+				$this->index();
+				 	    
 			}
 			else
 			{

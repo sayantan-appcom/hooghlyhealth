@@ -72,7 +72,7 @@ header("location: index");
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST" action="<?php echo base_url('Admin/getInstitutionUser');?>" onsubmit="return(validate());">
+            <form role="form" method="POST">
                <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
@@ -122,7 +122,7 @@ header("location: index");
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">View</button>
+                <button type="submit" class="btn btn-primary" id="inst_view">View</button>
               </div>
             </form>
           </div>
@@ -160,7 +160,7 @@ header("location: index");
    $('#inst_district').change(function(e){
      
     var inst_district = $('#inst_district').val();
-  alert(inst_district);
+  
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Admin/getSubdivision');?>',
@@ -179,17 +179,14 @@ header("location: index");
 
  
     ////////////////////////////////////Admin institute user/////////////////////////////////////////////
-    $('#inst_edit').click(function(e)   
+    $('#inst_view').click(function(e)   
   { 
   
         var inst_district = $('#inst_district').val();
       var inst_subdivision = $('#inst_subdivision').val();
       var inst_type = $('#inst_type').val();
-    alert(inst_subdivision);
-      alert(inst_type);
-
         
-           $('#inst_edit').prop('disabled',true);
+           $('#inst_view').prop('disabled',true);
      var report;
 
         $.ajax({

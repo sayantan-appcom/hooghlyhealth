@@ -932,7 +932,6 @@ public function patient_test_insert_only()
 		   
 	
 			$data['fetch_patient_details']=$this->Mod_health->fetch_patient_details_outcome($patient_id,$admission_date_time1);
-			print_r($data);
 			
 			$data['patient_status']=$this->Mod_health->patient_status();
 			$this->load->view('maincontents/patient_outcome_only',$data);

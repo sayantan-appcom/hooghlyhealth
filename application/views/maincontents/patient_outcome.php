@@ -36,7 +36,7 @@ header("location: index");
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                  <label for="exampleInputPassword1">Admission Date & Time <span class="star">*</span></label>
+                  <label for="exampleInputPassword1">Admission Date <span class="star">*</span></label>
                     <input type="text" class="form-control" placeholder="Choose Admission Date" id="admission_date_time" name="admission_date_time" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('admission_date_time'); ?>">
               </div>
                 
@@ -118,7 +118,6 @@ header("location: index");
     $('#patient_outcome').click(function(e)
      { 
     var admission_date_time=$('#admission_date_time').val();
-	alert(admission_date_time);
           e.preventDefault();
            valid = true; 
           

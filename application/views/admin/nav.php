@@ -28,50 +28,62 @@ header("location: index");
       <i class="fa fa-home"></i> <span>Home</span>         
     </a>        
   </li>
+  <?php if($user_type=='01' || $user_type=='04' || $user_type=='05' || $user_type=='06'){ ?>
   <li class="treeview">
     <a href="#">
       <i class="fa fa-user-plus"></i> <span>User Creation</span>        
     </a>
      <ul class="treeview-menu">
-        <li class="active">
-          <?php if($user_type=='01'){ ?>
+      <?php if($user_type=='01'){ ?>
+        <li class="active">          
           <a href="<?php echo site_url('Admin/user_creation_admin');?>">
-          <i class="fa fa-plus"></i> Admin User Creation</a>
-          <?php } ?>
+          <i class="fa fa-plus"></i> Admin User Creation</a>          
         </li>
-        <li class="active">
+        <?php } ?>
+        <?php if($user_type=='01' || $user_type=='04' || $user_type=='05' || $user_type=='06'){ ?>
+        <li class="active">          
           <a href="<?php echo site_url('Admin/user_creation_institute');?>">
-          <i class="fa fa-plus"></i> Institutional User Creation</a>
+          <i class="fa fa-plus"></i> Institutional User Creation</a>          
         </li>
+        <?php } ?>
      </ul>
   </li>
+
   <li class="treeview">
     <a href="<?php //echo site_url('Admin/admin_home');?>">
       <i class="fa fa-home"></i> <span>User Details Edit</span>         
     </a>   
     <ul class="treeview-menu">
-        <li class="active">
-          <?php if($user_type=='01'){ ?>
+      <?php if($user_type=='01'){ ?>
+        <li class="active">          
           <a href="<?php echo site_url('Admin/user_edit_admin');?>">
-          <i class="fa fa-plus"></i> Admin User Edit</a>
-           <?php } ?>
+          <i class="fa fa-plus"></i> Admin User Edit</a>           
         </li>
-        <li class="active">
+        <?php } ?>
+        <?php if($user_type=='01' || $user_type=='04' || $user_type=='05' || $user_type=='06'){ ?>
+        <li class="active">           
           <a href="<?php echo site_url('Admin/user_edit_institute');?>">
-          <i class="fa fa-plus"></i> Institutional User Edit</a>
+          <i class="fa fa-plus"></i> Institutional User Edit</a>          
         </li>
+        <?php } ?>
      </ul>     
   </li>
+  <?php } ?>
+  <?php if($user_type=='01' || $user_type=='04'){ ?>
+
   <li class="treeview">
     <a href="<?php echo site_url('Admin/reset_password');?>">
       <i class="fa fa-home"></i> <span>Reset Password</span>         
     </a>        
   </li>
+  
   <li class="treeview">
     <a href="<?php echo site_url('Admin/subcategory_test');?>">
       <i class="fa fa-star"></i><span>Addition Sub-category /<br>     Test name</span>         
     </a>        
   </li>
+
+  <?php } ?>
   <li class="treeview">
     <a href="#">
       <i class="fa fa-star"></i> <span>Reports</span>
@@ -115,11 +127,11 @@ header("location: index");
           <i class="fa fa-plus"></i> District Status Report
         </a>         
       </li>
-	  <li> 
-       <a href="<?php echo site_url('Reports/vbd_report_category_wise'); ?>">         
+	  <!--<li> 
+       <a href="<?php //echo site_url('Reports/vbd_report_category_wise'); ?>">         
           <i class="fa fa-plus"></i> VBD Status Report
         </a>         
-      </li>
+      </li>-->
 	 </ul>          
       </li>
 	  

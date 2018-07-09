@@ -123,11 +123,11 @@ header("location: index");
               </div>
               <div class="form-group">
                   <label for="exampleInputPassword1"> Cause of ReferOut <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="10" disabled="" required="" value="<?php echo set_value('cause_of_referout'); ?>">
+                    <input type="text" class="form-control" placeholder="Cause of Transfer" id="cause_of_referout" name="cause_of_referout" autocomplete="off" maxlength="20" disabled="" required="" value="<?php echo set_value('cause_of_referout'); ?>">
               </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">ReferOut to Whom <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="10" disabled="" value="<?php echo set_value('referout_to_whom'); ?>">
+                  <label for="exampleInputPassword1">Referring Hospital <span class="star">*</span></label>
+                    <input type="text" class="form-control" placeholder="Enter Transfer to whom" id="referout_to_whom" name="referout_to_whom" autocomplete="off" maxlength="20" disabled="" value="<?php echo set_value('referout_to_whom'); ?>">
               </div>                 
             </div>
             <div class="col-md-4">

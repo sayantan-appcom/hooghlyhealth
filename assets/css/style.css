@@ -141,13 +141,12 @@ banner
     background-color: rgba(12, 184, 182) !important;
 }
 #banner{
-	background: url('../img/bg-banner.jpg') no-repeat fixed;
+	background: url('../img/dengu.jpg');
 	background-size: cover;
-	min-height: 650px;
 	position: relative;
 }
 .bg-color{
-	background-color: RGBA(13, 70, 83, 0.78);
+	background-color: rgba(13, 70, 83, 0.78);
 	min-height: 650px;
 }
 .banner-info{
@@ -243,7 +242,7 @@ td {
 about
 ***************************************/
 #about{
-    background-color: rgba(238, 238, 238, 0.15);
+    background-color: rgba(155, 155, 155);
 }
 .lg-line{
 	line-height: 1.4;
@@ -274,6 +273,42 @@ about
 }
 .sec-para{
 	padding-bottom: 10px;
+}
+/***************************************
+notice & recruitment
+***************************************/
+#notice{
+    background-color: rgba(155, 155, 155);
+}
+.lg-line{
+    line-height: 1.4;
+    font-size: 28px;
+}
+.more-features-box-text-icon {
+    float: left;
+    width: 40px;
+    height: 40px;
+    padding-top: 6px;
+    background: #0cb8b6;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+}
+.more-features-box-text-description h3{
+    padding-bottom: 15px;
+}
+.more-features-box-text-icon i {
+    font-size: 18px;
+    line-height: 26px;
+}
+.more-features-box-text-description{
+    margin-left: 80px;
+    margin-bottom: 35px;
+}
+.sec-para{
+    padding-bottom: 10px;
 }
 /***************************************
 doctor team

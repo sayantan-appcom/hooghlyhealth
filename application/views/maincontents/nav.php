@@ -63,20 +63,20 @@ header("location: index");
         </a>       
       </li>  
 
-      <li> 
+     <!-- <li> 
         <a href="<?php //echo site_url('Health_Home/patient_search'); ?>">          
           <i class="fa fa-plus"></i> Diagnosis Test Edit            
         </a>       
       </li>  
 
       <li>        
-        <?php if($user_type=='07'){ ?>
+        <?php //if($user_type=='07'){ ?>
         <a href="<?php //echo site_url('Health_Home/admission_search'); ?>">
           
           <i class="fa fa-plus"></i> Admission Edit          
         </a> 
-         <?php } ?>       
-      </li>      
+         <?php //} ?>       
+      </li> -->     
     </ul>
     
   </li>
