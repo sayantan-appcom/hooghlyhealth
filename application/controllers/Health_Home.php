@@ -916,7 +916,8 @@ public function patient_test_insert_only()
 			}
 			if($result==false)
 			{
-				echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! ","Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));	
+				//echo json_encode(array("Status"=>"There are no such Patient. You have to apply newly ! ","Patient_Name"=>$patient_name,"Patient_Mobile"=>$patient_mobile));	
+				echo json_encode(array("Status"=>"There are no such Patient. You have to apply admission details first ! "));
 			}
 
 		}
@@ -946,7 +947,7 @@ public function patient_outcome_insert()
 {
   					   $patient_id = $this->input->post('patient_id');
 					   $admission_date_time = $this->input->post('admission_date_time');
-					    echo $admission_date_time1=substr($admission_date_time,0,10);
+					    $admission_date_time1=substr($admission_date_time,0,10);
 						
 				       $patient_status = $this->input->post('patient_status');
 				       $dischrg_date_time=$this->input->post('dischrg_date_time');
