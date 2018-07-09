@@ -256,7 +256,7 @@
         <div class="col-md-9 col-sm-8 col-xs-12">
           <div style="visibility: visible;" class="col-sm-9 more-features-box">
             <div class="more-features-box-text">
-              
+              <p align="center"><font color="#FFFFFF"><strong>Updated Notice</strong></font></p>
                 <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
                           <a href=""><font color="#FFFFFF"> Current News</font> </a> <br>
@@ -285,7 +285,7 @@
           <div style="visibility: visible;" class="col-sm-9 more-features-box">
 
             <div class="more-features-box-text">
-              <p>Updated Notice</p>
+              <p align="center"><font color="#FFFFFF"><strong>Updated Recrument</strong></font> </p>
               <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
                           <a href=""><font color="#FFFFFF"> Current News</font> </a> <br>
