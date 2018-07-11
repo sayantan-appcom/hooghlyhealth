@@ -112,5 +112,20 @@ return $row;
 }	
 
 
+//////////////////////////////////////fetch all positive case institutioin wise/////////////////////////////////////////
+
+function fetch_all_positive_case_institution_wise($disease_sub_id,$user_id)
+{
+
+$sql="select disease_subcatagory.disease_sub_id,count(patient_test_details.PN_flag) as positive_flag from patient_test_details INNER JOIN test_master ON test_master.test_type_code=patient_test_details.test_id INNER JOIN disease_subcatagory ON disease_subcatagory.disease_sub_id= test_master.disease_sub_category_id  INNER JOIN user_area on user_area.user_id=patient_test_details.institution_code  WHERE disease_subcatagory.disease_sub_id='$disease_sub_id' AND patient_test_details.institution_code='$user_id' ";
+ $ci =& get_instance();
+ $ci->load->database();
+$query = $ci->db->query($sql);
+$row = $query->result_array();
+return $row;
+
+}
+
+
 
 ?>

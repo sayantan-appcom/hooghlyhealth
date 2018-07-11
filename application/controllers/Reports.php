@@ -253,6 +253,7 @@ public function fetch_admission_patient_details()
 
 		 $subdivision_code=$this->uri->segment(3);
 		 $category_id=$this->uri->segment(4);
+		 $data['category_id']=$category_id;
 		 $data['fetch_block']=$this->Mod_report->fetchblock($subdivision_code);
 		 $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
  		 $this->load->view('reports/vbd_report_status_block_wise',$data);	
@@ -280,7 +281,6 @@ public function Date_wise_report_FORM_L_lab_wise()
 			  $inst_name=$this->input->post('user_id');
 			  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
 			  $data['state_code']=$state_code;
-			  //$data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory($inst_type);
 			  $data['fetch_all_disease_subcategory']=$this->Mod_report->fetch_all_disease_subcategory();
 			  $data['start_date']= $start_date;
 			  $data['end_date']= $end_date; 
@@ -306,17 +306,36 @@ public function Date_wise_report_FORM_P_institute_wise()
  
 		  $start_date=$this->input->post('from_date');
 		  $end_date=$this->input->post('to_date');
-		 
 		  $inst_name=$this->input->post('user_id');
-		 // $inst_type=$this->input->post('inst_type');
 		  $data['institution_details']=$this->Mod_report->fetch_instituion_details($inst_name);
-		  //$data['state_code']=$state_code;
 		  $data['fetch_all_disease_admission']=$this->Mod_report->fetch_all_disease_admission();
-		 
 		  $data['start_date']= $start_date;
 		  $data['end_date']= $end_date; 
 		  $this->load->view('reports/Date_wise_report_FORM_P_institute_wise',$data);
  
+}
+
+/////////////////////////////////////admission_patient_details////////////////////////////////////////////////
+public function admission_patient_details()
+{
+ 
+	            $this->load->view('maincontents/header');
+			    $this->load->view('maincontents/nav');
+				$this->load->view('reports/admission_patient_details');		
+				$this->load->view('maincontents/footer');
+ 
 }	
+
+////////////////////////////////////// fetch_vbd_report_status_institute_wise////////////////////////////////////
+public function fetch_vbd_report_status_institute_wise()
+{
+
+          $blockminicd=$this->uri->segment(3);
+		  $category_id=$this->uri->segment(4);
+		 $data['category_id']=$category_id;
+		 $data['fetch_institution_report']=$this->Mod_report->fetch_institution_report($blockminicd);
+		 $data['fetch_subcategory_name']=$this->Mod_report->fetch_subcategory_name($category_id);
+ 		 $this->load->view('reports/fetch_vbd_report_status_institute_wise',$data);
+}
 											 
 }

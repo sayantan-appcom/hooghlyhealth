@@ -15,7 +15,7 @@
 </head>
 <body class="bg-danger">
 
-<h2 align="center" class=""> <strong>Vector Borne Disease Status  Report-Block/Municipality Wise</strong> </h2>
+<h2 align="center" class=""> <strong>Vector Borne Disease Status Tracking Report-Institution  Wise</strong> </h2>
 <br><br>
 <div class="row">
 <?php
@@ -28,22 +28,22 @@ $this->load->helper('report');
 <div class="container">
 <table class="table" align="center" border="2">
   <tr class="bg-success">
-    <th class="text-center" rowspan="2">Diseases</th>
-    <th class="text-center" colspan="<?php echo count($fetch_block); ?>"> Total Positive Case </th>
-	<input type="hidden" value="<?php echo $category_id;?> " name="category_id" id="category_id"/>  
+    <th class="text-center" rowspan="2">Institution Name</th>
+    <th class="text-center" colspan="<?php echo count($fetch_subcategory_name); ?>"> Total Positive Case </th>
+	
   </tr>
   <tr class="bg-success">
   
   <?php 
   
 
-  foreach($fetch_block as $block)
-    { 
-	$blockmunicd= $block['blockminicd'];
+	foreach($fetch_subcategory_name as $x)
+		{  
+	 $disease_sub_id=$x['disease_sub_id']; 
 
 	?>
 
-      <th class="text-center">  <a class="star" target="_blank" href="<?php echo site_url('Reports/fetch_vbd_report_status_institute_wise');?>/<?php echo $blockmunicd;?>/<?php echo $category_id;?> "><?php echo $block['blockmuni']; ?> </a></th>
+      <th class="text-center">  <?php echo $x['disease_sub_name'];?> </th>
 <?php 
 } 
 
@@ -51,32 +51,36 @@ $this->load->helper('report');
   </tr>
   <?php
   	
-  	foreach($fetch_subcategory_name as $x)
+  	foreach($fetch_institution_report as $x)
 		{ 
 
 ?>
   <tr class="bg-info">
   	<th class="text-center">
-	<?php   $disease_sub_id=$x['disease_sub_id']; 
-			 ?>
-
+	<?php   
+	$user_id=$x['user_id']; 
 	
-	<?php echo $x['disease_sub_name'];?>
-	</a>
+	 ?>
+
+	<?php echo $x['inst_name'];?>
+	
 	</th>
 	
 	
 	<?php
-  foreach($fetch_block as $block)
-    { 
+	
+	foreach($fetch_subcategory_name as $category)
+		{  
+	
 	?>
     <th class="text-center">
-<?php 		
-$blockmunicd=$block['blockminicd'];
+<?php 
+ $disease_sub_id=$category['disease_sub_id']; 		
+$user_id=$x['user_id']; 
 $varible=0;
 	
-			$fetch_all_positive_case=fetch_all_positive_case_blockwise($disease_sub_id,$blockmunicd);
-			foreach($fetch_all_positive_case as $sample_tested)
+			$fetch_all_positive_case_institution_wise=fetch_all_positive_case_institution_wise($disease_sub_id,$user_id);
+			foreach($fetch_all_positive_case_institution_wise as $sample_tested)
                {
 				 if($sample_tested['positive_flag']!=0)
 					{
@@ -92,6 +96,7 @@ $varible=0;
 	</th>
 <?php
 }
+
 ?>
   </tr>
  <?php 
