@@ -28,6 +28,8 @@ class Admin extends CI_Controller {
 			$this->load->helper('security');
   			$this->load->library('session');
 			$this->load->model('Mod_admin');
+			//$this->load->library("Pdf");
+			$this->load->library('upload');
      } 
 
      public function index()
@@ -46,7 +48,8 @@ class Admin extends CI_Controller {
 				);
 		$cap = create_captcha($vals);
 		$data['captcha'] = $cap['image'];
-		$this->session->set_userdata('captchaword', $cap['word']);		
+		$this->session->set_userdata('captchaword', $cap['word']);	
+		$data['fetch_documents']=$this->Mod_admin->fetch_documents();	
 
 		$this->load->view('index',$data);
 	}
@@ -851,6 +854,73 @@ class Admin extends CI_Controller {
 
 			 
 		
-//.......... End Reset Password ..........//										
+//.......... End Reset Password ..........//	
+
+//////////////////////////////////////// documents upload///////////////////////////////////////////	
+
+  public function documents_upload()
+
+
+{
+            $this->load->view('admin/header');	
+			$this->load->view('admin/nav');
+			$data['upload_type']=$this->Mod_admin->get_upload_document_type();
+			$data['error'] = '';
+		
+			$this->load->view('admin/notice_recruiment_upload_form',$data);		
+			$this->load->view('admin/footer');	
+
+
+}	
+//////////////////////////////////// document upload////////////////////////////////////////
+
+public function upload_document(){
+			$data['max_doc_id'] = $this->Mod_admin->getMaxDocId();
+			$user_id=$this->input->post('user_id');
+			
+			$file_type_id=$this->input->post('document_type');			
+    	
+				
+    	        $config['upload_path']          = "./notifications_uploads/";
+                $config['allowed_types']        = "pdf";
+				$config['overwrite']			= TRUE;
+                $config['max_size']             = 8192;
+                $config['max_height']           = 768;
+                $config['max_width']            = 1024;
+				$config['file_name']            = $user_id."_".$file_type_id.($data['max_doc_id'][0]->max_doc_id+1).".pdf";
+	
+				$this->upload->initialize($config);
+				if($this->upload->do_upload('userfile'))
+				{
+					$flag = $this->Mod_admin->insertdocuments($this->input->post('document_type'),$this->input->post('msg'),$user_id,$this->input->post('from_date'),$data['max_doc_id'][0]->max_doc_id+1);
+					$data['upload_type']=$this->Mod_admin->get_upload_document_type();
+					$data = array('upload_data' => $this->upload->data());
+					if ($data == TRUE) {
+						$this->session->set_flashdata('upload_success',"Document Upload Successfully");
+						$this->load->view('admin/header');	
+						$this->load->view('admin/nav');
+						$data['upload_type']=$this->Mod_admin->get_upload_document_type();
+						$data['error'] = '';
+					
+						$this->load->view('admin/notice_recruiment_upload_form',$data);		
+						$this->load->view('admin/footer');
+
+					}
+				}
+				else
+				{
+					$data['upload_type']=$this->Mod_admin->get_upload_document_type();
+					$data['error']=$this->upload->display_errors();
+					//$this->session->set_flashdata('upload_success',"Document not Upload Successfully");
+						$this->load->view('admin/header');	
+						$this->load->view('admin/nav');
+						$data['upload_type']=$this->Mod_admin->get_upload_document_type();				
+						$this->load->view('admin/notice_recruiment_upload_form',$data);		
+						$this->load->view('admin/footer');	
+				}    
+		}
+		
+		
+				
 
 }

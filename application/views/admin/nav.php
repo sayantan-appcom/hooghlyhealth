@@ -145,6 +145,14 @@ header("location: index");
 	
 	        
   </li>
+  <?php if($user_type=='01' || $user_type=='04' || $user_type=='05'){ ?>
+
+  	  <li class="treeview">
+      <a href="<?php echo site_url('Admin/documents_upload');?>">
+      <i class="fa fa-star"></i><span> Notice / Recruiment Upload <br></span>         
+    </a>  
+  </li>
+  <?php } ?>
   
     
   </li>

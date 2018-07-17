@@ -259,9 +259,17 @@
               <p align="center"><font color="#FFFFFF"><strong>Updated Notice</strong></font></p>
                 <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
-                          <a href=""><font color="#FFFFFF"> Current News</font> </a> <br>
-                          <a href=""><font color="#FFFFFF"> Current News 1 </font></a> <br>
-                          <a href=""><font color="#FFFFFF"> Current News 2 </font></a> 
+                         	<?php
+						foreach($fetch_documents as $documents)
+						{
+						if($documents['document_type']==1)
+						{
+						?>
+                          <a href="<?php echo base_url().$documents['file_path']?>" target="_blank"><font color="#FFFFFF"> <?php echo $documents['document_message'];?></font> </a><br><br> 
+						  <?php
+						  }
+						  }
+						  ?>
                         </marquee>
                   </div>
             </div>
@@ -285,12 +293,22 @@
           <div style="visibility: visible;" class="col-sm-9 more-features-box">
 
             <div class="more-features-box-text">
-              <p align="center"><font color="#FFFFFF"><strong>Updated Recrument</strong></font> </p>
+              <p align="center"><font color="#FFFFFF"><strong>Updated Recruiment</strong></font> </p>
               <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
-                          <a href=""><font color="#FFFFFF"> Current News</font> </a> <br>
-                          <a href=""><font color="#FFFFFF"> Current News 1 </font></a> <br>
-                          <a href=""><font color="#FFFFFF"> Current News 2 </font></a> 
+						<?php
+						foreach($fetch_documents as $documents)
+						{
+						if($documents['document_type']==2)
+						{
+						?>
+                          <a href="<?php echo base_url().$documents['file_path'];?>" target="_blank"><font color="#FFFFFF"> <?php echo $documents['document_message'];?></font> </a> <br><br>
+						  <?php
+						  }
+						  }
+						  ?>
+                          <!--<a href=""><font color="#FFFFFF"> Current News 1 </font></a> <br>
+                          <a href=""><font color="#FFFFFF"> Current News 2 </font></a> -->
                         </marquee>
                   </div>
             

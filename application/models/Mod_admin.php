@@ -525,7 +525,64 @@ return $query->result_array();
 			return $password;
     	}	 
 
-//.......... End Reset Password ..........//    			
+//.......... End Reset Password ..........//    	
+
+//////........ fetch upload document type......////////////////////////////////
+
+     public function get_upload_document_type()
+{
+
+    $this->db->select('*');
+    $this->db->from('upload_documents');
+    $query=$this->db->get();
+	return $query->result_array();
+
+
+}
+
+///////////////////////////// fetch MaxdocumentID//////////////////////////////////////////////
+	public function getMaxDocId() 
+	{
+		$this->db->select('max(doc_id) AS max_doc_id');
+		$this->db->from('uploads');
+		$this->db->limit(1);
+		$query = $this->db->get();
+
+		if ($query->num_rows() == 1) {
+			return $query->result();
+		} else {
+			return false;
+		}
+	}
+	
+////////////////////////////////// insert documents///////////////////////////////////
+public function insertdocuments($document_type,$msg,$user_id,$from_date,$doc_id){
+			date_default_timezone_set('Asia/Kolkata');
+			$data=array(
+				//'doc_id' => $filename,
+				'document_message' => $msg,
+				//'file_path'=> "notifications_uploads".$user_id."_".$document_type.".pdf",
+				'file_path'=> "notifications_uploads/".$user_id."_".$document_type.$doc_id.".pdf",
+				'document_type'=> $document_type,
+				'uploaded_by'=>$user_id,
+				'upload_date'=>$from_date
+				
+			);
+			$flag = $this->db->insert('uploads', $data);
+			return $flag;
+}	
+	
+/////////////////////////////////////////////////// fetch documents/////////////////////////////////////////////////////	
+    public function fetch_documents()
+{
+	$this->db->select('*');
+	$this->db->from('uploads');
+	$query=$this->db->get();
+	return $query->result_array();
+
+
+}
+		
 
 
 }
