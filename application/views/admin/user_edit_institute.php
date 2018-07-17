@@ -22,7 +22,7 @@ header("location: index");
     <section class="content">
       <div class="container-fluid" id="user_edit">
         <!-- left column -->
-        <form role="form" method="POST" action="<?php echo site_url('Admin/inst_user_insert');?>">
+        <form role="form" method="POST">
           <h3 class="star">
                     <?php 
                         echo validation_errors();

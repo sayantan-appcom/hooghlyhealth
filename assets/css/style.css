@@ -141,12 +141,12 @@ banner
     background-color: rgba(12, 184, 182) !important;
 }
 #banner{
-	background: url('../img/dengu.jpg');
+	background: url('../img/body.jpg');
 	background-size: cover;
 	position: relative;
 }
 .bg-color{
-	background-color: rgba(13, 70, 83, 0.78);
+	
 	min-height: 650px;
 }
 .banner-info{

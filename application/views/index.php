@@ -56,15 +56,18 @@
         <div class="row">
           <div class="banner-info">
             <div class="banner-logo text-center">
-              <!--<h2 class="white">Health Information Monitoring System</h2>-->
+              <h2 class="white">Health Information Monitoring System</h2>
             </div>
             <div class="banner-text text-center">
-              <!--<h3 class="white">Department of Health and Family Welfare</h3>
-              <h3 class="white">Office of the CMOH, Hooghly District</h3>-->
+              <h3 class="white">Department of Health and Family Welfare</h3>
+              <h3 class="white">Office of the CMOH, Hooghly District</h3>
               <!--<h3 class="white">Govt. of West Bengal</h3>-->
             </div>
+            <div>
+              <img src="">
+            </div>
             <div class="overlay-detail text-center">
-              <a href="#service"><i class="fa fa-angle-down"></i></a>
+              <a href="#about"><i class="fa fa-angle-down"></i></a>
             </div>
           </div>
         </div>
@@ -210,35 +213,41 @@
   <!--gallery-->
   <section id="gallery" class="section-padding">
     <div class="container">
-      <div class="row">
-        <div class="col-md-3 col-sm-4 col-xs-12">
-          <div class="section-title">
-            <h2 class="head-title lg-line">The Medilap <br>Ultimate Dream</h2>
-            <hr class="botm-line">
-            <p class="sec-para">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua..</p>
-            <a href="" style="color: #0cb8b6; padding-top:10px;">Know more..</a>
-          </div>
-        </div>
-        <div class="col-md-9 col-sm-8 col-xs-12">
-          <div style="visibility: visible;" class="col-sm-9 more-features-box">
-            <div class="more-features-box-text">
-              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
-              <div class="more-features-box-text-description">
-                <h3>It's something important you want to know.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud.</p>
-              </div>
-            </div>
-            <div class="more-features-box-text">
-              <div class="more-features-box-text-icon"> <i class="fa fa-angle-right" aria-hidden="true"></i> </div>
-              <div class="more-features-box-text-description">
-                <h3>It's something important you want to know.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+      <div class="item active">
+        <img src="<?php echo base_url();?>assets/img/vbd6.jpg" alt="bvd6" style="width:100%;">
+      </div>
+
+      <div class="item">
+        <img src="<?php echo base_url();?>assets/img/vbd10.jpg" alt="vbd10" style="width:100%;">
+      </div>
+    
+      <div class="item">
+        <img src="<?php echo base_url();?>assets/img/vbd5.jpg" alt="vbd5" style="width:100%;">
       </div>
     </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
   </section>
   <!--/ gallery-->
   <!--notice & recruitment-->
@@ -259,7 +268,7 @@
               <p align="center"><font color="#FFFFFF"><strong>Updated Notice</strong></font></p>
                 <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
-                         	<?php
+                          	<?php
 						foreach($fetch_documents as $documents)
 						{
 						if($documents['document_type']==1)
@@ -293,10 +302,10 @@
           <div style="visibility: visible;" class="col-sm-9 more-features-box">
 
             <div class="more-features-box-text">
-              <p align="center"><font color="#FFFFFF"><strong>Updated Recruiment</strong></font> </p>
+              <p align="center"><font color="#FFFFFF"><strong>Updated Recrument</strong></font> </p>
               <div style="height:260px; border: 1px solid red">
                         <marquee behavior="scroll" direction="up" onMouseOver="this.stop()" onMouseOut="this.start()" scrollamount="4" height="179px;" style="text-align:center;">
-						<?php
+                          <?php
 						foreach($fetch_documents as $documents)
 						{
 						if($documents['document_type']==2)
@@ -307,8 +316,6 @@
 						  }
 						  }
 						  ?>
-                          <!--<a href=""><font color="#FFFFFF"> Current News 1 </font></a> <br>
-                          <a href=""><font color="#FFFFFF"> Current News 2 </font></a> -->
                         </marquee>
                   </div>
             

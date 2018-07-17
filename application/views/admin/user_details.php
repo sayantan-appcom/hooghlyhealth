@@ -25,7 +25,7 @@ header("location: index");
               <h3 class="box-title">Admin User Details</h3>
             </div>
             <!-- form start -->
-            <form role="form" method="POST" action="<?php echo base_url('Admin/getResetUser');?>" onsubmit="return(validate());">
+            <form role="form" method="POST" >
                <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
@@ -33,6 +33,18 @@ header("location: index");
                      ?>
              </h3>
               <div class="box-body">
+                 <div class="form-group">
+                  <label for="exampleInputEmail1">State <span class="star">*</span></label>
+                    <select class="form-control select2" style="width: 100%;" id="user_state" name="user_state" required="">
+                      <option value="">Select State</option>
+                      <?php
+                          foreach($get_state as $row)
+                            { 
+                              echo '<option value="'.$row->state_code.'">'.$row->state_name.'</option>';
+                            }
+                      ?>
+                    </select>
+                </div>
                 <div class="form-group">
                   <label for="exampleInputName">Select Type <span class="star">*</span></label>
                   <select class="form-control select2" style="width: 100%;" id="user_type" name="user_type" required="">
@@ -43,13 +55,13 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Select District <span class="star">*</span></label>
-                  <select class="form-control select2" style="width: 100%;" id="user_email" name="user_email" required="">
+                  <select class="form-control select2" style="width: 100%;" id="district" name="district" required="">
                     <option value="">Select District</option>
                   </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Select Sub-division <span class="star">*</span></label>
-                  <select class="form-control select2" style="width: 100%;" id="user_email" name="user_email" required="">
+                  <select class="form-control select2" style="width: 100%;" id="subdivision" name="subdivision" required="">
                     <option value="">Select Sub-division</option>
                   </select>
                 </div>
@@ -72,7 +84,7 @@ header("location: index");
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="POST">
+            <form role="form" method="POST" target="_blank" action="<?php  echo base_url('Admin/use_details');?>">
                <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
@@ -94,7 +106,7 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">District <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_district" name="inst_district" required="">
+                    <select class="form-control select2" style="width: 100%;" id="district" name="district" required="">
                       <option value="">Select District</option>
                       
                     </select>
@@ -102,7 +114,7 @@ header("location: index");
   
                <div class="form-group">
                   <label for="exampleInputEmail1">Sub-division <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_subdivision" name="inst_subdivision" required="">
+                    <select class="form-control select2" style="width: 100%;" id="subdivision" name="subdivision" required="">
                       <option value="">Select Sub-division</option>
                     </select>
                 </div>
@@ -122,7 +134,7 @@ header("location: index");
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary" id="inst_view">View</button>
+                <button type="submit" class="btn btn-primary">View</button>
               </div>
             </form>
           </div>
@@ -137,8 +149,6 @@ header("location: index");
   <script type="text/javascript">
    
     $('#user_state').change(function(e){
-      //alert("nibu");
-
       var state = $('#user_state').val();
   
       // AJAX request
@@ -151,71 +161,44 @@ header("location: index");
         dataType: 'json',
         success: function(response){
           $.each(response,function(index,data){
-             $('#inst_district').append('<option value="'+data['district_code']+'">'+data['district_name']+'</option>');
+             $('#district').append('<option value="'+data['district_code']+'">'+data['district_name']+'</option>');
           });
         }
      });
    });        
 
-   $('#inst_district').change(function(e){
+   $('#district').change(function(e){
      
-    var inst_district = $('#inst_district').val();
-  
+    var district = $('#district').val();
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Admin/getSubdivision');?>',
         method: 'post',
         data: {
-            district: inst_district
+            district: district
         },
         dataType: 'json',
         success: function(response){
           $.each(response,function(index,data){
-             $('#inst_subdivision').append('<option value="'+data['subdivision_code']+'">'+data['subdivision_name']+'</option>');
+             $('#subdivision').append('<option value="'+data['subdivision_code']+'">'+data['subdivision_name']+'</option>');
           });
         }
      });
-   });   
+   });
+
+   $('#user_type').change(function () {
+    
+            if ($(this).val() == "01") {                
+                  $("#subdivision").prop("disabled", true);
+                }
+           else{
+                 $("#subdivision").prop("disabled", false);
+            }     
+              });
+
 
  
-    ////////////////////////////////////Admin institute user/////////////////////////////////////////////
-    $('#inst_view').click(function(e)   
-  { 
-  
-        var inst_district = $('#inst_district').val();
-      var inst_subdivision = $('#inst_subdivision').val();
-      var inst_type = $('#inst_type').val();
-        
-           $('#inst_view').prop('disabled',true);
-     var report;
-
-        $.ajax({
-            mimeType: 'text/html; charset=utf-8', 
-  
-      url:'<?php echo base_url('Admin/use_details');?>',
-      type:'POST',
-            
-      data:{
-       
-        inst_district:inst_district,
-    inst_subdivision:inst_subdivision,
-    inst_type:inst_type
-       
-      
-      },
-            success: function(data) { console.log(data);
-                $('.content-wrapper').html(data);
-                //window.location.href = "llms_update_form.php";
-               },
-            error: function (jqXHR, textStatus, errorThrown) {
-                 alert(errorThrown);
-          },    
-                    dataType: "html",
-                    async: false
-        });
     
-    
-      }); 
 
    ////////////////////////////////////Admin institute user/////////////////////////////////////////////
   </script>
