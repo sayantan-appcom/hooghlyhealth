@@ -32,6 +32,7 @@ class Login extends CI_Controller {
 		$cap = create_captcha($vals);
 		$data['captcha'] = $cap['image'];
 		$this->session->set_userdata('captchaword', $cap['word']);
+		$data['fetch_documents']=$this->Mod_Login->fetch_documents();
 		$this->load->view('index',$data);
 	}
 

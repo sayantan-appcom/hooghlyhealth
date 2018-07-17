@@ -28,6 +28,8 @@ class Admin extends CI_Controller {
 			$this->load->helper('security');
   			$this->load->library('session');
 			$this->load->model('Mod_admin');
+			//$this->load->library("Pdf");
+			$this->load->library('upload');
      } 
 
      public function index()
@@ -46,7 +48,8 @@ class Admin extends CI_Controller {
 				);
 		$cap = create_captcha($vals);
 		$data['captcha'] = $cap['image'];
-		$this->session->set_userdata('captchaword', $cap['word']);		
+		$this->session->set_userdata('captchaword', $cap['word']);	
+		$data['fetch_documents']=$this->Mod_admin->fetch_documents();	
 
 		$this->load->view('index',$data);
 	}
@@ -661,12 +664,6 @@ class Admin extends CI_Controller {
 				 if($data == TRUE)
 				 {
 				 	$this->load->view('admin/fetch_institute_details',$data);
-				 }
-				 else
-				 {
-				 	$this->session->set_flashdata('response_user',"No records found ! ");
-				 	//echo "No records found !";
-				 	$this->load->view('admin/fetch_institute_details');
 				 }				
 			 }			
  			
@@ -857,7 +854,7 @@ class Admin extends CI_Controller {
 
 			 
 		
-//.......... End Reset Password ..........//
+//.......... End Reset Password ..........//	
 
 //////////////////////////////////////// documents upload///////////////////////////////////////////	
 
@@ -887,7 +884,7 @@ public function upload_document(){
     	        $config['upload_path']          = "./notifications_uploads/";
                 $config['allowed_types']        = "pdf";
 				$config['overwrite']			= TRUE;
-                $config['max_size']             = 8192;
+                $config['max_size']             = 31920;
                 $config['max_height']           = 768;
                 $config['max_width']            = 1024;
 				$config['file_name']            = $user_id."_".$file_type_id.($data['max_doc_id'][0]->max_doc_id+1).".pdf";
@@ -921,6 +918,9 @@ public function upload_document(){
 						$this->load->view('admin/notice_recruiment_upload_form',$data);		
 						$this->load->view('admin/footer');	
 				}    
-		}										
+		}
+		
+		
+				
 
 }

@@ -87,6 +87,17 @@ public function read_user_information($username) {
 	   	
 	}
 
+	/////////////////////////////////////////////////// fetch documents/////////////////////////////////////////////////////	
+    public function fetch_documents()
+{
+	$this->db->select('*');
+	$this->db->from('uploads');
+	$query=$this->db->get();
+	return $query->result_array();
+
+
+}
+
 }
 
 
