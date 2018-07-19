@@ -494,7 +494,6 @@ class Admin extends CI_Controller {
 		{
 		    $this->form_validation->set_rules('user_name', 'user_name', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('user_desg', 'user_desg', 'trim|required|xss_clean');
-			$this->form_validation->set_rules('user_email', 'user_email', 'trim|required|xss_clean');
 			$this->form_validation->set_rules('user_mobile', 'user_mobile',  'trim|required|xss_clean');
 
 			if ($this->form_validation->run() == TRUE) 
@@ -502,13 +501,14 @@ class Admin extends CI_Controller {
 		
 					   $user_name = $this->input->post('user_name');
 				       $user_desg = $this->input->post('user_desg');
-				       $user_email=$this->input->post('user_email');
 				       $user_mobile=$this->input->post('user_mobile');
 					   $user_id=$this->input->post('user_id');
-					   $return=$this->Mod_admin->admin_user_update($user_name,$user_desg,$user_email,$user_mobile,$user_id);
-					if($return=="1")
+					 $return=$this->Mod_admin->admin_user_update($user_name,$user_desg,$user_mobile,$user_id);
+					  echo $return;
+					 
+					if($return == 1)
 					 {
-						$this->session->set_flashdata('message',"Data Updated Successfully ! ");	
+						//$this->session->set_flashdata('message',"Data Updated Successfully ! ");	
 						
 					    $this->load->view('admin/header');	
 						$this->load->view('admin/nav');
@@ -650,16 +650,16 @@ class Admin extends CI_Controller {
 //////////////////////////////////// user details edit////////////////////////
 	public function use_details()
  		{
- 			$this->form_validation->set_rules('inst_district', 'District', 'trim|required|xss_clean');
- 			$this->form_validation->set_rules('inst_subdivision', 'Subdivision', 'trim|required|xss_clean');
+ 			$this->form_validation->set_rules('district', 'District', 'trim|required|xss_clean');
+ 			$this->form_validation->set_rules('subdivision', 'Subdivision', 'trim|required|xss_clean');
  			$this->form_validation->set_rules('inst_type', 'Institution Type', 'trim|required|xss_clean');
 
 			if ($this->form_validation->run() == TRUE) 
 			 { 
-				 $inst_district=$this->input->post('inst_district');
-				 $inst_subdivision=$this->input->post('inst_subdivision');
+				 $district=$this->input->post('district');
+				 $subdivision=$this->input->post('subdivision');
 				 $inst_type=$this->input->post('inst_type');
-				 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($inst_subdivision,$inst_district,$inst_type);
+				 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($subdivision,$district,$inst_type);
 
 				 if($data == TRUE)
 				 {

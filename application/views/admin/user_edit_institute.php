@@ -88,7 +88,7 @@ header("location: index");
               </div>
 
              </div>
-             </div>
+             
          
 
       <div class="box-footer" align="center">
@@ -96,7 +96,7 @@ header("location: index");
         </div>              
      
   </form>
-   
+   </div>
     </section>    
   </div>
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>

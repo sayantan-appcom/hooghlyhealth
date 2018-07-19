@@ -38,15 +38,11 @@ header("location: index");
 						<th class="text-center"> Institution Owner Email ID</th>
 					</tr>
 
-					<tr class="danger">
 					<?php foreach($fetch_institute_details as $institute)
 					{
-						echo strlen($fetch_institute_details);
-						if(strlen($institute) >= 1)
-						{
-						
 						
 					?>
+					<tr class="danger">					
 						<td class="text-center"><?php echo  $institute['inst_name']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_license_no']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_addr']; ?></td>
@@ -56,20 +52,21 @@ header("location: index");
 						<td class="text-center"><?php echo  $institute['inst_owner_name']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_owner_mobile']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_owner_email']; ?></td>
-
-						<?php
-					} 
-					else{
-						echo "no";
-				}
-			}
-				?>
-						
 					</tr>
+					<?php					
+							}
+						?>
 					
 					</table>
 					<h3><?php echo $this->session->flashdata('response_user');  ?></h3>
     			</div>
+
+    		</div> 
+    		<br>  		
+    		<div class="container text-right">    			
+    			<?php 
+    				date_default_timezone_set('Asia/Kolkata');
+    			echo date("Y-m-d h:i:sa"); ?> 
     		</div>
     	</div>
 	

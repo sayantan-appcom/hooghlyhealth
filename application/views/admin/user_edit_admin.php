@@ -69,7 +69,7 @@ header("location: index");
                 
                          
               </div>
-             </div>
+             
         
       <div class="box-footer" align="center"  >
                 <button type="submit" class="btn btn-lg btn-success" id="admin_edit_submit">Go</button>
@@ -77,7 +77,7 @@ header("location: index");
 
 
          </form>
-
+         </div>
       </div>   
     </section>    
   </div>

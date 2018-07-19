@@ -242,7 +242,7 @@ td {
 about
 ***************************************/
 #about{
-    background-color: rgba(155, 155, 155);
+    background-color: #FFFFFF;
 }
 .lg-line{
 	line-height: 1.4;
@@ -277,6 +277,12 @@ about
 /***************************************
 notice & recruitment
 ***************************************/
+#service{
+    background-color: rgba(155, 155, 155);
+}
+#contact{
+    background-color: rgba(155, 155, 155);
+}
 #notice{
     background-color: rgba(155, 155, 155);
 }

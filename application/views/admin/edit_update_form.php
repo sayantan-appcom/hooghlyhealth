@@ -8,26 +8,25 @@ header("location: index");
 ?>
 
  
-        <!-- left column -->
         <form role="form" method="POST" action="<?php echo site_url('Admin/admin_user_update');?>">
           <h3 class="star" align="center">
                     <?php 
                         echo validation_errors();
-                        echo $this->session->flashdata('response');
+                       // echo $this->session->flashdata('response');
                      ?>
              </h3>
-        <div class="col-md-6">
-          <!-- general form elements -->
-          <div class="box box-primary">
-            <!-- form start -->
-            
-              <div class="box-body">
+        
         
           	<?php
 			foreach($edit_admin_user as $x)
 				{
 				?>
-      
+          <div class="col-md-6">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <!-- form start -->
+            
+              <div class="box-body">
            <input type="hidden" id="user_id" name="user_id" value="<?php echo $x['user_id'];?>">
                 <div class="form-group">
                   <label for="exampleInputEmail1">User Name <span class="star">*</span></label>
@@ -39,7 +38,8 @@ header("location: index");
                 </div>            
               </div>
              </div>
-            </div> 
+           </div>
+            
               <!-- /.box-body -->
       
          <div class="col-md-6">
@@ -50,7 +50,7 @@ header("location: index");
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputPassword1">User Email Id <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter User Email Id" id="user_email" name="user_email" value="<?php echo $x['user_email'];?>">
+                    <input type="text" class="form-control" placeholder="Enter User Email Id" id="user_email" name="user_email" readonly="" value="<?php echo $x['user_email'];?>">
                 </div> 
                 <div class="form-group">
                   <label for="exampleInputEmail1">User Mobile Number <span class="star">*</span></label>
@@ -58,15 +58,16 @@ header("location: index");
                 </div>
                           
               </div>
-             </div>
-            </div>    
+            </div>
+          </div>
+                 
         <?php
 		}
 		?>
       <div class="box-footer" align="center">
                 <button type="submit" class="btn btn-lg btn-success" id="user_admin_update">Update</button>
               </div>   
-
+</div> 
 
          </form>
 
