@@ -81,6 +81,7 @@ header("location: index");
                       <option value="">Select Laboratory Type </option>
                       <option value="01"> Pathology </option>
                       <option value="02"> Radiology </option>
+					  <option value="03"> Both </option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -250,6 +251,16 @@ header("location: index");
                   $("#patho_type").prop("disabled", true);
                   /*$("#radio_type").prop("disabled", false);
 				   $("#radio_type2").prop("disabled", false);*/
+				    $(':checkbox').each(function () {
+                    $(this).prop('disabled', false);
+                   
+                });
+                              
+                }
+			  else if ($(this).val() == "03") {
+                  
+                  $("#patho_type").prop("disabled", false);
+				  
 				    $(':checkbox').each(function () {
                     $(this).prop('disabled', false);
                    
