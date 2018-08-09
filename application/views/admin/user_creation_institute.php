@@ -20,7 +20,7 @@ header("location: index");
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <form role="form" method="POST" action="<?php echo site_url('Admin/inst_user_insert');?>">
+        <form role="form" method="POST" action="<?php echo site_url('Admin/inst_user_insert');?>" onsubmit="return(validate(event));">
           <h3 class="star">
                     <?php 
                         echo validation_errors();
@@ -112,9 +112,7 @@ header("location: index");
 	{
 	
 	?>
-	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" class="chk1"
-
-	value="<?php echo $row['process_id'];?>"/><?php echo $row['process_name'];?><br/>
+	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" class="chk1" value="<?php echo $row['process_id'];?>"><?php echo $row['process_name'];?><br/>
 	<?php
 	}
 	?>
@@ -218,11 +216,6 @@ header("location: index");
                   $("#patho_type").prop("disabled", false);
                   $("#chk1").prop("disabled", false);              
                 }
-               
-    	   
-			   
-			   
-			   
 			   
 			   
 /////////////////////////////////for govt Hospital///////////////////////////////////////////			                
@@ -351,10 +344,21 @@ header("location: index");
         }
      });
    });
-   /*$('#submit').click(function(e){
-   alert('saynatna');
-   }); 
-   */
+   
+  
+    function validate(e) {
+      var type_labo=$('#labo_type').val();
+      if(type_labo == 02)
+      {
+
+      if ($("input[type=checkbox]:checked").length === 0) {
+          e.preventDefault();
+          alert('Select atlest one Radiology Type');
+          return false;
+      }
+    }
+}
+
                      
   
   </script>

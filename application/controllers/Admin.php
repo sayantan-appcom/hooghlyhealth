@@ -204,21 +204,21 @@ class Admin extends CI_Controller {
 			$this->form_validation->set_rules('inst_district','District','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_subdivision','Subdivision','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_block','Block / Municipality','trim|required|xss_clean');
-			$this->form_validation->set_rules('inst_type','Institution Type','trim|required|xss_clean');
+			$this->form_validation->set_rules('inst_type','Institution Type','trim|required|xss_clean');		
+			$this->form_validation->set_rules('labo_type','labataroty type','trim|xss_clean');
+			$this->form_validation->set_rules('patho_type','Pathology type','trim|xss_clean');
+			$this->form_validation->set_rules('radio_type','Radiology type','trim|xss_clean');
 			$this->form_validation->set_rules('inst_name','Institution Name','trim|required|xss_clean');
-			//$this->form_validation->set_rules('inst_license_no','Institution License Number','trim|required|xss_clean');
+			$this->form_validation->set_rules('inst_license_no','Institution License Number','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_addr','Institution Address','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_email','Institution Email Id','trim|required|xss_clean|valid_email');
 			$this->form_validation->set_rules('inst_mobile','Institution Mobile Number','trim|required|xss_clean|integer');
 			$this->form_validation->set_rules('inst_phone','Institution Phone Number','trim|xss_clean|integer');
-			//$this->form_validation->set_rules('inst_owner_name','Institution Owner Name','trim|required|xss_clean');
-			//$this->form_validation->set_rules('inst_owner_mobile','Institution Owner Mobile','trim|integer|xss_clean');
-			//$this->form_validation->set_rules('inst_owner_email','Institution Owner Email Id','trim|valid_email|xss_clean');
+			$this->form_validation->set_rules('inst_owner_name','Institution Owner Name','trim|required|xss_clean');
+			$this->form_validation->set_rules('inst_owner_mobile','Institution Owner Mobile','trim|required|integer|xss_clean');
+			$this->form_validation->set_rules('inst_owner_email','Institution Owner Email Id','trim|valid_email|xss_clean');
 			$this->form_validation->set_rules('inst_password','Password','trim|required|xss_clean');
 			$this->form_validation->set_rules('inst_confirm_password','Confirm Password','trim|required|xss_clean|matches[inst_password]');
-			//$this->form_validation->set_rules('labo_type','labataroty type','trim|required|xss_clean');
-			//$this->form_validation->set_rules('patho_type','Pathology type','trim|required|xss_clean]');
-			//$this->form_validation->set_rules('radio_type','Pathology type','trim|required|xss_clean');
 		
 
 			if ($this->form_validation->run() == TRUE) 
@@ -258,7 +258,8 @@ class Admin extends CI_Controller {
 								//$data = array(
 										//'error_message' => 'Registration successfullly! Please note User Id : '.$user_id,					
 										//);	
-							$this->session->set_flashdata('msg',"User Registration Successfully ! Remember User ID :".$user_id);				
+							$this->session->set_flashdata('msg',"User Registration Successfully ! Remember User ID :".$user_id);
+							 $this->form_validation->clear_field_data();				
 							} 
 						else {
 								$this->session->set_flashdata('msg',"User Registration not Successfully !");				
@@ -659,6 +660,8 @@ class Admin extends CI_Controller {
 				 $district=$this->input->post('district');
 				 $subdivision=$this->input->post('subdivision');
 				 $inst_type=$this->input->post('inst_type');
+				 $data['fetch_subdiviosn']=$this->Mod_admin->fetch_subdivision_report($subdivision);
+			
 				 $data['fetch_institute_details']=$this->Mod_admin->fetch_institute_details($subdivision,$district,$inst_type);
 
 				 if($data == TRUE)
@@ -803,13 +806,17 @@ class Admin extends CI_Controller {
 				$password= random_string('nozero', 8);
 				$result=$this->Mod_admin->getResetUser($user_email,$password);
 				if ($result == TRUE)
-			 				{
-			 					$this->session->set_flashdata('reset_user_success',"Password Reset Successfully ! New Password :".$password);										
-							}
-					else
-			 				{
-			 					$this->session->set_flashdata('reset_user_success',"Password Reset not successfully !");										
-							}
+			 {
+			 					
+			$this->session->set_flashdata('reset_user_success',"Password Reset Successfully ! New Password :".$password);	
+																	
+			}
+			else
+			 {
+			 					
+			$this->session->set_flashdata('reset_user_success',"Password Reset not successfully !");	
+												
+			}
 
 			$this->load->view('admin/header');	
 			$this->load->view('admin/nav');
@@ -833,13 +840,16 @@ class Admin extends CI_Controller {
 				$password= random_string('nozero', 8);
 				$result=$this->Mod_admin->getInstitutionUser($institution_email,$password);
 				if ($result == TRUE)
-			 				{
-			 					$this->session->set_flashdata('reset_institution_success',"Password Reset Successfully ! New Password :".$password);										
-							}
-					else
-			 				{
-			 					$this->session->set_flashdata('reset_institution_success',"Password Reset not successfully !");										
-							}
+			 {
+			 	$this->session->set_flashdata('reset_institution_success',"Password Reset Successfully ! New Password :".$password);	
+													
+			 }
+			else
+				{
+			 					
+				$this->session->set_flashdata('reset_institution_success',"Password Reset not successfully !");	
+													
+				}
 
 			$this->load->view('admin/header');	
 			$this->load->view('admin/nav');
@@ -866,7 +876,6 @@ class Admin extends CI_Controller {
 			$this->load->view('admin/nav');
 			$data['upload_type']=$this->Mod_admin->get_upload_document_type();
 			$data['error'] = '';
-		
 			$this->load->view('admin/notice_recruiment_upload_form',$data);		
 			$this->load->view('admin/footer');	
 
@@ -874,13 +883,11 @@ class Admin extends CI_Controller {
 }	
 //////////////////////////////////// document upload////////////////////////////////////////
 
-public function upload_document(){
+public function upload_document()
+{
 			$data['max_doc_id'] = $this->Mod_admin->getMaxDocId();
 			$user_id=$this->input->post('user_id');
-			
 			$file_type_id=$this->input->post('document_type');			
-    	
-				
     	        $config['upload_path']          = "./notifications_uploads/";
                 $config['allowed_types']        = "pdf";
 				$config['overwrite']			= TRUE;

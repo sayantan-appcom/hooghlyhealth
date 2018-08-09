@@ -149,7 +149,6 @@ header("location: index");
    
     $('#user_state').change(function(e){
       var state = $('#user_state').val();
-      alert(state);
   
       // AJAX request
       $.ajax({
@@ -170,8 +169,6 @@ header("location: index");
    $('#district').change(function(e){
      
     var district = $('#district').val();
-    alert("nibu");
-    alert(district);
       // AJAX request
       $.ajax({
         url:'<?php  echo base_url('Admin/getSubdivision');?>',

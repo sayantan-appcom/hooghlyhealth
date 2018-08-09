@@ -165,12 +165,15 @@ header("location: index");
         },
         dataType: 'json',
         success: function(response){
+          $('#institution_email').empty();
+          $('#institution_email').append('<option value="">Select Email ID</option>');
           $.each(response,function(index,data){
              $('#institution_email').append('<option value="'+data['inst_email']+'">'+data['inst_email']+'</option>');
           });
         }
      });
    }); 
+   
    function validate()
       {
         var r=confirm("Do you really Reset Password for this Email ID !")

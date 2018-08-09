@@ -449,9 +449,10 @@ $query = $this->db->get();
 public function fetch_institute_details($subdivision,$district,$inst_type)
 {
 $this->db->DISTINCT();
-$this->db->select('*');
+$this->db->select('inst_name,inst_license_no,inst_addr,inst_mobile,inst_phone,inst_email,inst_owner_name,inst_owner_mobile,inst_owner_email,subdivisions.subdivision_name');
 $this->db->from('user_profile_inst');
 $this->db->join('user_area','user_area.user_id=user_profile_inst.user_id');	
+$this->db->join('subdivisions','subdivisions.subdivision_code=user_area.subdivision_code');	
 $condition="user_area.subdivision_code='".$subdivision."'  AND user_profile_inst.inst_type_id='".$inst_type."' AND user_area.district_code='".$district."' ";
 $this->db->where($condition);
 $query=$this->db->get();
@@ -576,6 +577,18 @@ public function insertdocuments($document_type,$msg,$user_id,$from_date,$doc_id)
 {
 	$this->db->select('*');
 	$this->db->from('uploads');
+	$query=$this->db->get();
+	return $query->result_array();
+
+
+}
+
+///////////////////////////////////////////////////  fetch_subdivision_report/////////////////////////////////////////////////////	
+    public function fetch_subdivision_report($subdivision)
+{
+	$this->db->select('*');
+	$this->db->from('subdivisions');
+	$this->db->where('subdivision_code',$subdivision);
 	$query=$this->db->get();
 	return $query->result_array();
 

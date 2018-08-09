@@ -25,8 +25,31 @@ header("location: index");
     			<div class="col-md-12">
     				<h2 align="center" class="bg-primary"> Institution Details  </h2>
     				<br>
+				<div > <strong>Subdivision Name: </strong>
+				<strong>
+					
+					<?php 
+			       foreach($fetch_subdiviosn as $subdivision)
+			    {
+				
+				echo $subdivision['subdivision_name'];
+				
+			     } 
+				 
+				?>
+				</strong>
+				</div><br />
+			
     				<table align="center" class="table table-bordered table-striped">
+		
+					
+				
+						<?php
+					$count=1;
+					
+					?>
     				<tr class="success">
+					   <th class="text-center"> Sl No.</th>
 						<th class="text-center"> Institution Name</th>
 						<th class="text-center"> Institution License No</th>
 						<th class="text-center"> Institution Address</th>
@@ -42,7 +65,9 @@ header("location: index");
 					{
 						
 					?>
-					<tr class="danger">					
+					<tr class="danger">	
+				
+				      <td class="text-center"><?php echo  $count; ?></td>			
 						<td class="text-center"><?php echo  $institute['inst_name']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_license_no']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_addr']; ?></td>
@@ -53,8 +78,12 @@ header("location: index");
 						<td class="text-center"><?php echo  $institute['inst_owner_mobile']; ?></td>
 						<td class="text-center"><?php echo  $institute['inst_owner_email']; ?></td>
 					</tr>
-					<?php					
+					<?php
+						$count++;
+									
 							}
+						
+							
 						?>
 					
 					</table>
