@@ -247,8 +247,6 @@ class Admin extends CI_Controller {
 					//$radio_type=$this->input->post('radio_type[]');
 					$radio_type=$this->input->post('radio_type');
 					//print_r($radio_type);
-					
-					
 					$user_id = $state.$block.$usercd; 
 
 					$result=$this->Mod_admin->get_user_insert($user_id,$state,$district,$subdivision,$block,$institution_type,$institution_name,$institution_license,$institution_address,$institution_email,$institution_mobile,$institution_phone,$institution_owner,$inst_owner_mobile,$inst_owner_email,$password,$labo_type,$patho_type,$radio_type);
@@ -382,18 +380,17 @@ class Admin extends CI_Controller {
 					
 					$disease_code = $this->input->post('disease_code');
 					$disease_subcase_code = $this->input->post('disease_subcase_code');
-					$fetch_disease_sub_category=$this->Mod_admin->fetch_disease_sub_category($disease_code);
-				  				
+					$fetch_disease_sub_category=$this->Mod_admin->fetch_disease_sub_category($disease_code);			
 					$result=$this->Mod_admin->insert_subcategory($disease_code,$disease_subcase_code,$fetch_disease_sub_category);
-
-						if ($result == TRUE)
-			 				{	
+					if ($result == TRUE)
+			 		{	
 									
-							$this->session->set_flashdata('response',"Data inserted Successfully ! ");				
-							} 
-						else {
-								$this->session->set_flashdata('response',"Data not inserted Successfully !");				
-							}
+					$this->session->set_flashdata('response',"Data inserted Successfully ! ");				
+					} 
+					else
+					{
+					$this->session->set_flashdata('response',"Data not inserted Successfully !");				
+					}
 
 					$this->load->view('admin/header');	
 					$this->load->view('admin/nav');

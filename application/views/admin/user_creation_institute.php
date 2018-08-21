@@ -20,7 +20,7 @@ header("location: index");
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <form role="form" method="POST" action="<?php echo site_url('Admin/inst_user_insert');?>" onsubmit="return(validate(event));">
+        <form role="form" method="POST" action="<?php echo site_url('Admin/inst_user_insert');?>">
           <h3 class="star">
                     <?php 
                         echo validation_errors();
@@ -34,7 +34,7 @@ header("location: index");
                <div class="box-body"> 
                 <div class="form-group">
                   <label for="exampleInputEmail1">State <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_state" name="inst_state" required="">
+                    <select class="form-control select2" style="width: 100%;" id="inst_state" name="inst_state" >
                       <option value="">Select State</option>
                       <?php
                           foreach($get_state as $row)
@@ -46,26 +46,26 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">District <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_district" name="inst_district" required="">
+                    <select class="form-control select2" style="width: 100%;" id="inst_district" name="inst_district" >
                       <option value="">Select District</option>
                       
                     </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Sub-division <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_subdivision" name="inst_subdivision" required="">
+                    <select class="form-control select2" style="width: 100%;" id="inst_subdivision" name="inst_subdivision" >
                       <option value="">Select Sub-division</option>
                     </select>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Block / Municipality <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_block" name="inst_block" required="">
+                    <select class="form-control select2" style="width: 100%;" id="inst_block" name="inst_block" >
                       <option value="">Select Block / Municipality</option>
                     </select>
                 </div>   
                  <div class="form-group">
                   <label for="exampleInputPassword1">Institution Type <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" required="">
+                    <select class="form-control select2" style="width: 100%;" id="inst_type" name="inst_type" >
                       <option value="">Select Institution Type</option>
                       <?php
                           foreach($get_institute as $row)
@@ -77,7 +77,7 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Laboratory Type <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="labo_type" name="labo_type" required="">
+                    <select class="form-control select2" style="width: 100%;" id="labo_type" name="labo_type" >
                       <option value="">Select Laboratory Type </option>
                       <option value="01"> Pathology </option>
                       <option value="02"> Radiology </option>
@@ -86,7 +86,7 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Pathology Type <span class="star">*</span></label>
-                    <select class="form-control select2" style="width: 100%;" id="patho_type" name="patho_type" required="">
+                    <select class="form-control select2" style="width: 100%;" id="patho_type" name="patho_type" >
                       <option value="">Select Pathology Type </option>
                       <option value="01"> Large </option>
                       <option value="02"> Medium </option>
@@ -112,7 +112,7 @@ header("location: index");
 	{
 	
 	?>
-	<input type="checkbox" name="radio_type[]" disabled="disabled" id="chk1" class="chk1" value="<?php echo $row['process_id'];?>"><?php echo $row['process_name'];?><br/>
+	<input type="checkbox" name="radio_type[]" disabled="disabled"  class="chk1" value="<?php echo $row['process_id'];?>"><?php echo $row['process_name'];?><br/>
 	<?php
 	}
 	?>
@@ -123,23 +123,23 @@ header("location: index");
                 
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Name" id="inst_name" name="inst_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_name'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution Name" id="inst_name" name="inst_name" onKeyPress="return onlyLetters(event)" autocomplete="off"  maxlength="50" value="<?php echo set_value('inst_name'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution License Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution License Number" id="inst_license_no" name="inst_license_no" onKeyPress="return onlyLicense(event)" autocomplete="off" required="" maxlength="30" value="<?php echo set_value('inst_license_no'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution License Number" id="inst_license_no" name="inst_license_no" onKeyPress="return onlyLicense(event)" autocomplete="off"  maxlength="30" value="<?php echo set_value('inst_license_no'); ?>">
                 </div>                
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution Address <span class="star">*</span></label>
-                    <textarea class="form-control" id="inst_addr" name="inst_addr" autocomplete="off" rows="3" placeholder="Enter Institution Address" required="" maxlength="100" value="<?php echo set_value('inst_addr'); ?>"></textarea>
+                    <textarea class="form-control" id="inst_addr" name="inst_addr" autocomplete="off" rows="3" placeholder="Enter Institution Address"  maxlength="100" value="<?php echo set_value('inst_addr'); ?>"></textarea>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Institution Email Id <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Email Id" id="inst_email" name="inst_email" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_email'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution Email Id" id="inst_email" name="inst_email" autocomplete="off" maxlength="50" value="<?php echo set_value('inst_email'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_mobile" name="inst_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('inst_mobile'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_mobile" name="inst_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" maxlength="10" value="<?php echo set_value('inst_mobile'); ?>">
                 </div>                
               </div>
               </div>
@@ -159,11 +159,11 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Name <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Owner Name" id="inst_owner_name" name="inst_owner_name" onKeyPress="return onlyLetters(event)" autocomplete="off" required="" maxlength="50" value="<?php echo set_value('inst_owner_name'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution Owner Name" id="inst_owner_name" name="inst_owner_name" onKeyPress="return onlyLetters(event)" autocomplete="off"  maxlength="50" value="<?php echo set_value('inst_owner_name'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Mobile Number <span class="star">*</span></label>
-                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_mobile" name="inst_owner_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off" required="" maxlength="10" value="<?php echo set_value('inst_owner_mobile'); ?>">
+                    <input type="text" class="form-control" placeholder="Enter Institution Mobile Number" id="inst_owner_mobile" name="inst_owner_mobile" onKeyPress="return onlyNumbers(event)" autocomplete="off"  maxlength="10" value="<?php echo set_value('inst_owner_mobile'); ?>">
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Institution Owner Email Id </label>
@@ -171,18 +171,18 @@ header("location: index");
                 </div>
                 <div class="form-group">
                   <label for="exampleInputEmail1">Password <span class="star">*</span></label>
-                    <input type="password" class="form-control" placeholder="Enter Password" id="inst_password" name="inst_password" autocomplete="off" required="">
+                    <input type="password" class="form-control" placeholder="Enter Password" id="inst_password" name="inst_password" autocomplete="off" >
                 </div>
                 <div class="form-group">
                   <label for="exampleInputPassword1">Confirm Password <span class="star">*</span></label>
-                    <input type="password" class="form-control" placeholder="Enter Re-Password" id="inst_confirm_password" name="inst_confirm_password" autocomplete="off" required="">
+                    <input type="password" class="form-control" placeholder="Enter Re-Password" id="inst_confirm_password" name="inst_confirm_password" autocomplete="off" >
                 </div>               
               </div>
              </div>
             </div>    
         
       <div class="box-footer" align="center">
-                <button type="submit" class="btn btn-lg btn-success" id="submit" >Submit</button>
+                <button type="submit" class="btn btn-lg btn-success" id="submit"  >Submit</button>
               </div>   
 
 
@@ -193,7 +193,7 @@ header("location: index");
   </div>
   <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>
   <script type="text/javascript">
-
+$(document).ready(function (){
     $('#inst_type').change(function () {
       //alert("nibu");
              if ($(this).val() == "07") {                
@@ -346,7 +346,147 @@ header("location: index");
    });
    
   
-    function validate(e) {
+
+  $('#submit').on('click',function(e){
+  
+       //e.preventDefault();
+	  
+
+    valid = false;
+    var mobile=$('#inst_mobile').val();
+    var user_email=$('#inst_email').val();
+    var type_labo=$('#labo_type').val();
+	var patho_type=$('#patho_type').val();
+	var mobile_no=$('#inst_mobile').val();
+    var password=$('#inst_password').val();
+	var cpassword=$('#inst_password').val();
+   if($('#inst_state').val()=="")
+    {
+      alert('please select state');
+      return false;
+   }
+    else if($('#inst_district').val()=="")
+    {
+      alert('please select district');
+      return false;
+   }
+  else if($('#inst_subdivision').val()=="")
+    {
+      alert('please select subdivision');
+      return false;
+   }
+   else if($('#inst_block').val()=="")
+    {
+      alert('please select block');
+      return false;
+   }
+   else if($('#inst_block').val()=="")
+    {
+      alert('please select block');
+      return false;
+   }
+   
+   else if($('#inst_block').val()=="")
+    {
+      alert('please select block');
+      return false;
+   }
+   
+   else if($('#inst_type').val()=="")
+    {
+      alert('please select institution type');
+      return false;
+    }
+	 else if($('#labo_type').val()=="")
+    {
+      alert('please select labaratory type');
+      return false;
+    }
+	
+  else if(type_labo==01  && patho_type =="")
+    {
+      alert('please select pathology type');
+      return false;
+    }
+	 else if($('#inst_name').val()=="")
+    {
+      alert('please select institution name');
+      return false;
+    }
+ 
+	   else if($('#inst_license_no').val()=="")
+    {
+      alert('please select institute license no');
+      return false;
+    }
+     else if($('#inst_addr').val()=="")
+   {
+      alert('please enter institute address');
+      return false;
+    
+   } 
+	
+    else if($('#inst_email').val()=="")
+   {
+      alert('please enter institute email id');
+      return false;
+    
+   }
+   	else if (!IsValidEmail(user_email))
+    {
+     alert("please enter valid institute email");
+	 return false;
+    }
+	else if($('#inst_mobile').val()=="")
+   {
+      alert('please enter institute mobile no');
+      return false;
+    } 
+	else if($('#inst_owner_name').val()=="")
+   {
+      alert('please enter institute owner name');
+      return false;
+    } 
+	
+	else if($('#inst_owner_mobile').val()=="")
+   {
+      alert('please enter institute owner mobile no');
+      return false;
+    }
+	else if(mobile_no.length!=10)
+   {
+      alert('please enter valid institute mobile no');
+      return false;
+    }
+
+ 	/*else if($('#inst_email').val()=="")
+   {
+      alert('please enter institute email id');
+      return false;
+    }*/
+	 else  if(type_labo == 02)
+      {
+
+      if ($("input[type=checkbox]:checked").length === 0) {
+          e.preventDefault();
+          alert('Select atlest one Radiology Type');
+          return false;
+      }
+	
+    }
+	
+
+	else
+	{
+	return true;
+	}
+
+  
+  });
+  });//document ready
+  
+  
+    /*function validate(e) {
       var type_labo=$('#labo_type').val();
       if(type_labo == 02)
       {
@@ -356,8 +496,14 @@ header("location: index");
           alert('Select atlest one Radiology Type');
           return false;
       }
+	
     }
-}
+}*/
+    function IsValidEmail(email) 
+	{ //alert('sss');
+        var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+        return expr.test(email);
+    }
 
                      
   
